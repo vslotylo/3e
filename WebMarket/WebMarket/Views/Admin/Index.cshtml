@@ -1,0 +1,19 @@
+﻿@model int
+@{
+    ViewBag.Title = "Адміністрування";
+}
+
+<span class="lead">@ViewBag.Title</span>
+<hr />
+
+<div class="row">
+    <div class="span4">
+        @Html.Partial("AdminMenu")
+    </div>
+    <div class="span8">
+        <div>Зараз на сайті: <span class="badge badge-success">@Model</span></div>
+    </div>
+</div>
+
+
+

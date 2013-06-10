@@ -1,0 +1,46 @@
+﻿@model WebMarket.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+    ViewBag.ShowBreadCrumb = false;
+    ViewBag.ShowHeader = false;
+    ViewBag.ShowFooter = false;
+}
+
+<section id="loginForm">
+    <div class="form-prm">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            <fieldset>
+                <legend>Log in Form</legend>
+
+                <div>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "input-block-level" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <input id="RememberMe" name="RememberMe" type="checkbox" value="true">
+                        Remember me
+                    </label>
+                </div>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <button type="submit" class="btn btn-large btn-block btn-primary">Sign in</button>
+            </fieldset>
+            <p>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

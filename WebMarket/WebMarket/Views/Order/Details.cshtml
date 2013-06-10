@@ -1,0 +1,80 @@
+﻿@using WebMarket.Extensions
+@model WebMarket.DAL.Entities.Order
+@{
+    ViewBag.Title = "Деталі замовлення";
+}
+@section breadCrumb {
+    <li><a href="@Url.Action("list", "order")">Список замовлень</a><span class="divider">/</span></li>
+    <li class="active">@ViewBag.Title</li>
+}
+<span class="lead">@ViewBag.Title</span>
+<hr />
+
+<div class="row-fluid">
+    <div class="span8">
+        <table class="table table-condensed table-bordered table-hover">
+            <thead>
+                <td>Код товару</td>
+                <td>Ціна за одиницю</td>
+                <td>Кількість</td>
+                <td>Ціна</td>
+            </thead>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Pid</td>
+                    <td>
+                        @item.UnitPrice.ToFormatString() грн.
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td class="priceUahSmall">@item.TotalItemPrice.ToFormatString() грн.</td>
+                </tr>
+            }
+        </table>
+        @Html.Partial("TotalSum", Model.Total)
+    </div>
+    <div class="span4">
+        <div class="well well-small">
+            <table class="table">
+                <caption>Інформація</caption>
+                <tr>
+                    <td><strong>Номер замовлення</strong></td>
+                    <td>@Model.Id</td>
+                </tr>
+                <tr>
+                    <td><strong>Користувач</strong></td>
+                    <td>@Model.User</td>
+                </tr>
+                <tr>
+                    <td><strong>Телефон</strong></td>
+                    <td>@Model.Phone</td>
+                </tr>
+                <tr>
+                    <td><strong>Пошта</strong></td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td><strong>Місто</strong></td>
+                    <td>@Model.City</td>
+                </tr>
+                <tr>
+                    <td><strong>Адреса</strong></td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td><strong>Коментар</strong></td>
+                    <td>@Model.Comment</td>
+                </tr>
+                <tr>
+                    <td><strong>Дата замовлення</strong></td>
+                    <td>@Model.CreationDate</td>
+                </tr>
+                <tr>
+                    <td><strong>Статус</strong></td>
+                    <td>@Model.Status</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,84 @@
+﻿<div class="nav navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner ">
+        <div class="container">
+            <a class="brand" href="@Url.Action("index", "home")">
+                <img class="logo" src="~/Content/images/logo.png" alt="Домівка" />
+            </a>
+
+            @*<div class="infotext">
+                +38 063 15 12 110 Василь +38 067 33 57 863 Ігор
+            </div>*@
+            <div class="navcontainer">
+                <ul class="nav">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Стабілізатори <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("index", "avr", new { type = 0 })">Релейні</a></li>
+                            <li><a href="@Url.Action("index", "avr", new { type = 1 })">Сервомоторні</a></li>
+                            <li><a href="@Url.Action("index", "avr", new { type = 2 })">Тиристирні</a></li>
+                            <li><a href="@Url.Action("index", "avr", new { type = 3 })">Симісторні</a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Виробники</li>
+                            <li><a href="@Url.Action("index", "avr", new { producers = "Phantom" })">Phantom</a></li>
+                            <li><a href="@Url.Action("index", "avr", new { producers = "Volter" })">Volter</a></li>
+                            <li><a href="@Url.Action("index", "avr", new { producers = "Luxeon" })">Luxeon</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Реле <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("index", "voltageRelay")">Реле напруги</a></li>
+                            <li><a href="@Url.Action("index", "currentRelay")">Реле струму</a></li>
+                            <li><a href="@Url.Action("index", "timeRelay")">Реле часу</a></li>
+                            <li><a href="@Url.Action("index", "temperatureRelay")">Терморегулятори</a></li>
+                            <li><a href="@Url.Action("index", "voltmeter")">Вольтметри</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Акумулятори <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("index", "battery", new { type = 0 })">Кислотно-лужні</a></li>
+                            <li><a href="@Url.Action("index", "battery", new { type = 1 })">Гелеві</a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Виробники</li>
+                            <li><a href="@Url.Action("index", "battery", new { producers = "Luxeon " })">Luxeon </a></li>
+                            <li><a href="@Url.Action("index", "battery", new { producers = "Ventura" })">Volter</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">ББЖ <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("index", "ups", new { type = 0 })">Компютерні </a></li>
+                            <li><a href="@Url.Action("index", "ups", new { type = 1 })">Інтерактивні </a></li>
+                            <li><a href="@Url.Action("index", "ups", new { type = 2 })">On-line  </a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Виробники</li>
+                            <li><a href="@Url.Action("index", "ups", new { producers = "Luxeon" })">Luxeon</a></li>
+                            <li><a href="@Url.Action("index", "ups", new { producers = "Volter" })">Volter</a></li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Зарядки", "index", "charger")</li>
+                    <li>@Html.ActionLink("Перетворювачі", "index", "converter")</li>
+                    @*<li>@Html.ActionLink("Інформація", "About", "home")</li>*@
+                    <li>@Html.ActionLink("Контакти", "Contact", "home")</li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li>
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="@Url.Action("index", "cart")"><i class="icon-shopping-cart icon-white"></i>Корзина<span id="cartTotalCount" class="badge badge-success">@ViewData["CartTotalCount"]</span></a>
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span
+                                class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div style="padding: 3px 20px;"><i class="icon-list-alt"></i>Разом: <span id="cartTotalSum" class="priceUahSmall">@ViewData["CartTotalSum"]</span><span class="priceUahSmall"> грн.</span></div>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("index", "order")"><i class="i"></i>Оформити замовлення</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

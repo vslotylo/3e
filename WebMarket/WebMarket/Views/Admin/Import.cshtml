@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Керування цінами";
+}
+
+<span class="lead">@ViewBag.Title</span>
+<hr />
+
+
+@using (Html.BeginForm("upload", "admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <button type="submit" class="btn btn-primary">Оновити продукти</button>
+}

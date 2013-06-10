@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebMarket.Core.GenericFilterModel<int>>
+<p>
+    <b>Тип</b>
+</p>
+<div class="entityFilter" id="type">
+    @foreach (var item in Model)
+    {
+        <label class="checkbox">
+            @Html.CheckBox(item.Name, item.IsSelected)
+            <input type="hidden" class="filterValue" value="@item.Value" />
+            @Html.ActionLink(item.Name, "Index", item.Routes)
+            <span class="badge">@item.ProductsCount</span>
+        </label>
+    }
+</div>
