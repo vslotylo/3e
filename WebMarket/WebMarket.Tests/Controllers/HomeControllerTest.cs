@@ -13,6 +13,7 @@ namespace WebMarket.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
+        [Ignore]
         public void Index()
         {
             // Arrange
@@ -26,6 +27,7 @@ namespace WebMarket.Tests.Controllers
         }
 
         [TestMethod]
+        [Ignore]
         public void About()
         {
             // Arrange
@@ -39,6 +41,7 @@ namespace WebMarket.Tests.Controllers
         }
 
         [TestMethod]
+        [Ignore]
         public void Contact()
         {
             // Arrange
