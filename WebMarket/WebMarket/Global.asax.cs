@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WebMarket.DAL.Initializers;
+using log4net;
 
 namespace WebMarket
 {
@@ -42,6 +43,20 @@ namespace WebMarket
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             //ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder()); 
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = this.Server.GetLastError();
+
+            if (exception == null)
+            {
+                return;
+            }
+
+            this.Server.ClearError();
+            var logger = LogManager.GetLogger(typeof(MvcApplication));
+            logger.Error(exception);
         }
     }
 }
