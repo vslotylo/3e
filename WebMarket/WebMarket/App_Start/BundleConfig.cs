@@ -22,8 +22,8 @@ namespace WebMarket
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap/css/bootstrap.css",
-                "~/Content/bootstrap/css/bootstrap-responsive.css"));
+            bundles.Add(new StyleBundle("~/bundles/bootstrap/css/").Include("~/Content/bootstrap/css/bootstrap.css")
+                .Include("~/Content/bootstrap/css/bootstrap-responsive.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
