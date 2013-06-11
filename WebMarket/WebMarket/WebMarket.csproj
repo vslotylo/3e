@@ -490,10 +490,10 @@
     <Content Include="Content\tiles\timerelay\prv_2n.png" />
     <Content Include="Content\tiles\timerelay\prv_5n.png" />
     <Content Include="Content\tiles\timerelay\pt_2.png" />
-    <Content Include="Content\tiles\ups\PS1203A 3А 12В 36W.jpg" />
-    <Content Include="Content\tiles\ups\PS1203B 3А 12В 36W.jpg" />
-    <Content Include="Content\tiles\ups\PS1205A 5А 12В 60W.jpg" />
-    <Content Include="Content\tiles\ups\PS1205B 5А 12В 60W.jpg" />
+    <Content Include="Content\tiles\ups\PS1203A 3A 12V 36W.jpg" />
+    <Content Include="Content\tiles\ups\PS1203B 3A 12V 36W.jpg" />
+    <Content Include="Content\tiles\ups\PS1205A 5A 12V 60W.jpg" />
+    <Content Include="Content\tiles\ups\PS1205B 5A 12V 60W.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000L3.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000LE LOW.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000LE.jpg" />
