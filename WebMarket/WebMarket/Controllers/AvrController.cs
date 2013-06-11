@@ -43,9 +43,8 @@ namespace WebMarket.Controllers
                 item.IsSelected = powerCapacityFilter.PowerCapacityList.Contains(item.Value);
             }
 
-            (this.ViewModel as AvrViewModel).PowerCapacity = powerFilter;
+            ((AvrViewModel)this.ViewModel).PowerCapacity = powerFilter;
             
-
             this.EndInitialize(entities);
 
             return this.View(this.ViewModel);            
