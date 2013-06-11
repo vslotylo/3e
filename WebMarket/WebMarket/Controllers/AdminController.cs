@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using WebMarket.Common;
@@ -18,7 +19,6 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Import()
         {
-            logger.Info("");
             return View();
         }
 
@@ -26,19 +26,21 @@ namespace WebMarket.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file)
         {
-            // Verify that the user selected a file
-            if (file != null && file.ContentLength > 0)
+            try
             {
-                // extract only the fielname
-                var fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                var path = Path.Combine(Server.MapPath("~/App_Data/import"), fileName);
-                file.SaveAs(path);
-
-                var importer = new DataImporter();
-                importer.Import(file.InputStream, this.DbContext);
-                this.DbContext.SaveChanges();
+                // Verify that the user selected a file
+                if (file != null && file.ContentLength > 0)
+                {
+                    var importer = new DataImporter();
+                    importer.Import(file.InputStream, this.DbContext);
+                    this.DbContext.SaveChanges();
+                }
             }
+            catch (Exception e)
+            {
+                this.logger.Error(e);
+            }
+            
             // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
