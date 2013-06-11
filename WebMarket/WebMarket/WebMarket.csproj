@@ -315,7 +315,6 @@
     <Content Include="Views\Shared\FilterSelectedByPowerCapacity.cshtml" />
     <Content Include="Views\Shared\FilterSelectedByProducers.cshtml" />
     <Content Include="Views\Shared\FilterSelectedByType.cshtml" />
-    <Content Include="Views\Shared\ListViewHeader.cshtml" />
     <Content Include="Views\Shared\Pager.cshtml" />
     <Content Include="Views\Shared\ProductDetailTemplate.cshtml" />
     <Content Include="Views\Shared\ProductIsAvailable.cshtml" />
