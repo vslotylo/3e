@@ -2,7 +2,7 @@ namespace WebMarket.DAL.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebMarket.DAL.Common.WebMarketDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Common.WebMarketDbContext>
     {
         public Configuration()
         {

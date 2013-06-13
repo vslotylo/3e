@@ -14,18 +14,7 @@ namespace WebMarket.DAL.Common
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Avr>().ToTable("Avrs");
-            //modelBuilder.Entity<Battery>().ToTable("Batteries");
-            //modelBuilder.Entity<Charger>().ToTable("Chargers");
-            //modelBuilder.Entity<Converter>().ToTable("Converters");
-            //modelBuilder.Entity<Regulator>().ToTable("Regulators");
-            //modelBuilder.Entity<Ups>().ToTable("Upses");
-
-            //modelBuilder.Entity<Product>().Ignore(t => t.BuyCurrency);
-            //modelBuilder.Entity<Product>().Ignore(t => t.PriceUah);
-            //modelBuilder.Entity<Product>().Ignore(t => t.PriceUsd);
-            // modelBuilder.Entity<Product>().Ignore(t => t.ProductID);
-
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WebMarketDbContext, Migrations.Configuration>());
             base.OnModelCreating(modelBuilder);
         }
 
