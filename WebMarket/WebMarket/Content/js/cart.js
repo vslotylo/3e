@@ -12,7 +12,7 @@ function addToCart(quantity, pid, handler) {
         return;
     }
 
-    $.post("/WebMarket/cart/add", { pid: pid, quantity: quantity })
+    $.post("/cart/add", { pid: pid, quantity: quantity })
     .done(function (e) {
         if (typeof (handler) !== 'undefined' && handler != null) {
             handler(e);
@@ -25,7 +25,7 @@ function deleteFromCart(pid, handler) {
         return;
     }
 
-    $.post("/WebMarket/cart/delete", { pid: pid })
+    $.post("/cart/delete", { pid: pid })
     .done(function (e) {
         if (typeof (handler) !== 'undefined' && handler != null) {
             handler(e);
@@ -51,7 +51,7 @@ $(document).ready(function () {
         var quantity = $('#count').val();
         var pid = $('#pid').val();
         addToCart(quantity, pid, function () {
-            window.location = "/WebMarket/order";
+            window.location = "/order";
         });
     });
 

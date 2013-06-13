@@ -14,7 +14,7 @@
             $('.deleteFromCart').on('click', function (e) {
                 var pid = $(this).closest('div').children('.pid').val();
                 deleteFromCart(pid, function (e) {
-                    window.location = "/WebMarket/cart";
+                    window.location = "/cart";
                 });
             });
         });

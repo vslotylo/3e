@@ -75,7 +75,7 @@
             var comment = $('#comment').val();
             var city = $('#city').val();
             var address = $('#address').val();
-             $.post("/WebMarket/order/add", { user: userName, phone: phone, email : email, city: city, address: address, comment : comment })
+             $.post("/order/add", { user: userName, phone: phone, email : email, city: city, address: address, comment : comment })
             .done(function (e) {
                 $('#orderSubmitted').modal('show');
             });
@@ -84,13 +84,13 @@
         $('#close').on('click', function (e)
         {
             $('#orderSubmitted').modal('hide');
-            window.location = "/WebMarket/home";
+            window.location = "/home";
         });
         
         $('#modalclose').on('click', function (e)
         {
             $('#orderSubmitted').modal('hide');
-            window.location = "/WebMarket/home";
+            window.location = "/home";
         });
     }); 
 </script>
