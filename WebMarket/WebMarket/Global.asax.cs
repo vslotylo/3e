@@ -34,7 +34,6 @@ namespace WebMarket
         protected void Application_Start()
         {
             Application["sessioncounter"] = 0;
-            Database.SetInitializer(new WebMarketDbInitializer(System.Web.HttpContext.Current.Server.MapPath(@"~/App_Data")));
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
