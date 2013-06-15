@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using WebMarket.Common;
+using WebMarket.DAL.Entities;
 using ControllerBase = WebMarket.Controllers.ControllerBase;
 
 namespace WebMarket.Controllers
@@ -21,9 +24,21 @@ namespace WebMarket.Controllers
 
         public ActionResult Contact()
         {
-            this.ViewBag.Message = "Your quintessential contact page.";
-
             return this.View();
+        }
+
+        [HttpPost]
+        public void Callback(string phone)
+        {
+            if (string.IsNullOrEmpty(phone))
+            {
+                return;
+            }
+
+            var creationTime = DateTime.UtcNow.ToUkrainianTimeZone();
+            var telephone = phone.Trim();
+            this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone });
+            this.DbContext.SaveChanges();
         }
     }
 }

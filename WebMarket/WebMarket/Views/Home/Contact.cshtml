@@ -1,50 +1,195 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Контакти";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+@section scripts
+{
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ua"></script>
+    <script>
+        var map;
+        var marker;
+        var myLocationMarker;
+        google.maps.visualRefresh = true;
 
-<section class="contact">
-    <header>
-        <h3>Phone</h3>
-    </header>
-    <p>
-        <span class="label">Main:</span>
-        <span>425.555.0100</span>
-    </p>
-    <p>
-        <span class="label">After Hours:</span>
-        <span>425.555.0199</span>
-    </p>
-</section>
+        $('#getDirection').on('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = new google.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
+                    myLocationMarker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        draggable: false,
+                        animation: google.maps.Animation.DROP,
+                        title: 'Ви знаходитесь тут!'
+                    });
 
-<section class="contact">
-    <header>
-        <h3>Email</h3>
-    </header>
-    <p>
-        <span class="label">Support:</span>
-        <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">Marketing:</span>
-        <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-    </p>
-    <p>
-        <span class="label">General:</span>
-        <span><a href="mailto:General@example.com">General@example.com</a></span>
-    </p>
-</section>
+                    var bounds = new google.maps.LatLngBounds(marker.getPosition());
+                    bounds.extend(myLocationMarker.getPosition());
+                    map.fitBounds(bounds);
 
-<section class="contact">
-    <header>
-        <h3>Address</h3>
-    </header>
-    <p>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399
-    </p>
-</section>
+                    var geodesicOptions = {
+                        strokeColor: '#00bfff',
+                        strokeOpacity: 0.75,
+                        strokeWeight: 5,
+                        geodesic: true,
+                        map: map
+                    };
+                    var geodesicPoly = new google.maps.Polyline(geodesicOptions);
+                    var path = [marker.getPosition(), myLocationMarker.getPosition()];
+                    geodesicPoly.setPath(path);
+
+
+                }, function () {
+                    handleNoGeolocation(true);
+                });
+            } else {
+                handleNoGeolocation(false);
+            }
+
+            function handleNoGeolocation(errorFlag) {
+                var content;
+                if (errorFlag) {
+                    content = 'Зараз ми не можемо показати на карті як до нас заїхати.';
+                } else {
+                    content = 'Ваш браузер не підтримує дану функцію.';
+                }
+
+                alert(content);
+            }
+        });
+        $(document).ready(function () {
+            var lat = 49.862567;
+            var lng = 24.051631;
+            var loc = new google.maps.LatLng(lat, lng);
+            var mapOptions = {
+                zoom: 15,
+                center: new google.maps.LatLng(lat, lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById('map_canvas'),
+                mapOptions);
+
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">3e.lviv.ua</h1>' +
+                '<div id="bodyContent">' +
+                '<h2>3e.lviv.ua - Інтернет магазин електро товарів.</h2>' +
+                '<img src="/Content/images/logo.png"/>' +
+                '<p>Завтіайте на наш <a href="/home">Веб сайт</a></p>' +
+                '</div>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            marker = new google.maps.Marker({
+                position: loc,
+                map: map,
+                draggable: false,
+                animation: google.maps.Animation.BOUNCE,
+                title: 'www.3e.lviv.ua'
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+
+            google.maps.event.addListener(marker, 'mouseover', removeanimation);
+            google.maps.event.addListener(marker, 'mouseout', addanimation);
+
+            function addanimation() {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+
+            function removeanimation() {
+                if (marker.getAnimation() != null) {
+                    marker.setAnimation(null);
+                }
+            }
+        });
+
+        $('#getCallback').on('click', function (e) {
+            var phone = $('#mobilePhone').val();
+            $.post("/home/callback", { phone: phone })
+            .done(function (e) {
+        $('#callbackDialog').modal('hide');
+    });
+
+        });
+    </script>
+}
+@section breadCrumb {
+    <li class="active">@ViewBag.Title</li>
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+<div class="row">
+    <div class="span4">
+        <section class="contact">
+            <header>
+                <h3>Телефон</h3>
+            </header>
+            <p>
+                <span class="label">Відділ продаж:</span>
+                <span class="lead">(067) 33 57 863</span>
+            </p>
+            <p>
+                <span class="label">Консультація:</span>
+                <span class="lead">(067) 33 57 863</span>
+            </p>
+        </section>
+
+        <section class="contact">
+            <header>
+                <h3>Пошта</h3>
+            </header>
+            <p>
+                <span class="label">Продаж:</span>
+                <span><a href="mailto:3e.lviv@gmail.com">3e.lviv@gmail.com</a></span>
+            </p>
+            <p>
+                <span class="label">Співпраця:</span>
+                <span><a href="mailto:3e.lviv@gmail.com">3e.lviv@gmail.com</a></span>
+            </p>
+        </section>
+
+        <section class="contact">
+            <header>
+                <h3>Адреса</h3>
+            </header>
+            <p>
+                м. Львів<br />
+                вул. Богдана Хмельницького 178
+            </p>
+        </section>
+        <button class="btn btn-primary btn-large" id="getDirection">Як заїхати?</button>
+        <a class="btn btn-primary btn-large" href="#callbackDialog" data-toggle="modal">Передзвонити мені!</a>
+    </div>
+    <div class="span8">
+        <div id="map_canvas"></div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+        class="modal hide fade" id="callbackDialog" style="display: none;">
+        <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h3 id="myModalLabel">Передзвоніть мені</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-inline">
+
+                <p class="text-info">Надішліть нам Ваш номер і ми Вам передзвонимо!</p>
+                <label class="control-label" for="inputEmail">Номер телефону:</label>
+                <input type="text" id="mobilePhone">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <span>
+                <button id="getCallback" class="btn btn-primary">Надіслати</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+

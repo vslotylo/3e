@@ -38,11 +38,11 @@
     margin-bottom: 60px;
 }
 
-.carousel .container
-{
-    position: relative;
-    z-index: 9;
-}
+    .carousel .container
+    {
+        position: relative;
+        z-index: 9;
+    }
 
 .carousel-control
 {
@@ -78,19 +78,19 @@
     margin-top: 200px;
 }
 
-.carousel-caption h1,
-.carousel-caption .lead
-{
-    margin: 0;
-    line-height: 1.25;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,.4);
-}
+    .carousel-caption h1,
+    .carousel-caption .lead
+    {
+        margin: 0;
+        line-height: 1.25;
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
 
-.carousel-caption .btn
-{
-    margin-top: 10px;
-}
+    .carousel-caption .btn
+    {
+        margin-top: 10px;
+    }
 
 .carousel-indicators
 {
@@ -148,7 +148,7 @@
 
 .thumbnail-inner
 {
-    border: 1px solid #FFFFFF;    
+    border: 1px solid #FFFFFF;
     padding: 0px;
 }
 
@@ -163,17 +163,39 @@
     text-transform: uppercase;
 }
 
-#myCarousel {
+#myCarousel
+{
     margin-top: 20px;
 }
 
-.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+.navbar-inverse .brand, .navbar-inverse .nav > li > a
+{
     color: #FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.navbar-inverse .nav > li > a:focus,
-.navbar-inverse .nav > li > a:hover {
-  color: #00bfff;
-  background-color: transparent;
+    .navbar-inverse .nav > li > a:focus,
+    .navbar-inverse .nav > li > a:hover
+    {
+        color: #00bfff;
+        background-color: transparent;
+    }
+
+#map_canvas
+{
+    margin: 0;
+    padding: 0;
+    background-color: #E5E3DF;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
 }
+#map_canvas img{
+  max-width: none;
+}
+
+.map_container label {
+    width: auto; display:inline;
+}
+

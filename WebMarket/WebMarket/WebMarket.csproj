@@ -184,6 +184,7 @@
     <Compile Include="Attributes\ActionTrackAttribute.cs" />
     <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\DateTimeExt.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AvrController.cs" />

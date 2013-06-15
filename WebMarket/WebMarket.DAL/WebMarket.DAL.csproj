@@ -64,6 +64,7 @@
     <Compile Include="Data\Import\EntityImporter.cs" />
     <Compile Include="Entities\Avr.cs" />
     <Compile Include="Entities\Battery.cs" />
+    <Compile Include="Entities\Callback.cs" />
     <Compile Include="Entities\Charger.cs" />
     <Compile Include="Entities\Converter.cs" />
     <Compile Include="Entities\CurrentRelay.cs" />
@@ -96,6 +97,10 @@
     <Compile Include="Migrations\201306131555043_Initial.Designer.cs">
       <DependentUpon>201306131555043_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201306151528203_Callback.cs" />
+    <Compile Include="Migrations\201306151528203_Callback.Designer.cs">
+      <DependentUpon>201306151528203_Callback.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\WebMarketDbContext.cs" />
@@ -103,6 +108,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201306131555043_Initial.resx">
       <DependentUpon>201306131555043_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201306151528203_Callback.resx">
+      <DependentUpon>201306151528203_Callback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

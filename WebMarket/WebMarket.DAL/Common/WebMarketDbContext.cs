@@ -31,6 +31,7 @@ namespace WebMarket.DAL.Common
         public DbSet<TemperatureRelay> TemperatureRelays { get; set; }
         public DbSet<TimeRelay> TimeRelays { get; set; }
         public DbSet<Voltmeter> Voltmeters { get; set; }
+        public DbSet<Callback> Callbacks { get; set; }
         //public DbSet<Product> Products { get; set; }
     }
 }
