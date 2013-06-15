@@ -97,9 +97,9 @@
     <Compile Include="Migrations\201306131555043_Initial.Designer.cs">
       <DependentUpon>201306131555043_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201306151528203_Callback.cs" />
-    <Compile Include="Migrations\201306151528203_Callback.Designer.cs">
-      <DependentUpon>201306151528203_Callback.cs</DependentUpon>
+    <Compile Include="Migrations\201306151553477_Callback.cs" />
+    <Compile Include="Migrations\201306151553477_Callback.Designer.cs">
+      <DependentUpon>201306151553477_Callback.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="Migrations\201306131555043_Initial.resx">
       <DependentUpon>201306131555043_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201306151528203_Callback.resx">
-      <DependentUpon>201306151528203_Callback.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201306151553477_Callback.resx">
+      <DependentUpon>201306151553477_Callback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

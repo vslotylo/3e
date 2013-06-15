@@ -11,7 +11,7 @@ namespace WebMarket.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201306151528203_Callback"; }
+            get { return "201306151553477_Callback"; }
         }
         
         string IMigrationMetadata.Source

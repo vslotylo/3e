@@ -37,8 +37,15 @@ namespace WebMarket.Controllers
 
             var creationTime = DateTime.UtcNow.ToUkrainianTimeZone();
             var telephone = phone.Trim();
-            this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone });
-            this.DbContext.SaveChanges();
+            try
+            {
+                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone });
+                this.DbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

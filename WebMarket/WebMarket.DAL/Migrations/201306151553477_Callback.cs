@@ -1,6 +1,8 @@
-using System.Data.Entity.Migrations;
 namespace WebMarket.DAL.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
+    
     public partial class Callback : DbMigration
     {
         public override void Up()
@@ -9,7 +11,7 @@ namespace WebMarket.DAL.Migrations
                 "dbo.Callbacks",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
+                        Id = c.Int(nullable: false, identity: true),
                         Phone = c.String(),
                         CreateTime = c.DateTime(nullable: false),
                     })
