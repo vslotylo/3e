@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.DAL.Entities;
-using ControllerBase = WebMarket.Controllers.ControllerBase;
 
 namespace WebMarket.Controllers
 {
