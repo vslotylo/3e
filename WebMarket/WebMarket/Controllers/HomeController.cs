@@ -44,6 +44,7 @@ namespace WebMarket.Controllers
             }
             catch (Exception e)
             {
+                // log error here
                 throw e;
             }
         }
