@@ -1,8 +1,6 @@
+using System.Data.Entity.Migrations;
 namespace WebMarket.DAL.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class Callback : DbMigration
     {
         public override void Up()
