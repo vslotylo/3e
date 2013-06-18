@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMarket.Common;
@@ -24,24 +26,23 @@ namespace WebMarket.Controllers
 
         [Authorize(Roles = Constants.AdminRoleName)]
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
         {
             try
             {
-                // Verify that the user selected a file
-                if (file != null && file.ContentLength > 0)
+                var importer = new DataImporter();
+                foreach (var file in files.Where(obj => obj.ContentLength > 0))
                 {
-                    var importer = new DataImporter();
                     importer.Import(file.InputStream, this.DbContext);
-                    this.DbContext.SaveChanges();
                 }
+
+                this.DbContext.SaveChanges();
             }
             catch (Exception e)
             {
                 this.logger.Error(e);
             }
             
-            // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
     }

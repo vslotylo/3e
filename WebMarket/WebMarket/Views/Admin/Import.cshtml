@@ -1,13 +1,31 @@
 ﻿@{
     ViewBag.Title = "Керування цінами";
 }
+@*@section scripts
+{
+    <script type="text/javascript">
+    $(document).ready(function (e) {
+        $('#postFiles').on('click', function(args) {
+            var userFiles = document.getElementById('fileInput').files;
+            var myfiles = new Array();
+            for (var i = 0; i < userFiles.length; i++) {
+                myfiles[i] = userFiles[i];
+            }
+            alert(myfiles);
+            $.post("/admin/upload", { data: myfiles })
+                .done(function (res) {
+                    alert(res);
+                });
+        });
+    });
+</script>
+}*@
 
 <span class="lead">@ViewBag.Title</span>
 <hr />
 
-
 @using (Html.BeginForm("upload", "admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="file" />
-    <button type="submit" class="btn btn-primary">Оновити продукти</button>
+    <input id="fileInput" type="file" name="files" multiple title="Виберіть файл(и) з даними." />
+    <button id="postFiles" type="submit" class="btn btn-primary">Відіслати дані</button>
 }

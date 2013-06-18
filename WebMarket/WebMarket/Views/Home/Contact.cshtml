@@ -123,14 +123,12 @@
 @section breadCrumb {
     <li class="active">@ViewBag.Title</li>
 }
-<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Title</h3>
 <hr />
 <div class="row">
     <div class="span4">
         <section class="contact">
-            <header>
-                <h3>Телефон</h3>
-            </header>
+            <h4>Телефон</h4>
             <p>
                 <span class="label">Відділ продаж:</span>
                 <span class="lead">(067) 33 57 863</span>
@@ -143,7 +141,7 @@
 
         <section class="contact">
             <header>
-                <h3>Пошта</h3>
+                <h4>Пошта</h4>
             </header>
             <p>
                 <span class="label">Продаж:</span>
@@ -157,9 +155,9 @@
 
         <section class="contact">
             <header>
-                <h3>Адреса</h3>
+                <h4>Адреса</h4>
             </header>
-            <p>
+            <p class="lead">
                 м. Львів<br />
                 вул. Богдана Хмельницького 178
             </p>
@@ -168,7 +166,10 @@
         <a class="btn btn-primary btn-large" href="#callbackDialog" data-toggle="modal">Передзвонити мені!</a>
     </div>
     <div class="span8">
-        <div id="map_canvas"></div>
+        <section>
+            <div id="map_canvas"></div>
+        </section>
+        
     </div>
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
         class="modal hide fade" id="callbackDialog" style="display: none;">
