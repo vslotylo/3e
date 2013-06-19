@@ -4,12 +4,7 @@
 }
 @section scripts
 {
-    <script src="~/Content/js/app.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            app.initListView();
-        });
-    </script>
+    @Scripts.Render("~/bundles/app")
 }
 @section breadCrumb {
     <li class="active">@ViewBag.Title</li>

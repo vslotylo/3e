@@ -53,5 +53,6 @@ app.filters.current = function () {
     return val;
 };
 
-
-
+$(document).ready(function () {
+    app.initListView();
+});

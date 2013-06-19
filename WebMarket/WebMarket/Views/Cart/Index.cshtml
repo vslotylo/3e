@@ -7,8 +7,7 @@
 }
 @section scripts
 {
-    <script type="text/javascript" src="~/Content/js/cart.js">
-    </script>
+    @Scripts.Render("~/bundles/app")
     <script type="text/javascript">
         $(document).ready(function () {
             $('.deleteFromCart').on('click', function (e) {

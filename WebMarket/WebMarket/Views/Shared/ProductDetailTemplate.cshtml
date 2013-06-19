@@ -35,15 +35,21 @@
                         @Html.Partial("ProductRate", Model)
                         @Html.Partial("ProductIsAvailable", Model)
                     </div>
-                    <div class="span1">
-                    </div>
-                    <div class="span3">
-                        <a id="buyBtn" class="btn btn-primary pull-right" href="#addToCartModal" data-toggle="modal" style="margin: 10px 0 0 0">Купити</a>
+                    <div class="span4">
+                        <span>
+                            <span>
+                                <a id="buyBtn" class="btn btn-primary" href="#addToCartModal" data-toggle="modal" style="margin: 10px 0 0 0">Купити</a>
+                            </span>
+                            <span>
+                                <a id="getCallBackBtn" class="btn btn-info" href="#callbackDialog" data-toggle="modal" style="margin: 10px 0 0 0">Передзвонити мені</a>
+                            </span>
+                        </span>
                     </div>
                 </div>
             </li>
         </ul>
-        @Html.Partial("AddToCart", Model)
+        @Html.Partial("AddToCartModal", Model)
+        @Html.Partial("CallbackModal")
     </div>
 </div>
 <div class="thumbnails yoxview">
@@ -134,12 +140,13 @@
             <p>@Html.Raw(Model.Description)</p>
         </div>
         <div id="d" class="tab-pane fade ">
-            <ol>@foreach (var item in Model.ParsedSuppliedItems)
-               {
-                   <li>
-                       @item
-                   </li>
-               }
+            <ol>
+                @foreach (var item in Model.ParsedSuppliedItems)
+                {
+                    <li>
+                        @item
+                    </li>
+                }
             </ol>
         </div>
     </div>
