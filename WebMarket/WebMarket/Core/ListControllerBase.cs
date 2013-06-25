@@ -42,6 +42,11 @@ namespace WebMarket.Core
 
         protected void InitializeSelectedProducer()
         {
+            if (this.ViewModel.ProducersFilter == null)
+            {
+                return;
+            }
+
             // todo
             foreach (var item in this.ViewModel.ProducersFilter.ProducersList)
             {
@@ -51,6 +56,11 @@ namespace WebMarket.Core
 
         protected void InitializeSelectedTypes()
         {
+            if (this.ViewModel.TypesFilter == null)
+            {
+                return;
+            }
+
             // todo
             foreach (var item in this.ViewModel.TypesFilter.TypeList)
             {
@@ -77,6 +87,11 @@ namespace WebMarket.Core
 
         protected void InitializeProducerFilter()
         {
+            if (this.ViewModel.ProducersFilter == null)
+            {
+                return;
+            }
+
             foreach (var item in this.ViewModel.Producers)
             {
                 item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.ProducersFilter, item.Value);
@@ -85,6 +100,11 @@ namespace WebMarket.Core
 
         protected void InitializeTypeFilter()
         {
+            if (this.ViewModel.TypesFilter == null)
+            {
+                return;
+            }
+
             foreach (var item in this.ViewModel.Types)
             {
                 item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.TypesFilter, item.Value);                
@@ -113,44 +133,68 @@ namespace WebMarket.Core
             this.ViewModel.PageSize.FirstOrDefault(p => p.Value == this.ViewModel.PageSizeFilter.PageSize).IsSelected = true;
         }
 
-        private IList<GenericFilterModel<string>> InitializeProducerFilter(IQueryable<T> entities)
+        private void InitializeProducerFilter(IQueryable<T> entities)
         {
+            if (this.ViewModel.ProducersFilter == null)
+            {
+                return;
+            }
+
             var producers = entities.GroupBy(p => p.Producer).Select(g => new GenericFilterModel<string> { Value = g.Key.Name, Name = g.Key.Name, ProductsCount = g.Count() }).ToList();
             foreach (var item in producers)
             {
                 item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value);
             }
 
-            return producers;
+            this.ViewModel.Producers = producers;
+        }
+
+
+        protected void StartInitializeCommon(int count)
+        {
+            this.ViewModel.Count = count;
+            this.InitializeSort();
+            this.InitializePageSize();
         }
 
         public IQueryable<T> StartInitialize(IQueryable<T> entities)
         {
-            this.ViewModel.Count = entities.Count();
-            this.InitializeSort();
-            this.InitializePageSize();
-            this.ViewModel.Producers = this.InitializeProducerFilter(entities);
+            this.StartInitializeCommon(entities.Count());
+            this.InitializeProducerFilter(entities);
+            this.InitializeTypesFilter(entities);
 
-            var types = entities.GroupBy(item => item.Type).ToList().Select(g => new GenericFilterModel<int> { Value = g.Key, Name = g.FirstOrDefault().TypeString, ProductsCount = g.Count() }).ToList();
-            foreach (var item in types)
-            {
-                item.IsSelected = this.ViewModel.TypesFilter.TypeList.Contains(item.Value);
-            }
-
-            this.ViewModel.Types = types;
-
-            if (this.ViewModel.TypesFilter.TypeList.Any())
+            if (this.ViewModel.TypesFilter != null && this.ViewModel.TypesFilter.TypeList.Any())
             {
                 entities = entities.Where(o => this.ViewModel.TypesFilter.TypeList.Contains(o.Type));
             }
 
-            if (this.ViewModel.ProducersFilter.ProducersList.Any())
+            if (this.ViewModel.ProducersFilter != null && this.ViewModel.ProducersFilter.ProducersList.Any())
             {
                 entities = entities.Where(o => this.ViewModel.ProducersFilter.ProducersList.Contains(o.Producer.Name));
             }
 
 
             return entities;
+        }
+
+        private void InitializeTypesFilter(IQueryable<T> entities)
+        {
+            if (ViewModel.TypesFilter == null)
+            {
+                return;
+            }
+
+            var types =
+                entities.GroupBy(item => item.Type)
+                        .ToList()
+                        .Select(g => new GenericFilterModel<int> { Value = g.Key, Name = g.FirstOrDefault().TypeString, ProductsCount = g.Count() })
+                        .ToList();
+            foreach (var item in types)
+            {
+                item.IsSelected = this.ViewModel.TypesFilter.TypeList.Contains(item.Value);
+            }
+
+            this.ViewModel.Types = types;
         }
     }
 }

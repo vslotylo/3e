@@ -8,14 +8,28 @@ namespace WebMarket.Core
     public class FilterViewModelBase<T> where T : Product
     {
         public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, TypeFilter typeFilter)
+            : this(pageSizeFilter, sortFilter, pageFilter)
         {
-            this.Filters = new FilterList { pageSizeFilter, sortFilter, producersFilter, pageFilter, typeFilter };
+            this.ProducersFilter = producersFilter;
+            this.TypesFilter = typeFilter;
+            this.Filters.Add(producersFilter);
+            this.Filters.Add(typeFilter);
+        }
 
+        public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, PageFilter pageFilter, SearchFilter searchFilter)
+            :this(pageSizeFilter, sortFilter, pageFilter)
+        {
+            this.SearchFilter = searchFilter;
+            this.Filters.Add(searchFilter);
+        }
+
+        private FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, PageFilter pageFilter)
+        {
             this.PageSizeFilter = pageSizeFilter;
             this.SortFilter = sortFilter;
-            this.ProducersFilter = producersFilter;
             this.PageFilter = pageFilter;
-            this.TypesFilter = typeFilter;
+
+            this.Filters = new FilterList { pageSizeFilter, sortFilter, pageFilter };
 
             this.PageSize = new List<GenericFilterModelBase<int>>
                                 {
@@ -47,19 +61,18 @@ namespace WebMarket.Core
 
         public IEnumerable<GenericFilterModel<string>> Producers { get; set; }
         public IEnumerable<GenericFilterModel<int>> Types { get; set; }
-        public IList<GenericFilterModelBase<int>> PageSize { get; set; }
-        public IList<GenericFilterModelBase<int>> Sort { get; set; }
+        public IList<GenericFilterModelBase<int>> PageSize { get; private set; }
+        public IList<GenericFilterModelBase<int>> Sort { get; private set; }
 
-        public PagingViewModel Pagging { get; set; }        
-        public FilterList Filters { get; set; }
+        public PagingViewModel Pagging { get; private set; }        
+        public FilterList Filters { get; private set; }
 
         public PageSizeFilter PageSizeFilter { get; private set; }
         public SortFilter SortFilter { get; private set; }
         public ProducersFilter ProducersFilter { get; private set; }
         public PageFilter PageFilter { get; private set; }
         public TypeFilter TypesFilter { get; private set; }
-
-
+        public SearchFilter SearchFilter { get; private set; }
         public int Count { get; set; }        
     }
 }
