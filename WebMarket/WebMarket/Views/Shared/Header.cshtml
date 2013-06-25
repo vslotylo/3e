@@ -8,17 +8,17 @@
                     </a>
                 </div>
                 <div class="span9">
-                    <div>
+                    <div class="pull-right">
                         <form class="navbar-search" action="@Url.Action("index", "search")">
-                            <input type="text" name="keyword" class="input-medium search-query">
+                            <input type="text" name="keyword" class="input-medium search-query" style="margin-top: 4px;">
                             <button type="submit" class="btn btn-success">Шукати</button>
                         </form>
-                        <ul class="nav pull-right">
+                        <ul class="nav" style="margin-top: 5px; margin-left: 20px">
                             <li>
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="@Url.Action("index", "cart")"><i class="icon-shopping-cart icon-white"></i>Корзина<span id="cartTotalCount" class="badge badge-success">@ViewData["CartTotalCount"]</span></a>
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span
-                                        class="caret"></span></a>
+                                                                                                                   class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <div style="padding: 3px 20px;"><i class="icon-list-alt"></i>Разом: <span id="cartTotalSum" class="priceUahSmall">@ViewData["CartTotalSum"]</span><span class="priceUahSmall"> грн.</span></div>

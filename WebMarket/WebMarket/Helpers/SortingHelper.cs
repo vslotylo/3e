@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebMarket.Core;
 using WebMarket.DAL.Entities;
@@ -28,6 +29,36 @@ namespace WebMarket.Helpers
                 case Sort.PriceDesc:
                     {
                         collection = collection.OrderByDescending(SortByUsd<T>()).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        break;
+                    }
+                case Sort.RateDesc:
+                    {
+                        collection = collection.OrderBy(o => o.IsAvailable).OrderByDescending(o => o.Rate);
+                        break;
+                    }
+            }
+
+            return collection.ToPagedList(page, pageSize);
+        }
+
+        public static IPagedList<T> ToSortedPagedList<T>(IEnumerable<T> collection, Sort sortingMode, int pageSize, int currentPage) where T : Product
+        {
+            int page = currentPage;
+            if ((currentPage - 1) * pageSize > collection.Count())
+            {
+                page = 1;
+            }
+
+            switch (sortingMode)
+            {
+                case Sort.PriceAsc:
+                    {
+                        collection = collection.OrderBy(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        break;
+                    }
+                case Sort.PriceDesc:
+                    {
+                        collection = collection.OrderByDescending(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.RateDesc:

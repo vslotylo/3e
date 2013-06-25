@@ -3,7 +3,6 @@ using System.Linq;
 using WebMarket.Controllers;
 using WebMarket.DAL.Entities;
 using System.Web.Routing;
-using WebMarket.Filters;
 using WebMarket.Helpers;
 
 namespace WebMarket.Core
@@ -14,7 +13,18 @@ namespace WebMarket.Core
 
         protected void InitializePager(IQueryable<T> entities)
         {
-            this.ViewModel.Pagging.List = Sorting.ToSortedPagedList<Product>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
+            this.ViewModel.Pagging.List = Sorting.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
+            this.InitializeRoutes();
+        }
+
+        protected void InitializePager(IEnumerable<T> entities)
+        {
+            this.ViewModel.Pagging.List = Sorting.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
+            this.InitializeRoutes();
+        }
+
+        private void InitializeRoutes()
+        {
             IList<RouteValueDictionary> pagingRoutes = new List<RouteValueDictionary>();
             if (this.ViewModel.Pagging.List.HasPreviousPage)
             {
@@ -112,6 +122,18 @@ namespace WebMarket.Core
         }
 
         protected void EndInitialize(IQueryable<T> entities)
+        {
+            this.InitializePageSizeFilter();
+            this.InitializeSortFilter();
+            this.InitializeProducerFilter();
+            this.InitializeTypeFilter();
+
+            this.InitializePager(entities);
+            this.InitializeSelectedProducer();
+            this.InitializeSelectedTypes();
+        }
+
+        protected void EndInitializeCommon(IEnumerable<T> entities)
         {
             this.InitializePageSizeFilter();
             this.InitializeSortFilter();
