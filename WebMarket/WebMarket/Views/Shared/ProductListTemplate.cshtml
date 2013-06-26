@@ -1,15 +1,15 @@
-﻿@model PagedList.IPagedList<WebMarket.DAL.Entities.Product>
-@if (!Model.Any())
+﻿@model WebMarket.Core.PagingViewModel
+@if (!Model.List.Any())
 {
     <div class="alert alert-info">
         <strong>Увага!</strong><p>За вибранем критерієм не було знайденого жодного товару. Спробуйте змінити фільтр та натисніть кнопку <strong>"Фільтрувати"</strong> або натисніть</p>
         <a href='@Url.Action("Index", HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())' >Забрати всі фльтри</a>
     </div>
 }
-
-
-@foreach (var item in Model)
+else
 {
+    foreach (var item in Model.List)
+    {
     <div class="thumbnail">
         <div class="row-fluid">
             <div class="span4">
@@ -53,4 +53,6 @@
         </div>
     </div>
     <br />
+    }
+    @Html.Partial("Pager", Model)
 }
