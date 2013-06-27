@@ -24,6 +24,7 @@ namespace WebMarket.DAL.Infrustructure
             CategoriesDictionary.Add(typeof(CurrentRelay));
             CategoriesDictionary.Add(typeof(TimeRelay));
             CategoriesDictionary.Add(typeof(TemperatureRelay));
+            CategoriesDictionary.Add(typeof(Voltmeter));
         }
 
         public static string GetProductId(Product p)
@@ -58,6 +59,7 @@ namespace WebMarket.DAL.Infrustructure
             if (type == typeof(CurrentRelay)) return this.dbContext.CurrentRelays.Include(p => p.Producer).FirstOrDefault(p => p.Id == id);
             if (type == typeof(TimeRelay)) return this.dbContext.TimeRelays.Include(p => p.Producer).FirstOrDefault(p => p.Id == id);
             if (type == typeof(TemperatureRelay)) return this.dbContext.TemperatureRelays.Include(p => p.Producer).FirstOrDefault(p => p.Id == id);
+            if (type == typeof(Voltmeter)) return this.dbContext.Voltmeters.Include(p => p.Producer).FirstOrDefault(p => p.Id == id);
             return null;
         }
     }

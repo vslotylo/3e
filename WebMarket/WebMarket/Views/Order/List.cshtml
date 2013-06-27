@@ -8,30 +8,33 @@
 }
 <span class="lead">@ViewBag.Title</span>
 <hr />
-<table class="table table-condensed table-bordered">
-    <thead>
-        <td>Номер</td>
-        <td>Замовник</td>
-        <td>Телефон</td>
-        <td>Пошта</td>
-        <td>Дата замовлення</td>
-        <td>Статус</td>
-        <td>Опції</td>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="@Html.GetCssClassForOrderStatus(item.Status)">
-                <td>@item.Id</td>
-                <td>@item.User</td>
-                <td>@item.Phone</td>
-                <td>@item.Email</td>
-                <td>@item.CreationDate</td>
-                <td>@item.Status</td>
-                <td><a class="button" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
-                    <a class="button" href="@Url.Action("edit", new { id = item.Id })">Редагувати</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Model.Any())
+{
+    <table class="table table-condensed table-bordered">
+        <thead>
+            <td>Номер</td>
+            <td>Замовник</td>
+            <td>Телефон</td>
+            <td>Пошта</td>
+            <td>Дата замовлення</td>
+            <td>Статус</td>
+            <td>Опції</td>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="@Html.GetCssClassForOrderStatus(item.Status)">
+                    <td>@item.Id</td>
+                    <td>@item.User</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Email</td>
+                    <td>@item.CreationDate</td>
+                    <td>@item.Status</td>
+                    <td><a class="button" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
+                        <a class="button" href="@Url.Action("edit", new { id = item.Id })">Редагувати</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

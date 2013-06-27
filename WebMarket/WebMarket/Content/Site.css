@@ -199,3 +199,8 @@
     width: auto; display:inline;
 }
 
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #006DCC;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+}

@@ -44,5 +44,12 @@ namespace WebMarket.Controllers
             
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = Constants.AdminRoleName)]
+        public ActionResult Callbacks()
+        {
+            var callbacks = DbContext.Callbacks.ToList();
+            return View(callbacks);
+        }
     }
 }
