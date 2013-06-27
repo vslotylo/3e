@@ -74,7 +74,7 @@
     background-color: transparent !important;
     position: static !important;
     max-width: 550px;
-    padding: 0 20px;
+    padding: 0 60px;
     margin-top: 200px;
 }
 
@@ -127,7 +127,7 @@
 
 .logo
 {
-    height: 60px;
+    height: 70px;
 }
 
 .navcontainer
@@ -191,15 +191,20 @@
     position: relative;
     width: 100%;
 }
-#map_canvas img{
-  max-width: none;
+
+    #map_canvas img
+    {
+        max-width: none;
+    }
+
+.map_container label
+{
+    width: auto;
+    display: inline;
 }
 
-.map_container label {
-    width: auto; display:inline;
-}
-
-.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle
+{
     background-color: #006DCC;
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
