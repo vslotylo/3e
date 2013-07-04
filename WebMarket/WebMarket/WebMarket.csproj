@@ -242,11 +242,11 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\images\ajax-loader.gif" />
-    <Content Include="Content\images\carousel1.png" />
-    <Content Include="Content\images\carousel2.png" />
-    <Content Include="Content\images\carousel3.png" />
-    <Content Include="Content\images\carousel4.png" />
-    <Content Include="Content\images\carousel5.png" />
+    <Content Include="Content\images\carousel1.jpg" />
+    <Content Include="Content\images\carousel2.jpg" />
+    <Content Include="Content\images\carousel3.jpg" />
+    <Content Include="Content\images\carousel4.jpg" />
+    <Content Include="Content\images\carousel5.jpg" />
     <Content Include="Content\images\d.png" />
     <Content Include="Content\images\file.gif" />
     <Content Include="Content\images\folder-closed.gif" />
