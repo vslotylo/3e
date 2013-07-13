@@ -62,7 +62,7 @@ namespace WebMarket.Controllers
         {
             foreach (var item in this.Cart.Items)
             {
-                order.Items.Add(new OrderItem { Pid = item.Product.ProductId, Quantity = item.Quantity, TotalItemPrice = item.TotalItemPrice, UnitPrice = item.Product.PriceUah });
+                order.Items.Add(new OrderItem { Pid = item.Product.ProductId, Quantity = item.Quantity, UnitPrice = item.Product.PriceUah });
             }
 
             order.Status = OrderStatus.Pending;

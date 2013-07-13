@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201306151553477_Callback.Designer.cs">
       <DependentUpon>201306151553477_Callback.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201307131803393_RemovedTotalItemPrice.cs" />
+    <Compile Include="Migrations\201307131803393_RemovedTotalItemPrice.Designer.cs">
+      <DependentUpon>201307131803393_RemovedTotalItemPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\WebMarketDbContext.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306151553477_Callback.resx">
       <DependentUpon>201306151553477_Callback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201307131803393_RemovedTotalItemPrice.resx">
+      <DependentUpon>201307131803393_RemovedTotalItemPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
