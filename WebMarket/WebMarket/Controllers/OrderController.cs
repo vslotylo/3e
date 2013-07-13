@@ -80,7 +80,7 @@ namespace WebMarket.Controllers
             }
             catch (Exception e)
             {
-                //todo
+                this.Logger.Error(e);
             }
 
             this.RemoveCart();

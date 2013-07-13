@@ -7,9 +7,9 @@ namespace WebMarket.Attributes
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var logger = LogManager.GetLogger(this.GetType());
             var request = filterContext.RequestContext.HttpContext.Request;
-            logger.Info(string.Format("{0} {1} {2}", request.UserHostName, request.UserHostAddress, request.UserAgent));
+            var logger = LogManager.GetLogger(request.Url.ToString());
+            logger.Info(string.Format("{0} {1} {2} {3}",request.UserHostAddress, request.UserHostName, request.UserHostAddress, request.UserAgent));
             base.OnActionExecuted(filterContext);
         }
     }

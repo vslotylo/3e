@@ -13,8 +13,7 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Index()
         {
-            var count = HttpContext.Session.Count;
-            return View(count);
+            return View();
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
@@ -39,7 +38,7 @@ namespace WebMarket.Controllers
             }
             catch (Exception e)
             {
-                this.logger.Error(e);
+                this.Logger.Error(e);
             }
             
             return RedirectToAction("Index");

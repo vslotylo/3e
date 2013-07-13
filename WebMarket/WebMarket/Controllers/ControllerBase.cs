@@ -9,11 +9,11 @@ namespace WebMarket.Controllers
     public class ControllerBase : Controller
     {
         private readonly WebMarketDbContext dbContext = new WebMarketDbContext();
-        protected ILog logger;
+        protected readonly ILog Logger;
 
         public ControllerBase()
         {
-            this.logger = LogManager.GetLogger(this.GetType());
+            this.Logger = LogManager.GetLogger(this.GetType());
         }
         
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
