@@ -1,5 +1,5 @@
 ﻿@using WebMarket.Extensions
-@model WebMarket.DAL.Entities.Order
+@model WebMarket.ViewModels.OrderDetailViewModel
 @{
     ViewBag.Title = "Деталі замовлення";
 }
@@ -15,14 +15,18 @@
         <table class="table table-condensed table-bordered table-hover">
             <thead>
                 <td>Код товару</td>
+                <td>Товар</td>
                 <td>Ціна за одиницю</td>
                 <td>Кількість</td>
-                <td>Ціна</td>
+                <td>Ціна за позицію</td>
             </thead>
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.Order.Items)
             {
                 <tr>
                     <td>@item.Pid</td>
+                    <td>
+                        @Html.Partial("ProductPreviewSmall", Model.Products.Single(obj => obj.ProductId == item.Pid))
+                    </td>
                     <td>
                         @item.UnitPrice.ToFormatString() грн.
                     </td>
@@ -31,7 +35,7 @@
                 </tr>
             }
         </table>
-        @Html.Partial("TotalSum", Model.Total)
+        @Html.Partial("TotalSum", Model.Order.Total)
     </div>
     <div class="span4">
         <div class="well well-small">
@@ -39,39 +43,39 @@
                 <caption>Інформація</caption>
                 <tr>
                     <td><strong>Номер замовлення</strong></td>
-                    <td>@Model.Id</td>
+                    <td>@Model.Order.Id</td>
                 </tr>
                 <tr>
                     <td><strong>Користувач</strong></td>
-                    <td>@Model.User</td>
+                    <td>@Model.Order.User</td>
                 </tr>
                 <tr>
                     <td><strong>Телефон</strong></td>
-                    <td>@Model.Phone</td>
+                    <td>@Model.Order.Phone</td>
                 </tr>
                 <tr>
                     <td><strong>Пошта</strong></td>
-                    <td>@Model.Email</td>
+                    <td>@Model.Order.Email</td>
                 </tr>
                 <tr>
                     <td><strong>Місто</strong></td>
-                    <td>@Model.City</td>
+                    <td>@Model.Order.City</td>
                 </tr>
                 <tr>
                     <td><strong>Адреса</strong></td>
-                    <td>@Model.Address</td>
+                    <td>@Model.Order.Address</td>
                 </tr>
                 <tr>
                     <td><strong>Коментар</strong></td>
-                    <td>@Model.Comment</td>
+                    <td>@Model.Order.Comment</td>
                 </tr>
                 <tr>
                     <td><strong>Дата замовлення</strong></td>
-                    <td>@Model.CreationDate</td>
+                    <td>@Model.Order.CreationDate</td>
                 </tr>
                 <tr>
                     <td><strong>Статус</strong></td>
-                    <td>@Model.Status</td>
+                    <td>@Model.Order.Status</td>
                 </tr>
             </table>
         </div>

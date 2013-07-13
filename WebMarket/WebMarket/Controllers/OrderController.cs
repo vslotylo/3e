@@ -6,11 +6,16 @@ using WebMarket.Common;
 using WebMarket.DAL.Entities;
 using WebMarket.DAL.Entities.Enums;
 using System.Data.Entity;
+using WebMarket.DAL.Infrustructure;
+using WebMarket.DAL.Interfaces;
+using WebMarket.ViewModels;
 
 namespace WebMarket.Controllers
 {
     public class OrderController : ControllerBase
     {
+        private readonly IProductManager manager = new ProductManager();
+
         public ActionResult Index()
         {
             return this.View(this.Cart);
@@ -26,7 +31,8 @@ namespace WebMarket.Controllers
         public ActionResult Details(int id)
         {
             var order = DbContext.Orders.Include(obj => obj.Items).FirstOrDefault(obj => obj.Id == id);
-            return this.View(order);
+            var products = order.Items.Select(obj => manager.GetProductByPid(obj.Pid));
+            return this.View(new OrderDetailViewModel(order, products));
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
