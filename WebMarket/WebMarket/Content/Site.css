@@ -78,6 +78,10 @@
     margin-top: 200px;
 }
 
+.caption-right
+{
+    margin-left: 500px;
+}
     .carousel-caption h1,
     .carousel-caption .lead
     {
