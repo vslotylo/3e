@@ -15,7 +15,15 @@ namespace WebMarket.Controllers
         {
             this.Logger = LogManager.GetLogger(this.GetType());
         }
-        
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            var request = filterContext.RequestContext.HttpContext.Request;
+            var logger = LogManager.GetLogger(request.Url.ToString());
+            logger.Info(string.Format("{0} {1} {2} {3}", request.UserHostAddress, request.UserHostName, request.UserHostAddress, request.UserAgent));
+            base.OnActionExecuted(filterContext);
+        }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
