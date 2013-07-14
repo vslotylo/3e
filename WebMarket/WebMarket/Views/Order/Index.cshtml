@@ -9,65 +9,65 @@
 @section scripts
 {
     <script type="text/javascript">
-    $(document).ready(function () {
-        function validate(control, regex) {
-            if (typeof(regex) === 'undefined') regex = null;
-            var val = control.val();
-            var isValid = false;
-            if(regex != null)
-            {
-                isValid = regex.test(val);
-            }
-            if (!isValid) {
+        $(document).ready(function () {
+            function validate(control, regex) {
+                if (typeof(regex) === 'undefined') regex = null;
+                var val = control.val();
+                var isValid = false;
+                if(regex != null)
+                {
+                    isValid = regex.test(val);
+                }
+                if (!isValid) {
                     control.parents('.control-group').addClass('error');
                     control.parents('.control-group').removeClass('success');
                     control.parent().next().removeClass('hidden');
                     return false;
+                }
+                else {
+                    control.parents('.control-group').removeClass('error');
+                    control.parents('.control-group').addClass('success');
+                    control.parent().next().addClass('hidden');
+                    return true;
+                }
             }
-            else {
-                control.parents('.control-group').removeClass('error');
-                control.parents('.control-group').addClass('success');
-                control.parent().next().addClass('hidden');
-                return true;
-            }
-        }
 
-        var isUserNameValid;
-        var isPhoneValid;
-        var isEmailValid;
+            var isUserNameValid;
+            var isPhoneValid;
+            var isEmailValid;
 
-        function canPurchase()
-        {
-            if(isUserNameValid && isPhoneValid && isEmailValid)
+            function canPurchase()
             {
-                $('#purchase').removeClass('disabled');
-                return true;
+                if(isUserNameValid && isPhoneValid && isEmailValid)
+                {
+                    $('#purchase').removeClass('disabled');
+                    return true;
+                }
+                else
+                {
+                    $('#purchase').addClass('disabled'); 
+                    return false;
+                }
             }
-            else
-            {
-                $('#purchase').addClass('disabled'); 
-                return false;
-            }
-        }
 
-        $("#userName").focusout(function () {
-            isUserNameValid = validate($(this),/\D{3,}/);
-            canPurchase();
-        });
+            $("#userName").focusout(function () {
+                isUserNameValid = validate($(this),/\D{3,}/);
+                canPurchase();
+            });
 
-        $("#phone").focusout(function () {
-            isPhoneValid = validate($(this), /^([0-9\(\)\/\+ \-]{7,})$/);       
-            canPurchase();     
-        });
+            $("#phone").focusout(function () {
+                isPhoneValid = validate($(this), /^([0-9\(\)\/\+ \-]{7,})$/);       
+                canPurchase();     
+            });
 
-        $("#email").focusout(function () {
-            isEmailValid = validate($(this), @Html.Raw(@"/.+\@.+\..+/"));            
+            $("#email").focusout(function () {
+                isEmailValid = validate($(this), @Html.Raw(@"/.+\@.+\..+/"));            
             canPurchase();
         });
 
         $('#purchase').on('click', function (e) {
             if(!canPurchase())
-             return;
+                return;
                         
             var userName = $('#userName').val();
             var phone = $('#phone').val();
@@ -75,10 +75,10 @@
             var comment = $('#comment').val();
             var city = $('#city').val();
             var address = $('#address').val();
-             $.post("/order/add", { user: userName, phone: phone, email : email, city: city, address: address, comment : comment })
-            .done(function (e) {
-                $('#orderSubmitted').modal('show');
-            });
+            $.post("/order/add", { user: userName, phone: phone, email : email, city: city, address: address, comment : comment })
+           .done(function (e) {
+               $('#orderSubmitted').modal('show');
+           });
         });
 
         $('#close').on('click', function (e)
@@ -93,7 +93,7 @@
             window.location = "/home";
         });
     }); 
-</script>
+    </script>
 }
 
 @if (!Model.Items.Any())
@@ -118,7 +118,8 @@ else
                                     <input type="text" id="userName" placeholder="Ім'я">
                                 </div>
                                 <div class="help-inline hidden">
-                                    Невірні дані.<i class='icon-exclamation-sign'></i></div>
+                                    Невірні дані.<i class='icon-exclamation-sign'></i>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -131,7 +132,8 @@ else
                                         placeholder="###-###-##-##">
                                 </div>
                                 <div class="help-inline hidden">
-                                    Невірні дані.<i class='icon-exclamation-sign'></i></div>
+                                    Невірні дані.<i class='icon-exclamation-sign'></i>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -143,7 +145,8 @@ else
                                     <input type="text" id="email" placeholder="">
                                 </div>
                                 <div class="help-inline hidden">
-                                    Невірні дані.<i class='icon-exclamation-sign'></i></div>
+                                    Невірні дані.<i class='icon-exclamation-sign'></i>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -155,7 +158,8 @@ else
                                     <input type="text" id="city" placeholder="">
                                 </div>
                                 <div class="help-inline hidden">
-                                    Невірні дані.<i class='icon-exclamation-sign'></i></div>
+                                    Невірні дані.<i class='icon-exclamation-sign'></i>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -167,9 +171,10 @@ else
                                     <input type="text" id="address" placeholder="">
                                 </div>
                                 <div class="help-inline hidden">
-                                    Невірні дані.<i class='icon-exclamation-sign'></i></div>
+                                    Невірні дані.<i class='icon-exclamation-sign'></i>
+                                </div>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="control-group">
                             <label for="comment" class="control-label">
                                 Коментар:</label>
@@ -205,20 +210,19 @@ else
                             }
                         </tbody>
                     </table>
-                    @Html.Partial("TotalSum", Model.TotalPrice);
+                    @Html.Partial("TotalSum", Model.TotalPrice)
                     <br />
                 </div>
             </div>
+            <button id="purchase" type="btn btn-large btn-primary" class="btn btn-large btn-primary pull-right disabled">
+                Відправити замовлення</button>
         </div>
-        <button id="purchase" type="btn btn-large btn-primary" class="btn btn-large btn-primary pull-right disabled">
-            Відправити замовлення</button>
         <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
             class="modal hide fade" id="orderSubmitted" style="display: none;">
             <div class="modal-header">
                 <button id="modalclose" aria-hidden="true" data-dismiss="modal" class="close" type="button">
                     ×</button>
-                <h3 id="myModalLabel">
-                    Замовлення прийнято</h3>
+                <h3 id="myModalLabel">Замовлення прийнято</h3>
             </div>
             <div class="modal-body">
                 <div>
