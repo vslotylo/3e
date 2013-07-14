@@ -1,4 +1,4 @@
-﻿@model object
+﻿@model string
 @{
     ViewBag.Title = "Логи";
 }
@@ -10,4 +10,4 @@
 
 <span class="lead">@ViewBag.Title</span>
 <hr />
-<div>@Model.ToString()</div>
+<div>@Html.Raw(Model)</div>

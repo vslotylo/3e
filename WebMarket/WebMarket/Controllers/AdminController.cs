@@ -6,13 +6,13 @@ using System.Web;
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.DAL.Data.Import;
-using WebMarket.Filters;
 
 namespace WebMarket.Controllers
 {
-    [InitializeSimpleMembership]
     public class AdminController : ControllerBase
     {
+        private string[] supportedLogLevels = new[] { "error", "info" };
+
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Index()
         {
@@ -48,10 +48,16 @@ namespace WebMarket.Controllers
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
-        public ActionResult Logs()
+        public ActionResult Logs(string logLevel)
         {
+            var level = logLevel.Trim().ToLower();
+            if (!supportedLogLevels.Contains(level))
+            {
+                return View(model:"Log level is not supported");
+            }
+
             string str;
-            using (var stream = new FileStream(Server.MapPath("../info.log"), FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var stream = new FileStream(Server.MapPath(string.Format("../{0}.log", logLevel)), FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 using (var streamReader = new StreamReader(stream))
                 {
@@ -59,7 +65,8 @@ namespace WebMarket.Controllers
                 }
             }
 
-            return View((object)str);
+            var formatted = str.Replace("\r\n", "<br/>");
+            return View(model:formatted);
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
