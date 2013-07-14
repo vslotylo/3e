@@ -1,7 +1,13 @@
 ﻿@model object
 @{
-    ViewBag.Title = "Logs";
+    ViewBag.Title = "Логи";
+}
+@section breadCrumb
+{
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li class="active">@ViewBag.Title</li>
 }
 
-<h2>Logs</h2>
+<span class="lead">@ViewBag.Title</span>
+<hr />
 <div>@Model.ToString()</div>

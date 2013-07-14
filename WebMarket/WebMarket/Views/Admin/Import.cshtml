@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Керування цінами";
 }
+@section breadCrumb
+{
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li class="active">@ViewBag.Title</li>
+}
 @*@section scripts
 {
     <script type="text/javascript">
