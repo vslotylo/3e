@@ -1,0 +1,15 @@
+﻿@model WebMarket.ViewModels.AvrViewModel
+<p>
+    <b>Потужність</b>
+</p>
+<div class="entityFilter" id="powercapacity">
+    @foreach (var item in Model.PowerCapacity)
+    {
+        <label class="checkbox">
+            @Html.CheckBox(item.Name, item.IsSelected)
+            <input type="hidden" class="filterValue" value="@item.Value" />
+            @Html.ActionLink(item.Name, "Index", Model.Filters.UpdateFilter(Model.Filters.GetFilter("powercapacity"), item.Value))
+            <span class="badge">@item.ProductsCount</span>
+        </label>
+    }
+</div>

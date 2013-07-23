@@ -1,0 +1,29 @@
+﻿@model List<WebMarket.DAL.Entities.Callback>
+
+@{
+    ViewBag.Title = "Запити передзвонити";
+}
+@section breadCrumb {
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li class="active">@ViewBag.Title</li>
+}
+<span class="lead">@ViewBag.Title</span>
+<hr />
+@if (Model.Any())
+{
+    <table class="table table-condensed table-bordered table-hover">
+        <thead>
+            <td>Дата</td>
+            <td>Номер</td>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CreateTime</td>
+                    <td>@item.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

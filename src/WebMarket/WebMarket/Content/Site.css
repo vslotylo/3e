@@ -1,0 +1,215 @@
+﻿.unstyled li
+{
+    line-height: 25px;
+}
+
+.priceUah
+{
+    font: Arial;
+    font-size: 1.9em;
+    color: #468847;
+    font-weight: bold;
+}
+
+.priceUahSmall
+{
+    font: Arial;
+    font-size: 14px;
+    line-height: 20px;
+    color: #468847;
+    font-weight: bold;
+}
+
+.priceUsd
+{
+    font: Arial;
+    font-size: 1.25em;
+    color: #468847;
+}
+
+.maincontentregion
+{
+    padding-top: 81px;
+    padding-bottom: 41px;
+}
+
+.carousel
+{
+    margin-bottom: 60px;
+}
+
+    .carousel .container
+    {
+        position: relative;
+        z-index: 9;
+    }
+
+.carousel-control
+{
+    height: 80px;
+    margin-top: 0;
+    font-size: 120px;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    background-color: transparent;
+    border: 0;
+    z-index: 10;
+}
+
+.carousel .item
+{
+    height: 500px;
+}
+
+.carousel img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
+}
+
+.carousel-caption
+{
+    background-color: transparent !important;
+    position: static !important;
+    max-width: 550px;
+    padding: 0 60px;
+    margin-top: 200px;
+}
+
+.caption-right
+{
+    margin-left: 500px;
+}
+    .carousel-caption h1,
+    .carousel-caption .lead
+    {
+        margin: 0;
+        line-height: 1.25;
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+
+    .carousel-caption .btn
+    {
+        margin-top: 10px;
+    }
+
+.carousel-indicators
+{
+    z-index: 15;
+}
+
+.menuitem
+{
+    font: Arial;
+    font-size: 1.4em;
+}
+
+.infotext
+{
+    font: Arial;
+    padding: 5px 0px 0px 300px;
+    font-size: 1.9em;
+    color: #FFFF00;
+    font-weight: bold;
+}
+
+/*.carousel1
+{
+	background-image: url("../Content/images/carousel1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 380px;     
+}*/
+
+.brand
+{
+    padding: 5px 0px 5px 20px !important;
+}
+
+.logo
+{
+    height: 70px;
+}
+
+.navcontainer
+{
+    margin: 10px 0 0 0 !important;
+}
+
+.form-prm
+{
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 300px;
+    padding: 19px 29px 29px;
+}
+
+.thumbnail-inner
+{
+    border: 1px solid #FFFFFF;
+    padding: 0px;
+}
+
+.tileheader
+{
+    color: #999999;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 0px 10px 0px 0px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+#myCarousel
+{
+    margin-top: 20px;
+}
+
+.navbar-inverse .brand, .navbar-inverse .nav > li > a
+{
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+    .navbar-inverse .nav > li > a:focus,
+    .navbar-inverse .nav > li > a:hover
+    {
+        color: #00bfff;
+        background-color: transparent;
+    }
+
+#map_canvas
+{
+    margin: 0;
+    padding: 0;
+    background-color: #E5E3DF;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+    #map_canvas img
+    {
+        max-width: none;
+    }
+
+.map_container label
+{
+    width: auto;
+    display: inline;
+}
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle
+{
+    background-color: #006DCC;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+}

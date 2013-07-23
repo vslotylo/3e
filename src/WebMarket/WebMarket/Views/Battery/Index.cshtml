@@ -1,0 +1,55 @@
+﻿@model WebMarket.Core.FilterViewModelBase<WebMarket.DAL.Entities.Battery>
+@{
+    ViewBag.Title = "Акумулятори";
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/app")
+}
+@section breadCrumb {
+    <li class="active">@ViewBag.Title</li>
+}
+<div>
+    <span class="lead">@ViewBag.Title</span>
+    <span class="pull-right">
+        @Html.Partial("ControlSort", Model.Sort)
+        @Html.Partial("ControlPageSize", Model.PageSize)
+    </span>
+</div>
+<hr />
+<div class="row-fluid">
+    <div class="span3">
+        @if (!Model.Filters.IsEmpty())
+        {
+            <div class="alert alert-block">
+                @Html.Partial("FilterSelectedByProducers", Model.Filters.GetFilter("producers"))
+                @Html.Partial("FilterSelectedByType", Model.Filters.GetFilter("type"))
+                @if (Model.Pagging.List.TotalItemCount != Model.Count)
+                {
+                    <div>
+                        <span class="badge badge-success">@Model.Pagging.List.TotalItemCount</span> <span>з
+                        </span><span class="badge">@Model.Count</span>
+                    </div>
+                }
+                <a href="@Url.Action("Index", @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())">
+                    Забрати всі фільтри</a>
+            </div>
+        }
+        <div class="well">
+            <p>
+                Підбір за параметрами:</p>
+            <div class="entityFilterContainer">
+                @Html.Partial("FilterByProducers", Model.Producers)
+                @Html.Partial("FilterByType", Model.Types)
+            </div>
+            @Html.Partial("FilterButton")
+        </div>
+    </div>
+    <div class="span9">
+        <div>
+            <div>
+                @Html.Partial("ProductListTemplate", Model.Pagging)
+            </div>
+        </div>
+    </div>
+</div>

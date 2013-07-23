@@ -1,0 +1,19 @@
+﻿@model WebMarket.DAL.Entities.Battery
+@{
+    ViewBag.Title = string.Format("Акумулятори: {0}", Model.Name);
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/app")
+    <script type="text/javascript" src="/Content/yoxview/yoxview-init.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".yoxview").yoxview();
+        });
+    </script>
+}
+@section breadCrumb {
+    <li><a href="@Url.Action("Index", "battery")">Акумулятори</a><span class="divider">/</span></li>
+    <li class="active">@Model.Name</li>
+}
+@Html.Partial("ProductDetailTemplate", Model)

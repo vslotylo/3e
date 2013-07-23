@@ -1,0 +1,13 @@
+﻿@model string
+@{
+    ViewBag.Title = "Логи";
+}
+@section breadCrumb
+{
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li class="active">@ViewBag.Title</li>
+}
+
+<span class="lead">@ViewBag.Title</span>
+<hr />
+<div>@Html.Raw(Model)</div>

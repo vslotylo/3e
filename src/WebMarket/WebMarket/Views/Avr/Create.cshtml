@@ -1,0 +1,162 @@
+﻿@model WebMarket.DAL.Entities.Avr
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Avr</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MinWorkingInput)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MinWorkingInput)
+            @Html.ValidationMessageFor(model => model.MinWorkingInput)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxWorkingInput)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxWorkingInput)
+            @Html.ValidationMessageFor(model => model.MaxWorkingInput)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Precision)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Precision)
+            @Html.ValidationMessageFor(model => model.Precision)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MinCutOff)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MinCutOff)
+            @Html.ValidationMessageFor(model => model.MinCutOff)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxCutOff)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxCutOff)
+            @Html.ValidationMessageFor(model => model.MaxCutOff)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Stages)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Stages)
+            @Html.ValidationMessageFor(model => model.Stages)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PowerCapacity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PowerCapacity)
+            @Html.ValidationMessageFor(model => model.PowerCapacity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhaseCount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhaseCount)
+            @Html.ValidationMessageFor(model => model.PhaseCount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Weight)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Weight)
+            @Html.ValidationMessageFor(model => model.Weight)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rate)
+            @Html.ValidationMessageFor(model => model.Rate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Photo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Photo)
+            @Html.ValidationMessageFor(model => model.Photo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsAvailable)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsAvailable)
+            @Html.ValidationMessageFor(model => model.IsAvailable)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Dimension)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Dimension)
+            @Html.ValidationMessageFor(model => model.Dimension)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Warranty)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Warranty)
+            @Html.ValidationMessageFor(model => model.Warranty)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
