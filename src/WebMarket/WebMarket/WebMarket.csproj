@@ -440,6 +440,7 @@
     <Content Include="Content\tiles\avr\Phantom VN-600F.jpg" />
     <Content Include="Content\tiles\avr\Phantom VN-720.jpg" />
     <Content Include="Content\tiles\avr\Phantom Vseries.jpg" />
+    <Content Include="Content\tiles\battery\BB.jpg" />
     <Content Include="Content\tiles\battery\LX 12-100G.jpg" />
     <Content Include="Content\tiles\battery\LX 12-100MG.jpg" />
     <Content Include="Content\tiles\battery\LX 12-105FG.jpg" />
@@ -460,6 +461,7 @@
     <Content Include="Content\tiles\battery\LX 645.jpg" />
     <Content Include="Content\tiles\battery\LX 645B.jpg" />
     <Content Include="Content\tiles\battery\LX 670.jpg" />
+    <Content Include="Content\tiles\battery\Ventura.jpg" />
     <Content Include="Content\tiles\charger\BC-1205.jpg" />
     <Content Include="Content\tiles\charger\BC-1208.jpg" />
     <Content Include="Content\tiles\charger\BC-1210.jpg" />
