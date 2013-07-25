@@ -13,13 +13,13 @@ namespace WebMarket.Core
 
         protected void InitializePager(IQueryable<T> entities)
         {
-            this.ViewModel.Pagging.List = Sorting.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
+            this.ViewModel.Pagging.List = SortingHelper.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
             this.InitializeRoutes();
         }
 
         protected void InitializePager(IEnumerable<T> entities)
         {
-            this.ViewModel.Pagging.List = Sorting.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
+            this.ViewModel.Pagging.List = SortingHelper.ToSortedPagedList<T>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
             this.InitializeRoutes();
         }
 

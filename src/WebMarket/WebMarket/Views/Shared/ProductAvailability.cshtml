@@ -1,0 +1,15 @@
+﻿@using WebMarket.DAL.Entities.Enums
+@model WebMarket.DAL.Entities.Product
+@if (Model.Availability == Availability.Available)
+    
+{
+    <p class="label label-success">Є в наявності</p>
+}
+else if (Model.Availability == Availability.NotAvailable)
+{
+    <p class="label">Немає в наявності</p>
+}
+else if (Model.Availability == Availability.OnDemand)
+{
+    <p class="label label-warning">Під замовлення</p>
+}

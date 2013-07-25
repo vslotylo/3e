@@ -693,7 +693,7 @@
     <Content Include="Views\Shared\FilterSelectedByType.cshtml" />
     <Content Include="Views\Shared\Pager.cshtml" />
     <Content Include="Views\Shared\ProductDetailTemplate.cshtml" />
-    <Content Include="Views\Shared\ProductIsAvailable.cshtml" />
+    <Content Include="Views\Shared\ProductAvailability.cshtml" />
     <Content Include="Views\Shared\ProductListTemplate.cshtml" />
     <Content Include="Views\Shared\ProductPreview.cshtml" />
     <Content Include="Views\Shared\ProductPreviewSmall.cshtml" />

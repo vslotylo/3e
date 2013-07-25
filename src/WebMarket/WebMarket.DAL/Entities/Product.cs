@@ -65,8 +65,8 @@ namespace WebMarket.DAL.Entities
         public string Dimension { get; set; }
         public int Warranty { get; set; }
         public int Type { get; set; }
-        
-        public bool IsAvailable { get; set; }
+
+        public Availability Availability { get; set; }
         public bool IsTopBuyed { get; set; }
         public bool IsNew { get; set; }
         public double Discount { get; set; }

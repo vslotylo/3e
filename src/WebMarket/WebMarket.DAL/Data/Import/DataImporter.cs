@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -23,14 +22,17 @@ namespace WebMarket.DAL.Data.Import
                 {
                     var excelDocument = new ExcelPackage(stream);
                     var entityImporter = new EntityImporter(context.Producers.ToList());
-                    var minfoInport = entityImporter.GetType().GetMethods().FirstOrDefault(obj=>obj.Name.ToLower()=="import" && obj.IsGenericMethod);
+                    var minfoImport = entityImporter.GetType().GetMethods().FirstOrDefault(obj=>obj.Name.ToLower()=="import" && obj.IsGenericMethod);
                     var minfoSet = context.GetType().GetMethods().FirstOrDefault(obj => obj.Name.ToLower() == "set" && obj.IsGenericMethod);
 
                     Type typeDbSet = typeof(DbSet<>);
                     Type typeOfEntity;
                     Type genDbSet;
                     object dbSetObj;
-                    foreach (var typeName in excelDocument.Workbook.Worksheets.Select(item => item.Name))
+                    var sheets =
+                        excelDocument.Workbook.Worksheets.Where(
+                            obj => string.Compare(obj.Name, "metadata", StringComparison.InvariantCultureIgnoreCase) != 0).Select(item => item.Name);
+                    foreach (var typeName in sheets)
                     {
                         typeOfEntity = Type.GetType(string.Format(EntetiesNamespace, typeName));
                         if (typeOfEntity == null)
@@ -38,7 +40,7 @@ namespace WebMarket.DAL.Data.Import
                             throw new EntityImportException(string.Format("Could not find type for entity \"{0}\"", typeName));
                         }
 
-                        var entitiesObj = minfoInport.MakeGenericMethod(typeOfEntity).Invoke(entityImporter, new object[] { excelDocument });
+                        var entitiesObj = minfoImport.MakeGenericMethod(typeOfEntity).Invoke(entityImporter, new object[] { excelDocument });
                         genDbSet = typeDbSet.MakeGenericType(typeOfEntity);
                         dbSetObj = minfoSet.MakeGenericMethod(typeOfEntity).Invoke(context, null);
                         

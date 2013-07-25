@@ -9,7 +9,7 @@ using WebMarket.DAL.Entities.Enums;
 
 namespace WebMarket.Helpers
 {
-    public static class Sorting
+    public static class SortingHelper
     {
         public static IPagedList<T> ToSortedPagedList<T>(IQueryable<T> collection, Sort sortingMode, int pageSize, int currentPage) where T : Product 
         {
@@ -23,17 +23,17 @@ namespace WebMarket.Helpers
             {
                 case Sort.PriceAsc:
                     {
-                        collection = collection.OrderBy(SortByUsd<T>()).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderBy(SortByUsd<T>()).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.PriceDesc:
                     {
-                        collection = collection.OrderByDescending(SortByUsd<T>()).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderByDescending(SortByUsd<T>()).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.RateDesc:
                     {
-                        collection = collection.OrderBy(o => o.IsAvailable).OrderByDescending(o => o.Rate);
+                        collection = collection.OrderBy(o => o.Availability).OrderByDescending(o => o.Rate);
                         break;
                     }
             }
@@ -53,17 +53,17 @@ namespace WebMarket.Helpers
             {
                 case Sort.PriceAsc:
                     {
-                        collection = collection.OrderBy(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderBy(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.PriceDesc:
                     {
-                        collection = collection.OrderByDescending(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.IsAvailable).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderByDescending(p => p.Producer.BuyCurrency == Currency.Usd ? p.Price / p.Producer.UsdRate : p.Price).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.RateDesc:
                     {
-                        collection = collection.OrderBy(o => o.IsAvailable).OrderByDescending(o => o.Rate);
+                        collection = collection.OrderBy(o => o.Availability).OrderByDescending(o => o.Rate);
                         break;
                     }
             }
