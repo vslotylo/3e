@@ -232,6 +232,13 @@
     max-width: 320px;
 }
 
+.details-image2 {
+    height: auto;
+    width: auto;
+    max-height: 240px;
+    max-width: 240px;
+}
+
 .image-wrap {
     border: 1px solid #C6C6C6;
     position: relative;
@@ -243,11 +250,10 @@
 }
 
 .image-wrap2 {
-    
+   
     position: relative;
-    
-    padding: 1px;
-    
+    width: 240px;
+    height: 240px;
     vertical-align: middle;
     text-align: center;
 }
