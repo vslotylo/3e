@@ -12,7 +12,7 @@ namespace WebMarket.Extensions
 {
     public static class CssClassReslover
     {
-        public static string GetCssClassForOrderStatus(this HtmlHelper<List<Order>> helper, OrderStatus status)
+        public static string CssClass(this OrderStatus status)
         {
             switch (status)
             {
@@ -33,12 +33,30 @@ namespace WebMarket.Extensions
             return string.Empty;
         }
 
+        public static string CssRibbonClass(this Product product)
+        {
+            if (product.IsNew)
+            {
+                return "ribbon-new";
+            }
+
+            if (product.IsTopBuyed)
+            {
+                return "ribbon-top";
+            }
+
+            if (product.Discount > 0)
+            {
+                return "ribbon-sale";
+            }
+            
+            return string.Empty;
+        }
+
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType)
         {
-            var list = new List<SelectListItem>();
             Dictionary<string, string> enumItems = enumType.GetDescription();
-            foreach (KeyValuePair<string, string> pair in enumItems)
-                list.Add(new SelectListItem() { Value = pair.Key, Text = pair.Value });
+            var list = enumItems.Select(pair => new SelectListItem { Value = pair.Key, Text = pair.Value }).ToList();
             return htmlHelper.DropDownListFor(expression, list);
         }
 

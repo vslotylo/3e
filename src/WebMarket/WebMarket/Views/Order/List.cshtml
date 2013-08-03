@@ -24,7 +24,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="@Html.GetCssClassForOrderStatus(item.Status)">
+                <tr class="@item.Status.CssClass()">
                     <td>@item.Id</td>
                     <td>@item.User</td>
                     <td>@item.Phone</td>

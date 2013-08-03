@@ -110,7 +110,7 @@
 .infotext
 {
     font: Arial;
-    padding: 5px 0px 0px 300px;
+    padding: 5px 0 0 300px;
     font-size: 1.9em;
     color: #FFFF00;
     font-weight: bold;
@@ -212,4 +212,76 @@
     background-color: #006DCC;
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
+}
+
+.details-image-wrap {
+    
+    width: 320px;
+    height: 320px;
+    
+}
+
+.details-image-link {
+    vertical-align: middle;
+}
+
+.details-image {
+    height: auto;
+    width: auto;
+    max-height: 320px;
+    max-width: 320px;
+}
+
+.image-wrap {
+    border: 1px solid #C6C6C6;
+    position: relative;
+    width: 320px;
+    padding: 1px;
+    height: 320px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.image-wrap2 {
+    
+    position: relative;
+    
+    padding: 1px;
+    
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ribbon {
+    float: left;
+    display: block;
+    height: 128px;
+    width: 128px;
+    position: absolute;
+    z-index: 1;
+}
+
+.ribbon.ribbon-details {
+    top: -5px;
+    left: -5px;
+}
+
+.ribbon.ribbon-list {
+    top: -10px;
+    left: -10px;
+}
+
+.ribbon-new {
+     background-image: url("../Content/images/sprite.png");
+     background-position: 0 0;
+}
+
+.ribbon-top {
+     background-image: url("../Content/images/sprite.png");
+     background-position: 384px 0;
+}
+
+.ribbon-sale {
+     background-image: url("../Content/images/sprite.png");
+     background-position: 256px 0;
 }

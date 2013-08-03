@@ -1,4 +1,5 @@
 ﻿@model WebMarket.Core.PagingViewModel
+@using WebMarket.Extensions
 @if (!Model.List.Any())
 {
     <div class="alert alert-info">
@@ -13,7 +14,10 @@ else
     <div class="thumbnail">
         <div class="row-fluid">
             <div class="span4">
-                @Html.Partial("ProductPreview", item)
+                <div class="image-wrap2">
+                    <span class="ribbon ribbon-list @item.CssRibbonClass()"></span>
+                    @Html.Partial("ProductImageLink", item)
+                </div>
             </div>
             <div class="span8">
                 <ul class="unstyled">
