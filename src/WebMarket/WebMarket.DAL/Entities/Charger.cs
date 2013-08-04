@@ -4,8 +4,8 @@
     {
         public Charger()
         {
-            types.Add("Звичайні");
-            types.Add("Потужні");        
+            this.Types.Add("Звичайні");
+            this.Types.Add("Потужні");        
         }
 
         public string OutputVoltage { get; set; }

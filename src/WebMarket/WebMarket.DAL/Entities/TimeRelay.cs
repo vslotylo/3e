@@ -4,7 +4,7 @@
     {
         public TimeRelay()
         {
-            types.Add("Звичайні");
+            this.Types.Add("Звичайні");
         }
     }
 }

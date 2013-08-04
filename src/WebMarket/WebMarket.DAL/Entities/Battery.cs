@@ -6,8 +6,8 @@ namespace WebMarket.DAL.Entities
     {
         public Battery()
         {
-            types.Add("Кислотно-лужні");
-            types.Add("Гелеві");        
+            this.Types.Add("Кислотно-лужні");
+            this.Types.Add("Гелеві");        
         }
 
         public double Voltage { get; set; }
@@ -18,11 +18,11 @@ namespace WebMarket.DAL.Entities
             base.InitializeProductInfos();
             if(Voltage > 0)
             {
-                infos.Add(new ProductInfo { Name = "Напруга", Value = string.Format("{0} {1}", this.Voltage, "В")});
+                this.Infos.Add(new ProductInfo { Name = "Напруга", Value = string.Format("{0} {1}", this.Voltage, "В")});
             }
             if (Volume > 0)
             {
-                infos.Add(new ProductInfo { Name = "Ємність", Value = string.Format("{0} {1}", this.Volume, "A/г") });
+                this.Infos.Add(new ProductInfo { Name = "Ємність", Value = string.Format("{0} {1}", this.Volume, "A/г") });
             }            
         }
     }

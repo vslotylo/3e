@@ -14,19 +14,19 @@ namespace WebMarket.DAL.Entities
             base.InitializeProductInfos();
             if (!string.IsNullOrEmpty(MinOperationValue))
             {
-                infos.Add(new ProductInfo { Name = "Нижній діапозан відключення", Value = string.Format("{0} В", MinOperationValue), IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Нижній діапозан відключення", Value = string.Format("{0} В", MinOperationValue), IsPreview = true });
             }
             if (!string.IsNullOrEmpty(MaxOperationValue))
             {
-                infos.Add(new ProductInfo { Name = "Верхній діапозан відключення", Value = string.Format("{0} В", MaxOperationValue), IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Верхній діапозан відключення", Value = string.Format("{0} В", MaxOperationValue), IsPreview = true });
             }
             if (!string.IsNullOrEmpty(MeasurementError))
             {
-                infos.Add(new ProductInfo { Name = "Погрішність вимірювання", Value = MeasurementError, IsPreview = false });
+                this.Infos.Add(new ProductInfo { Name = "Погрішність вимірювання", Value = MeasurementError, IsPreview = false });
             }
             if (!string.IsNullOrEmpty(MeasurementError))
             {
-                infos.Add(new ProductInfo { Name = "Погрішність індикації", Value = MeasurementError, IsPreview = false });
+                this.Infos.Add(new ProductInfo { Name = "Погрішність індикації", Value = MeasurementError, IsPreview = false });
             }
         }
     }

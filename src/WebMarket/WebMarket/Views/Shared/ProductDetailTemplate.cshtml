@@ -26,10 +26,7 @@
             <li>
                 <div class="row-fluid">
                     <div class="span4">
-                        <div class="priceUah">@Model.PriceUah грн.</div>
-                        <div class="priceUsd">
-                            $ @Model.PriceUsd
-                        </div>
+                        @Html.Partial("PriceTemplate", Model)
                     </div>
                     <div class="span3">
                         @Html.Partial("ProductRate", Model)

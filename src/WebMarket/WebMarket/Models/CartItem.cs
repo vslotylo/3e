@@ -10,7 +10,7 @@ namespace WebMarket.Models
         {
             get
             {
-                return this.Quantity * this.Product.PriceUah;
+                return this.Quantity * this.Product.CalculatedPrice.PriceFinalUah;
             }
         }
     }

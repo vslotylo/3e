@@ -4,7 +4,7 @@
     {
         public Converter()
         {
-            types.Add("Звичайні");
+            this.Types.Add("Звичайні");
         }
 
         public double MaxChargingCurrent { get; set; }

@@ -6,8 +6,8 @@ namespace WebMarket.DAL.Entities
     {
         public VoltageRelay()
         {
-            types.Add("Побутові однофазні");
-            types.Add("Побутові трифазні");
+            this.Types.Add("Побутові однофазні");
+            this.Types.Add("Побутові трифазні");
         }
 
         public double FullLoadCurrent { get; set; }
@@ -20,27 +20,27 @@ namespace WebMarket.DAL.Entities
             base.InitializeProductInfos();
             if (NominalCurrent > 0)
             {
-                infos.Add(new ProductInfo { Name = "Номіналий струм", Value = string.Format("{0}A", NominalCurrent), IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Номіналий струм", Value = string.Format("{0}A", NominalCurrent), IsPreview = true });
             }
             if (FullLoadPowerCapacity > 0)
             {
-                infos.Add(new ProductInfo { Name = "Максимальний струм на контактах", Value = string.Format("{0}A", FullLoadCurrent), IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Максимальний струм на контактах", Value = string.Format("{0}A", FullLoadCurrent), IsPreview = true });
             }
             if (FullLoadCurrent > 0)
             {
-                infos.Add(new ProductInfo { Name = "Максимальний напруга на контактах", Value = string.Format("{0}кВт", FullLoadPowerCapacity), IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Максимальний напруга на контактах", Value = string.Format("{0}кВт", FullLoadPowerCapacity), IsPreview = true });
             }
             if (!string.IsNullOrEmpty(UpperLimitClearance))
             {
-                infos.Add(new ProductInfo { Name = "Час відключення по верхній межі", Value = UpperLimitClearance, IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Час відключення по верхній межі", Value = UpperLimitClearance, IsPreview = true });
             }
             if (!string.IsNullOrEmpty(LowerLimitClearance))
             {
-                infos.Add(new ProductInfo { Name = "Час відключення по нижній межі", Value = LowerLimitClearance, IsPreview = true });
+                this.Infos.Add(new ProductInfo { Name = "Час відключення по нижній межі", Value = LowerLimitClearance, IsPreview = true });
             }
             if (!string.IsNullOrEmpty(DisplayVoltageRange))
             {
-                infos.Add(new ProductInfo { Name = "Напруга, що вимірються", Value = DisplayVoltageRange, IsPreview = false });
+                this.Infos.Add(new ProductInfo { Name = "Напруга, що вимірються", Value = DisplayVoltageRange, IsPreview = false });
             }
         }
     }

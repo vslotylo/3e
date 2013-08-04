@@ -4,9 +4,9 @@
     {
         public Ups()
         {
-            types.Add("Компютерні");
-            types.Add("Інтерактивні");
-            types.Add("On-line");            
+            this.Types.Add("Компютерні");
+            this.Types.Add("Інтерактивні");
+            this.Types.Add("On-line");            
         }
 
         public double BatteryVoltage {get;set;}

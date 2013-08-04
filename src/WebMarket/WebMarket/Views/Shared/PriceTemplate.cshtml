@@ -1,0 +1,13 @@
+﻿@model WebMarket.DAL.Entities.Product
+
+@if (Model.Discount > 0)
+{
+    <div class="oldprice">
+        @Model.CalculatedPrice.PriceUah грн.
+    </div>
+}
+
+<div class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
+<div class="priceUsd">
+    $ @Model.CalculatedPrice.PriceFinalUsd
+</div>

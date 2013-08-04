@@ -720,6 +720,7 @@
     <Content Include="Views\Admin\Logs.cshtml" />
     <Content Include="Views\Shared\ProductImage.cshtml" />
     <Content Include="Views\Shared\ProductImageLink.cshtml" />
+    <Content Include="Views\Shared\PriceTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

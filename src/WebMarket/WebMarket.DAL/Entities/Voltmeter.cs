@@ -4,8 +4,8 @@
     {
         public Voltmeter()
         {
-            types.Add("AC");
-            types.Add("DC");
+            this.Types.Add("AC");
+            this.Types.Add("DC");
         }
     }
 }

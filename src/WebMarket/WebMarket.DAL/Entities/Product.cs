@@ -7,14 +7,82 @@ using WebMarket.DAL.Interfaces;
 
 namespace WebMarket.DAL.Entities
 {
+    public class Price
+    {
+        private Product product;
+
+        public Price(Product product)
+        {
+            this.product = product;
+        }
+
+        public double PriceUah
+        {
+            get
+            {
+                double uahPrice = product.Price;
+                if (product.Producer.BuyCurrency == (int)Currency.Usd)
+                {
+                    uahPrice = Math.Round(uahPrice * product.Producer.UsdRate);
+                }
+
+                return uahPrice;
+            }
+        }
+
+        public double PriceUsd
+        {
+            get
+            {
+                double usdPrice = product.Price;
+                if (product.Producer.BuyCurrency == Currency.Uah)
+                {
+                    usdPrice = Math.Round(usdPrice / product.Producer.UsdRate);
+                }
+
+                return usdPrice;
+            }
+        }
+
+        public double PriceFinalUah
+        {
+            get
+            {
+                double priceFinalUah = PriceUah;
+                if (product.Discount > 0 && product.Discount < 100)
+                {
+                    priceFinalUah = Math.Round((100 - product.Discount) * priceFinalUah / 100);
+                }
+
+                return priceFinalUah;
+            }
+        }
+
+        public double PriceFinalUsd
+        {
+            get
+            {
+                double priceFinalUsd = PriceUsd;
+                if (product.Discount > 0 && product.Discount < 100)
+                {
+                    priceFinalUsd *= Math.Round((100 - product.Discount) * priceFinalUsd / 100);
+                }
+
+                return priceFinalUsd;
+            }
+        }
+    }
+
     public class Product : IPreviewInfo
     {
-        protected readonly List<ProductInfo> infos = new List<ProductInfo>();
-        protected readonly List<string> types = new List<string>();
+        protected readonly List<ProductInfo> Infos = new List<ProductInfo>();
+        protected readonly List<string> Types = new List<string>();
+        private Price price;
 
         public Product()
         {
-            Photo = string.Empty;            
+            Photo = string.Empty; 
+            price = new Price(this);
         }
 
         public string ProductId { get { return ProductManager.GetProductId(this); } }
@@ -28,33 +96,7 @@ namespace WebMarket.DAL.Entities
                 return this.GetType().Name.ToLower();
             }
         }
-        public double PriceUsd
-        {
-            get
-            {
-                double usdPrice = Price;
-                if (Producer.BuyCurrency == Currency.Uah)
-                {
-                    usdPrice = Math.Round(Price / Producer.UsdRate);
-                }
-
-                return usdPrice;
-            }
-        }
-        public double PriceUah
-        {
-            get
-            {
-                double uahPrice = Price;
-                if (Producer.BuyCurrency == (int)Currency.Usd)
-                {
-                    uahPrice = Math.Round(Price * Producer.UsdRate);
-                }
-
-                return uahPrice;
-            }
-        }
-
+        
         public double Weight { get; set; }
         public double Rate { get; set; }
         public string Photo { get; set; }
@@ -65,6 +107,13 @@ namespace WebMarket.DAL.Entities
         public string Dimension { get; set; }
         public int Warranty { get; set; }
         public int Type { get; set; }
+        public Price CalculatedPrice
+        {
+            get
+            {
+                return price;
+            }
+        }
 
         public Availability Availability { get; set; }
         public DisplayClass DisplayClass  { get; set; }
@@ -187,19 +236,19 @@ namespace WebMarket.DAL.Entities
 
         protected virtual void InitializeProductInfos()
         {
-            infos.Add(new ProductInfo { Name = "Модель", Value = Name });
-            infos.Add(new ProductInfo { Name = "Тип", Value = TypeString });
-            infos.Add(new ProductInfo { Name = "Виробник", Value = Producer.Name });                
+            this.Infos.Add(new ProductInfo { Name = "Модель", Value = Name });
+            this.Infos.Add(new ProductInfo { Name = "Тип", Value = TypeString });
+            this.Infos.Add(new ProductInfo { Name = "Виробник", Value = Producer.Name });                
         }
 
         public IList<ProductInfo> GetAllProductInfo()
         {
-            if (infos.Count == 0)
+            if (this.Infos.Count == 0)
             {
                 InitializeProductInfos();
             }
 
-            return infos;
+            return this.Infos;
         }
 
         public string GetProductPreviewInfo()
@@ -211,7 +260,7 @@ namespace WebMarket.DAL.Entities
         {
             get
             {
-                return types[this.Type];
+                return this.Types[this.Type];
             }
         }
     }

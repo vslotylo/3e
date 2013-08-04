@@ -4,9 +4,9 @@
     {
         public TemperatureRelay()
         {
-            types.Add("Одноканальні");
-            types.Add("Двоканальні");
-            types.Add("Триканальні");
+            this.Types.Add("Одноканальні");
+            this.Types.Add("Двоканальні");
+            this.Types.Add("Триканальні");
         }
     }
 }

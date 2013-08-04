@@ -11,7 +11,7 @@ namespace WebMarket.DAL.Entities
             base.InitializeProductInfos();
             if (!string.IsNullOrEmpty(InputRange))
             {
-                infos.Add(new ProductInfo { Name = "Напруга на вході приладу", Value = InputRange, IsPreview = false });
+                this.Infos.Add(new ProductInfo { Name = "Напруга на вході приладу", Value = InputRange, IsPreview = false });
             }
         }
     }

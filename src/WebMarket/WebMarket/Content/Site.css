@@ -11,6 +11,12 @@
     font-weight: bold;
 }
 
+.oldprice {
+    color: #B2B2B2;
+    font-size: 1.4em;
+    text-decoration: line-through;
+}
+
 .priceUahSmall
 {
     font: Arial;

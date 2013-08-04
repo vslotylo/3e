@@ -27,8 +27,8 @@
                     <input id="count" type="number" class="input-mini" value="1">
                     <span class="help-inline">шт.</span>
                 </div>
-                <input id="originalPrice" type="hidden" value="@Model.PriceUah" />
-                <div id="price" class="priceUah">@Model.PriceUah грн.</div>
+                <input id="originalPrice" type="hidden" value="@Model.CalculatedPrice.PriceFinalUah" />
+                <div id="price" class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
             </div>
         </div>
     </div>
