@@ -65,7 +65,7 @@ namespace WebMarket.DAL.Entities
                 double priceFinalUsd = PriceUsd;
                 if (product.Discount > 0 && product.Discount < 100)
                 {
-                    priceFinalUsd *= Math.Round((100 - product.Discount) * priceFinalUsd / 100);
+                    priceFinalUsd = Math.Round((100 - product.Discount) * priceFinalUsd / 100);
                 }
 
                 return priceFinalUsd;
