@@ -35,22 +35,25 @@ namespace WebMarket.Extensions
 
         public static string CssRibbonClass(this Product product)
         {
-            if (product.IsNew)
-            {
-                return "ribbon-new";
-            }
-
-            if (product.IsTopBuyed)
-            {
-                return "ribbon-top";
-            }
-
             if (product.Discount > 0)
             {
                 return "ribbon-sale";
             }
-            
-            return string.Empty;
+
+            switch (product.DisplayClass)
+            {
+                case DisplayClass.New:
+                    return "ribbon-new";
+                case DisplayClass.TopBuyed:
+                    return "ribbon-top";
+                case DisplayClass.BestPrice:
+                    return "ribbon-bestprice";
+                case DisplayClass.OurChoise:
+                    return "ribbon-ourchoise";
+                case DisplayClass.None:
+                    return string.Empty;
+                default: return string.Empty;
+            }
         }
 
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, Type enumType)

@@ -67,8 +67,7 @@ namespace WebMarket.DAL.Entities
         public int Type { get; set; }
 
         public Availability Availability { get; set; }
-        public bool IsTopBuyed { get; set; }
-        public bool IsNew { get; set; }
+        public DisplayClass DisplayClass  { get; set; }
         public double Discount { get; set; }
         public string Info { get; set; }
         private Dictionary<string, string> parsedInfo;
