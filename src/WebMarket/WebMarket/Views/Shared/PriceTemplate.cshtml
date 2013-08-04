@@ -2,9 +2,11 @@
 
 @if (Model.Discount > 0)
 {
-    <div class="oldprice">
-        @Model.CalculatedPrice.PriceUah грн.
+    <div>
+        <span class="oldprice">@Model.CalculatedPrice.PriceUah грн.</span>
+        <span class="discount">- @Model.Discount %</span>
     </div>
+    
 }
 
 <div class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>

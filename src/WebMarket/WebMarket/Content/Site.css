@@ -17,6 +17,11 @@
     text-decoration: line-through;
 }
 
+.discount {
+    color: #FF0000;
+    font-size: 1.4em;
+}
+
 .priceUahSmall
 {
     font: Arial;
