@@ -35,11 +35,6 @@ namespace WebMarket.Extensions
 
         public static string CssRibbonClass(this Product product)
         {
-            if (product.Discount > 0)
-            {
-                return "ribbon-sale";
-            }
-
             switch (product.DisplayClass)
             {
                 case DisplayClass.New:
@@ -50,9 +45,15 @@ namespace WebMarket.Extensions
                     return "ribbon-bestprice";
                 case DisplayClass.OurChoise:
                     return "ribbon-ourchoise";
-                case DisplayClass.None:
-                    return string.Empty;
-                default: return string.Empty;
+                default:
+                    {
+                        if (product.Discount > 0)
+                        {
+                            return "ribbon-sale";
+                        }
+
+                        return string.Empty;
+                    }
             }
         }
 

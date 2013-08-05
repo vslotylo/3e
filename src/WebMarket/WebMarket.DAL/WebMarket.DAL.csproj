@@ -80,6 +80,7 @@
     <Compile Include="Entities\VoltageRelay.cs" />
     <Compile Include="Entities\Voltmeter.cs" />
     <Compile Include="Exceptions\EntityImportException.cs" />
+    <Compile Include="Infrustructure\Price.cs" />
     <Compile Include="Interfaces\IPreviewInfo.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderItem.cs" />

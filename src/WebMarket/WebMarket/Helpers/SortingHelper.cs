@@ -23,17 +23,17 @@ namespace WebMarket.Helpers
             {
                 case Sort.PriceAsc:
                     {
-                        collection = collection.OrderBy(SortByUsd<T>()).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderBy(o => o.Availability).ThenBy(SortByUsd<T>()).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.PriceDesc:
                     {
-                        collection = collection.OrderByDescending(SortByUsd<T>()).ThenBy(o => o.Availability).ThenByDescending(o => o.Rate);
+                        collection = collection.OrderBy(o => o.Availability).ThenByDescending(SortByUsd<T>()).ThenByDescending(o => o.Rate);
                         break;
                     }
                 case Sort.RateDesc:
                     {
-                        collection = collection.OrderBy(o => o.Availability).OrderByDescending(o => o.Rate);
+                        collection = collection.OrderBy(o => o.Availability).ThenByDescending(o => o.Rate);
                         break;
                     }
             }

@@ -7,77 +7,11 @@ using WebMarket.DAL.Interfaces;
 
 namespace WebMarket.DAL.Entities
 {
-    public class Price
-    {
-        private Product product;
-
-        public Price(Product product)
-        {
-            this.product = product;
-        }
-
-        public double PriceUah
-        {
-            get
-            {
-                double uahPrice = product.Price;
-                if (product.Producer.BuyCurrency == (int)Currency.Usd)
-                {
-                    uahPrice = Math.Round(uahPrice * product.Producer.UsdRate);
-                }
-
-                return uahPrice;
-            }
-        }
-
-        public double PriceUsd
-        {
-            get
-            {
-                double usdPrice = product.Price;
-                if (product.Producer.BuyCurrency == Currency.Uah)
-                {
-                    usdPrice = Math.Round(usdPrice / product.Producer.UsdRate);
-                }
-
-                return usdPrice;
-            }
-        }
-
-        public double PriceFinalUah
-        {
-            get
-            {
-                double priceFinalUah = PriceUah;
-                if (product.Discount > 0 && product.Discount < 100)
-                {
-                    priceFinalUah = Math.Round((100 - product.Discount) * priceFinalUah / 100);
-                }
-
-                return priceFinalUah;
-            }
-        }
-
-        public double PriceFinalUsd
-        {
-            get
-            {
-                double priceFinalUsd = PriceUsd;
-                if (product.Discount > 0 && product.Discount < 100)
-                {
-                    priceFinalUsd = Math.Round((100 - product.Discount) * priceFinalUsd / 100);
-                }
-
-                return priceFinalUsd;
-            }
-        }
-    }
-
     public class Product : IPreviewInfo
     {
         protected readonly List<ProductInfo> Infos = new List<ProductInfo>();
         protected readonly List<string> Types = new List<string>();
-        private Price price;
+        private readonly Price price;
 
         public Product()
         {
