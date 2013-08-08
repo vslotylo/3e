@@ -6,7 +6,8 @@
         {
             this.Types.Add("Компютерні");
             this.Types.Add("Інтерактивні");
-            this.Types.Add("On-line");            
+            this.Types.Add("On-line");
+            this.Types.Add("ББЖ-зарядки");
         }
 
         public double BatteryVoltage {get;set;}

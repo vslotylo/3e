@@ -51,7 +51,7 @@ namespace WebMarket.DAL.Data.Import
                         
                         foreach (var entity in entitiesObj as IEnumerable)
                         {
-                            var name = typeOfEntity.GetProperty("Name").GetValue(entity).ToString();
+                            var name = typeOfEntity.GetProperty("Name").GetValue(entity).ToString().Trim();
                             var foundEntity = entities.SingleOrDefault(obj =>
                                 { 
                                     string temp = obj.Name.ToString();

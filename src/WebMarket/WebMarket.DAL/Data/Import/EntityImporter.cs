@@ -67,7 +67,7 @@ namespace WebMarket.DAL.Data.Import
                     }
                     else if (propertyType == typeof(string))
                     {
-                        propertyValue = value.ToString();
+                        propertyValue = value.ToString().Trim();
                     }
                     else if (propertyType == typeof(Producer))
                     {
