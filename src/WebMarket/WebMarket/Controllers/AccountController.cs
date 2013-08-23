@@ -54,7 +54,7 @@ namespace WebMarket.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("index", "home");
         }
 
         //
@@ -81,7 +81,7 @@ namespace WebMarket.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("index", "home");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -340,7 +340,7 @@ namespace WebMarket.Controllers
                 return this.RedirectToAction("Index", "admin");
             }
 
-            return this.RedirectToAction("Index", "home");
+            return RedirectToAction("index", "home");
         }
 
         public enum ManageMessageId

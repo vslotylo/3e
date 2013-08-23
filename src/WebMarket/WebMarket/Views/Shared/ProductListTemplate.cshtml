@@ -45,7 +45,7 @@ else
                             <div class="span1">
                             </div>
                             <div class="span3">
-                                <a class="btn btn-primary pull-right" href="@Url.Action("details", item.CategoryName, new { id = item.Id })">Деталі»</a>
+                                <a class="btn btn-primary pull-right" href="@Url.RouteUrl("categoryAction", new { category = item.CategoryName, name = item.Name, action="details" })">Деталі»</a>
                             </div>
                         </div>
                     </li>

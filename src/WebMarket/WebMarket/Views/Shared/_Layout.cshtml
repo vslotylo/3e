@@ -23,7 +23,7 @@
                     @if (ViewBag.ShowBreadCrumb == null || ViewBag.ShowBreadCrumb == true)
                     {
                         <ul class="breadcrumb">
-                            <li><a href="@Url.Action("Index", "home")">Головна</a><span class="divider">/</span></li>
+                            <li><a href="@Url.Action("index", "home")">Головна</a><span class="divider">/</span></li>
                             @RenderSection("breadCrumb", required: false)
                         </ul>
                     }
