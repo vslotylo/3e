@@ -24,7 +24,7 @@ else
                     <li>
                         <div class="row-fluid">
                             <div class="span8">
-                                <h4>@Html.ActionLink(item.Name, "details", item.Controller, new { id = item.Id }, null)</h4>
+                                <h4>@Html.RouteLink(item.Name, "categoryAction", new { category = item.CategoryName, name = item.Name, action="details" })</h4>
                             </div>
                             <div class="span3">
                                 <span class="muted pull-right">Код: @item.ProductId</span>
@@ -45,7 +45,7 @@ else
                             <div class="span1">
                             </div>
                             <div class="span3">
-                                <a class="btn btn-primary pull-right" href="@Url.Action("details", item.Controller, new { id = item.Id })">Деталі»</a>
+                                <a class="btn btn-primary pull-right" href="@Url.Action("details", item.CategoryName, new { id = item.Id })">Деталі»</a>
                             </div>
                         </div>
                     </li>

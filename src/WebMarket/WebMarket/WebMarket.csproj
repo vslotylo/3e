@@ -185,32 +185,37 @@
     <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AvrController.cs" />
-    <Compile Include="Controllers\BatteryController.cs" />
+    <None Include="Content\metadata\metadata.csv" />
+    <Compile Include="Controllers\AccountController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AdminController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\CartController.cs" />
-    <Compile Include="Controllers\ChargerController.cs" />
-    <Compile Include="Controllers\ConverterController.cs" />
-    <Compile Include="Controllers\CurrentRelayController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\TemperatureRelayController.cs" />
-    <Compile Include="Controllers\TimeRelayController.cs" />
-    <Compile Include="Controllers\UpsController.cs" />
-    <Compile Include="Controllers\VoltageRelayController.cs" />
-    <Compile Include="Controllers\VoltmeterController.cs" />
-    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Core\DetailsViewModel.cs" />
     <Compile Include="Core\FilterList.cs" />
     <Compile Include="Core\FilterViewModelBase.cs" />
     <Compile Include="Core\GenericFilterModel.cs" />
-    <Compile Include="Core\ListControllerBase.cs" />
+    <Compile Include="Controllers\ListControllerBase.cs" />
+    <Compile Include="Core\MetadataProvider.cs" />
     <Compile Include="Core\PagingViewModel.cs" />
     <Compile Include="Core\SortingMode.cs" />
+    <Compile Include="Core\Metadata.cs" />
     <Compile Include="Extensions\CssClassReslover.cs" />
     <Compile Include="Extensions\FormatExtensions.cs" />
-    <Compile Include="Filters\FilterSceleton.cs" />
+    <Compile Include="Filters\CategoryFilter.cs" />
+    <Compile Include="Filters\FilterBase.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\PageFilter.cs" />
     <Compile Include="Filters\PageSizeFilter.cs" />
@@ -228,6 +233,7 @@
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AvrViewModel.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
     <Compile Include="ViewModels\PagingViewModel.cs" />
   </ItemGroup>
@@ -772,33 +778,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Avr\Create.cshtml" />
-    <Content Include="Views\Avr\Delete.cshtml" />
-    <Content Include="Views\Avr\Details.cshtml" />
-    <Content Include="Views\Avr\Edit.cshtml" />
-    <Content Include="Views\Avr\Index.cshtml" />
-    <Content Include="Views\Battery\Create.cshtml" />
-    <Content Include="Views\Battery\Delete.cshtml" />
-    <Content Include="Views\Battery\Details.cshtml" />
-    <Content Include="Views\Battery\Edit.cshtml" />
-    <Content Include="Views\Battery\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Charger\Create.cshtml" />
-    <Content Include="Views\Charger\Delete.cshtml" />
-    <Content Include="Views\Charger\Details.cshtml" />
-    <Content Include="Views\Charger\Edit.cshtml" />
-    <Content Include="Views\Charger\Index.cshtml" />
-    <Content Include="Views\Converter\Create.cshtml" />
-    <Content Include="Views\Converter\Delete.cshtml" />
-    <Content Include="Views\Converter\Details.cshtml" />
-    <Content Include="Views\Converter\Edit.cshtml" />
-    <Content Include="Views\Converter\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Ups\Create.cshtml" />
-    <Content Include="Views\Ups\Delete.cshtml" />
-    <Content Include="Views\Ups\Details.cshtml" />
-    <Content Include="Views\Ups\Edit.cshtml" />
-    <Content Include="Views\Ups\Index.cshtml" />
     <Content Include="Views\Shared\AddToCartModal.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -817,32 +798,7 @@
     <Content Include="Views\Shared\ProductListTemplate.cshtml" />
     <Content Include="Views\Shared\ProductPreview.cshtml" />
     <Content Include="Views\Shared\ProductPreviewSmall.cshtml" />
-    <Content Include="Views\VoltageRelay\Index.cshtml" />
-    <Content Include="Views\VoltageRelay\Details.cshtml" />
-    <Content Include="Views\VoltageRelay\Create.cshtml" />
-    <Content Include="Views\VoltageRelay\Edit.cshtml" />
-    <Content Include="Views\VoltageRelay\Delete.cshtml" />
-    <Content Include="Views\CurrentRelay\Index.cshtml" />
-    <Content Include="Views\CurrentRelay\Details.cshtml" />
-    <Content Include="Views\CurrentRelay\Create.cshtml" />
-    <Content Include="Views\CurrentRelay\Edit.cshtml" />
-    <Content Include="Views\CurrentRelay\Delete.cshtml" />
-    <Content Include="Views\TimeRelay\Index.cshtml" />
-    <Content Include="Views\TimeRelay\Details.cshtml" />
-    <Content Include="Views\TimeRelay\Create.cshtml" />
-    <Content Include="Views\TimeRelay\Edit.cshtml" />
-    <Content Include="Views\TimeRelay\Delete.cshtml" />
-    <Content Include="Views\TemperatureRelay\Index.cshtml" />
-    <Content Include="Views\TemperatureRelay\Details.cshtml" />
-    <Content Include="Views\TemperatureRelay\Create.cshtml" />
-    <Content Include="Views\TemperatureRelay\Edit.cshtml" />
-    <Content Include="Views\TemperatureRelay\Delete.cshtml" />
     <Content Include="Views\Shared\ProductRate.cshtml" />
-    <Content Include="Views\Voltmeter\Index.cshtml" />
-    <Content Include="Views\Voltmeter\Details.cshtml" />
-    <Content Include="Views\Voltmeter\Create.cshtml" />
-    <Content Include="Views\Voltmeter\Edit.cshtml" />
-    <Content Include="Views\Voltmeter\Delete.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
@@ -859,6 +815,12 @@
     <Content Include="Views\Shared\ProductImage.cshtml" />
     <Content Include="Views\Shared\ProductImageLink.cshtml" />
     <Content Include="Views\Shared\PriceTemplate.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

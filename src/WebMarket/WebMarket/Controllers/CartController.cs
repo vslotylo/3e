@@ -17,10 +17,10 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string pid, int quantity)
+        public JsonResult Add(int pid, int quantity)
         {
             var product = this.manager.GetProductByPid(pid);
-            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.ProductId == pid);
+            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
             if( cartItem == null)
             {
                 this.Cart.Items.Add(new CartItem { Product = product, Quantity = quantity });
@@ -35,10 +35,9 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
-        public bool Delete(string pid)
+        public bool Delete(int pid)
         {
-            var product = this.manager.GetProductByPid(pid);
-            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.ProductId == pid);
+            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
             if (cartItem != null)
             {
                 this.Cart.Items.Remove(cartItem);                

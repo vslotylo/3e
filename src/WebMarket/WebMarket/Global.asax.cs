@@ -51,7 +51,7 @@ namespace WebMarket
                 return;
             }
 
-            this.Server.ClearError();
+            //this.Server.ClearError();
             var logger = LogManager.GetLogger(typeof(MvcApplication));
             logger.Error(exception);
         }

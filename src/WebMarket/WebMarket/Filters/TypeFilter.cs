@@ -7,7 +7,7 @@ namespace WebMarket.Filters
 {
     public class TypeFilter : FilterBase
     {
-        private IList<int> typeList;
+        private IList<string> typeList;
         public TypeFilter()
         {
             this.Type = string.Empty;
@@ -17,15 +17,15 @@ namespace WebMarket.Filters
             this.DisplayList = new List<string>();
         }
 
-        public string Type { get; set; }
-        public IList<RouteValueDictionary> Routes { get; set; }
-        public IList<int> TypeList
+        private string Type { get; set; }
+        public IList<RouteValueDictionary> Routes { get; private set; }
+        public IList<string> TypeList
         {
             get
             {
                 if (this.typeList == null)
                 {
-                    this.typeList = this.Type.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(t => int.Parse(t)).ToList();
+                    this.typeList = this.Type.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(t => t.ToLower()).ToList();
                 }
 
                 return this.typeList;
@@ -34,8 +34,7 @@ namespace WebMarket.Filters
 
         public IList<string> DisplayList
         {
-            get;
-            set;
+            get; private set;
         }
 
         public override string Value
@@ -45,21 +44,21 @@ namespace WebMarket.Filters
 
         public override string AddPart(string item)
         {
-            var list = this.TypeList.Select(t=> t.ToString()).ToList();
-            list.Add(item);
+            var list = this.TypeList.ToList();
+            list.Add(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override string RemovePart(string item)
         {
-            var list = this.TypeList.Select(t => t.ToString()).ToList();
-            list.Remove(item);
+            var list = this.TypeList.ToList();
+            list.Remove(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override bool Contains(string value)
         {
-            return this.TypeList.Any(p => string.Compare(p.ToString(), value, StringComparison.InvariantCultureIgnoreCase) == 0);
+            return this.TypeList.Any(p => string.Compare(p, value, StringComparison.InvariantCultureIgnoreCase) == 0);
         }
     }
 }

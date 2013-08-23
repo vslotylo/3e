@@ -1,6 +1,6 @@
 ﻿@model WebMarket.DAL.Entities.Product
 
-<a href=@Url.Action("details", Model.Controller, new { id = Model.Id }) >
+<a href=@Url.RouteUrl("categoryAction", new { category = Model.CategoryName, name = Model.Name, action="details" }) >
     <table width="100%" height="100%" align="center" valign="center">
     <tr>
         <td>

@@ -66,31 +66,41 @@
         <div id="home" class="tab-pane fade active in">
             <table class="table table-condensed table-bordered table-hover">
                 <tbody>
-                    @foreach (var item in Model.GetAllProductInfo())
+                    @foreach (var item in Model.ProductInfo)
                     {
                         <tr>
-                            <td>@item.Name
+                            <td>@item.Key
                             </td>
                             <td>
-                                @if (!item.IsBool)
-                                {
-                                    @item.Value
-                                }
-                                else
-                                {
-                                    <span class="label label-success">+</span>
-                                }
+                                @item.Value
                             </td>
                         </tr>
                     }
-                    @foreach (var item in Model.ParsedInfo)
+                    @foreach (var item in Model.DynamicProperties)
                     {
                         <tr>
                             <td>
                                 @item.Key
                             </td>
                             <td>
-                                @item.Value
+                                @{
+                                    if (item.IsBool)
+                                    {
+                                        if ((bool)item.Value)
+                                        {
+                                            <span class="label label-success">+</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-important">-</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @item.Value
+                                    }
+                                }
+                                
                             </td>
                         </tr>
                     }

@@ -16,14 +16,15 @@ namespace WebMarket.Filters
             this.Routes = new List<RouteValueDictionary>();
         }
 
-        public string Producers { get; set; }
+        private string Producers { get; set; }
+
         public IList<string> ProducersList
         {
             get
             {
                 if (this.producersList == null)
                 {
-                    this.producersList = this.Producers.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    this.producersList = this.Producers.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(obj=>obj.ToLower()).ToList();
                 }
 
                 return this.producersList;
@@ -53,14 +54,14 @@ namespace WebMarket.Filters
         public override string AddPart(string item)
         {
             var list = this.ProducersList.ToList();
-            list.Add(item);
+            list.Add(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override string RemovePart(string item)
         {
             var list = this.ProducersList.ToList();
-            list.Remove(item);
+            list.Remove(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 

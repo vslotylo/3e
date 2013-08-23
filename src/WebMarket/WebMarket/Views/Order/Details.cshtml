@@ -23,9 +23,9 @@
             @foreach (var item in Model.Order.Items)
             {
                 <tr>
-                    <td>@item.Pid</td>
+                    <td>@Model.Products.Single(obj => obj.Id == item.ProductId).ProductId</td>
                     <td>
-                        @Html.Partial("ProductPreviewSmall", Model.Products.Single(obj => obj.ProductId == item.Pid))
+                        @Html.Partial("ProductPreviewSmall", Model.Products.Single(obj => obj.Id == item.ProductId))
                     </td>
                     <td>
                         @item.UnitPrice.ToFormatString() грн.

@@ -31,7 +31,7 @@ namespace WebMarket.Controllers
         public ActionResult Details(int id)
         {
             var order = DbContext.Orders.Include(obj => obj.Items).FirstOrDefault(obj => obj.Id == id);
-            var products = order.Items.Select(obj => manager.GetProductByPid(obj.Pid));
+            var products = order.Items.Select(obj => manager.GetProductByPid(obj.ProductId));
             return this.View(new OrderDetailViewModel(order, products));
         }
 
@@ -68,7 +68,7 @@ namespace WebMarket.Controllers
         {
             foreach (var item in this.Cart.Items)
             {
-                order.Items.Add(new OrderItem { Pid = item.Product.ProductId, Quantity = item.Quantity, UnitPrice = item.Product.CalculatedPrice.PriceFinalUah });
+                order.Items.Add(new OrderItem { ProductId = item.Product.Id, Quantity = item.Quantity, UnitPrice = item.Product.CalculatedPrice.PriceFinalUah });
             }
 
             order.Status = OrderStatus.Pending;

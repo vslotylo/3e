@@ -60,7 +60,7 @@ namespace WebMarket.Core
         }
 
         public IEnumerable<GenericFilterModel<string>> Producers { get; set; }
-        public IEnumerable<GenericFilterModel<int>> Types { get; set; }
+        public IEnumerable<GenericFilterModel<string>> Types { get; set; }
         public IList<GenericFilterModelBase<int>> PageSize { get; private set; }
         public IList<GenericFilterModelBase<int>> Sort { get; private set; }
 
@@ -73,6 +73,7 @@ namespace WebMarket.Core
         public PageFilter PageFilter { get; private set; }
         public TypeFilter TypesFilter { get; private set; }
         public SearchFilter SearchFilter { get; private set; }
-        public int Count { get; set; }        
+        public int Count { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

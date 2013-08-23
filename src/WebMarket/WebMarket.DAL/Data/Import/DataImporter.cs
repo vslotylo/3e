@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using OfficeOpenXml;
 using WebMarket.DAL.Common;
+using WebMarket.DAL.Entities;
 using WebMarket.DAL.Exceptions;
 
 namespace WebMarket.DAL.Data.Import
@@ -20,29 +21,30 @@ namespace WebMarket.DAL.Data.Import
             {
                 try
                 {
-                    var excelDocument = new ExcelPackage(stream);
-                    var entityImporter = new EntityImporter(context.Producers.ToList());
+                    var excelPackage = new ExcelPackage(stream);
+                    var entityImporter = new EntityImporter(context);
                     var minfoImport = entityImporter.GetType().GetMethods().FirstOrDefault(obj=>obj.Name.ToLower()=="import" && obj.IsGenericMethod);
                     var minfoSet = context.GetType().GetMethods().FirstOrDefault(obj => obj.Name.ToLower() == "set" && obj.IsGenericMethod);
 
                     Type typeDbSet = typeof(DbSet<>);
-                    Type typeOfEntity;
+                    Type entityType;
                     Type genDbSet;
                     object dbSetObj;
                     var sheets =
-                        excelDocument.Workbook.Worksheets.Where(
-                            obj => string.Compare(obj.Name, "metadata", StringComparison.InvariantCultureIgnoreCase) != 0).Select(item => item.Name);
+                        excelPackage.Workbook.Worksheets.Where(obj => !obj.Name.StartsWith("_")).Select(item => item.Name);
                     foreach (var typeName in sheets)
                     {
-                        typeOfEntity = Type.GetType(string.Format(EntetiesNamespace, typeName));
-                        if (typeOfEntity == null)
+                        entityType = Type.GetType(string.Format(EntetiesNamespace, typeName));
+                        
+                        if (entityType == null)
                         {
-                            throw new EntityImportException(string.Format("Could not find type for entity \"{0}\"", typeName));
+                            entityType = typeof(Product);
                         }
 
-                        var entitiesObj = minfoImport.MakeGenericMethod(typeOfEntity).Invoke(entityImporter, new object[] { excelDocument });
-                        genDbSet = typeDbSet.MakeGenericType(typeOfEntity);
-                        dbSetObj = minfoSet.MakeGenericMethod(typeOfEntity).Invoke(context, null);
+                        var sheet = excelPackage.Workbook.Worksheets[typeName];
+                        var entitiesObj = minfoImport.MakeGenericMethod(entityType).Invoke(entityImporter, new object[] { sheet });
+                        genDbSet = typeDbSet.MakeGenericType(entityType);
+                        dbSetObj = minfoSet.MakeGenericMethod(entityType).Invoke(context, null);
                         
                         var dbSet = Convert.ChangeType(dbSetObj, genDbSet) as IEnumerable<dynamic>;
                         var entities = dbSet.ToList();
@@ -51,7 +53,7 @@ namespace WebMarket.DAL.Data.Import
                         
                         foreach (var entity in entitiesObj as IEnumerable)
                         {
-                            var name = typeOfEntity.GetProperty("Name").GetValue(entity).ToString().Trim();
+                            var name = entityType.GetProperty("Name").GetValue(entity).ToString().Trim();
                             var foundEntity = entities.SingleOrDefault(obj =>
                                 { 
                                     string temp = obj.Name.ToString();
@@ -63,7 +65,7 @@ namespace WebMarket.DAL.Data.Import
                             }
                             else
                             {
-                                var idProp = typeOfEntity.GetProperty("Id");
+                                var idProp = entityType.GetProperty("Id");
                                 idProp.SetValue(entity, foundEntity.Id);
                                 context.Entry(foundEntity).CurrentValues.SetValues(entity);
                             }

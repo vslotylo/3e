@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,7 +10,7 @@ using WebMarket.Filters;
 
 namespace WebMarket.Controllers
 {
-    public class SearchController : ListControllerBase<Product>
+    public class SearchController : ListControllerBase
     {
         private Expression<Func<Product, bool>> expression;
 
@@ -21,31 +20,9 @@ namespace WebMarket.Controllers
             var tokens = searchFilter.Keyword.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
             this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, pageFilter, searchFilter);
             this.expression = obj=> tokens.All(t=> obj.Name.Contains(t));
-            var avrs = DbContext.Avrs.Include(obj => obj.Producer).Where(this.expression);
-            var batteries = DbContext.Batteries.Include(obj => obj.Producer).Where(this.expression);
-            var ups = DbContext.Ups.Include(obj => obj.Producer).Where(this.expression);
-            var converters = DbContext.Converters.Include(obj => obj.Producer).Where(this.expression);
-            var chargers = DbContext.Chargers.Include(obj => obj.Producer).Where(this.expression);
-            var voltageRelays = DbContext.VoltageRelays.Include(obj => obj.Producer).Where(this.expression);
-            var currentRelays = DbContext.CurrentRelays.Include(obj => obj.Producer).Where(this.expression);
-            var temperatureRelays = DbContext.TemperatureRelays.Include(obj => obj.Producer).Where(this.expression);
-            var timeRelays = DbContext.TimeRelays.Include(obj => obj.Producer).Where(this.expression);
-            var voltmeters = DbContext.Voltmeters.Include(obj => obj.Producer).Where(this.expression);
-            
-            var result = new List<Product>();
-            result.AddRange(avrs);
-            result.AddRange(batteries);
-            result.AddRange(ups);
-            result.AddRange(converters);
-            result.AddRange(chargers);
-            result.AddRange(voltageRelays);
-            result.AddRange(currentRelays);
-            result.AddRange(temperatureRelays);
-            result.AddRange(timeRelays);
-            result.AddRange(voltmeters);
-
-            this.StartInitializeCommon(result.Count());
-            this.EndInitializeCommon(result);
+            var products = DbContext.Products.Include(obj => obj.Producer).Where(this.expression);
+            this.StartInitializeCommon(products.Count());
+            this.EndInitializeCommon(products);
             return this.View(this.ViewModel);
         }
     }

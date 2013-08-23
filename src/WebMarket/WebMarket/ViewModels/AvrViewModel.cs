@@ -6,7 +6,7 @@ using WebMarket.Filters;
 
 namespace WebMarket.ViewModels
 {
-    public class AvrViewModel : FilterViewModelBase<Avr>
+    public class AvrViewModel : FilterViewModelBase<Product>
     {
         public AvrViewModel(PageSizeFilter pageSizeFilter, 
             SortFilter sortFilter, 

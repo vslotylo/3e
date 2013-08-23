@@ -1,7 +1,7 @@
 ﻿@model WebMarket.DAL.Entities.Product
 
 <div style="text-align: center;">
-    <a style="color:#FF0000" href=@Url.Action("details", Model.Controller, new { id = Model.Id })>
+    <a style="color:#FF0000" href=@Url.Action("details", Model.CategoryName, new { id = Model.Id })>
         <img width="100px" height="100px" src="@string.Format("/Content/tiles/{0}", @Model.GetListPhoto())" onerror="this.src='/Content/tiles/noimage.png'" alt="Content\tiles\noimage.png" />
     </a>
 </div>

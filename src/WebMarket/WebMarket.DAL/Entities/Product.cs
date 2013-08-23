@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Script.Serialization;
 using WebMarket.DAL.Entities.Enums;
 using WebMarket.DAL.Infrustructure;
 using WebMarket.DAL.Interfaces;
@@ -9,78 +10,67 @@ namespace WebMarket.DAL.Entities
 {
     public class Product : IPreviewInfo
     {
-        protected readonly List<ProductInfo> Infos = new List<ProductInfo>();
-        protected readonly List<string> Types = new List<string>();
-        private readonly Price price;
+        private readonly Lazy<List<ProductInfo>> infos;
+        private readonly Lazy<Price> price;
+        private readonly Lazy<List<ProductInfo>> dynamicProperties;
+        private static readonly JavaScriptSerializer Serializer = new JavaScriptSerializer();
+        private string[] parsedSuppliedItems;
 
         public Product()
         {
-            Photo = string.Empty; 
-            price = new Price(this);
+            this.Photo = string.Empty;
+            this.price = new Lazy<Price>(this.InitPrice);
+            this.infos = new Lazy<List<ProductInfo>>(this.InitInfos);
+            this.dynamicProperties = new Lazy<List<ProductInfo>>(this.InitDynamicProperties);
         }
 
-        public string ProductId { get { return ProductManager.GetProductId(this); } }
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public string Controller
-        {
-            get
-            {
-                return this.GetType().Name.ToLower();
-            }
-        }
-        
         public double Weight { get; set; }
         public double Rate { get; set; }
         public string Photo { get; set; }
         public string Description { get; set; }
         public string WorkingConditions { get; set; }
-        public Producer Producer { get; set; }
-        
+
+        public string SuppliedItems { get; set; }
         public string Dimension { get; set; }
         public int Warranty { get; set; }
-        public int Type { get; set; }
+        public Producer Producer { get; set; }
+        public Category Category { get; set; }
+        public string CategoryName { get; set; }
+        public SubCategory SubCategory { get; set; }
+        public string SubCategoryName { get; set; }
+        public double Discount { get; set; }
+        public string Info { get; set; }
+
+        public Availability Availability { get; set; }
+        public DisplayClass DisplayClass { get; set; }
+
+        public string ProductId
+        {
+            get
+            {
+                return string.Format("{0:000-000}", Id);
+            }
+        }
+
         public Price CalculatedPrice
         {
             get
             {
-                return price;
+                return price.Value;
             }
         }
 
-        public Availability Availability { get; set; }
-        public DisplayClass DisplayClass  { get; set; }
-        public double Discount { get; set; }
-        public string Info { get; set; }
-        private Dictionary<string, string> parsedInfo;
-        public Dictionary<string,string> ParsedInfo
+        public IEnumerable<ProductInfo> DynamicProperties
         {
             get
             {
-                if (parsedInfo == null)
-                {
-                    parsedInfo = new Dictionary<string, string>();
-                    if (string.IsNullOrEmpty(Info))
-                    {
-                        return parsedInfo;
-                    }
-
-                    string[] items = this.Info.Split('&');
-                    foreach (var item in items)
-                    {
-                        int index = item.IndexOf('=');
-                        parsedInfo.Add(item.Substring(0, index), item.Substring(index + 1, item.Length - index -1));
-                    }
-                }
-
-                return parsedInfo;
+                return this.dynamicProperties.Value;
             }
         }
 
-        public string SuppliedItems { get; set; }
-
-        private string[] parsedSuppliedItems;
         public string[] ParsedSuppliedItems
         {
             get
@@ -101,6 +91,50 @@ namespace WebMarket.DAL.Entities
             }
         }
 
+        public IEnumerable<ProductInfo> ProductInfo
+        {
+            get
+            {
+                return this.infos.Value;
+            }
+        }
+
+        private List<ProductInfo> InitDynamicProperties()
+        {
+            var dict = Serializer.Deserialize<Dictionary<string, string>>(this.Info);
+            var typedProp = new List<ProductInfo>();
+            foreach (var item in dict)
+            {
+                bool result;
+                if (bool.TryParse(item.Value, out result))
+                {
+                    typedProp.Add(new ProductInfo(item.Key, result, true));
+                }
+                else
+                {
+                    typedProp.Add(new ProductInfo(item.Key, item.Value));
+                }
+            }
+
+            return typedProp;
+        }
+
+        private Price InitPrice()
+        {
+            return new Price(this);
+        }
+
+        private List<ProductInfo> InitInfos()
+        {
+            var list = new List<ProductInfo>
+                           {
+                               new ProductInfo("Модель", this.Name),
+                               new ProductInfo("Тип", this.SubCategoryName),
+                               new ProductInfo("Виробник", this.Producer.Name)
+                           };
+            return list;
+        }
+
         public Dictionary<string, string> GetPhotos()
         {
             var dict = new Dictionary<string, string>();
@@ -114,7 +148,7 @@ namespace WebMarket.DAL.Entities
             var justName = GetName(splitedPhotos[0], out extension);
 
             int count = int.Parse(splitedPhotos[1]);
-            
+
             for (int i = 1; i <= count; i++)
             {
                 dict[string.Format("{0}.{1}thmb{2}", justName, i, extension)] = string.Format("{0}.{1}{2}", justName, i, extension);
@@ -149,10 +183,9 @@ namespace WebMarket.DAL.Entities
             }
 
             var splitedPhotos = Photo.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            string type = this.GetType().Name.ToLower();
             string extension;
             string name = GetName(splitedPhotos[0], out extension);
-            return string.Format("{0}/{1}{2}", type, name, extension);
+            return string.Format("{0}/{1}{2}", CategoryName.ToLower(), name, extension);
         }
 
         public string GetPreview()
@@ -168,34 +201,9 @@ namespace WebMarket.DAL.Entities
             return string.Format("{0}{1}", name, extension);
         }
 
-        protected virtual void InitializeProductInfos()
-        {
-            this.Infos.Add(new ProductInfo { Name = "Модель", Value = Name });
-            this.Infos.Add(new ProductInfo { Name = "Тип", Value = TypeString });
-            this.Infos.Add(new ProductInfo { Name = "Виробник", Value = Producer.Name });                
-        }
-
-        public IList<ProductInfo> GetAllProductInfo()
-        {
-            if (this.Infos.Count == 0)
-            {
-                InitializeProductInfos();
-            }
-
-            return this.Infos;
-        }
-
         public string GetProductPreviewInfo()
         {
-            return string.Join(" | ", GetAllProductInfo().Where(i => i.IsPreview).Select(i => string.Format("{0}: {1}", i.Name, i.Value)));
-        }
-
-        public string TypeString
-        {
-            get
-            {
-                return this.Types[this.Type];
-            }
+            return string.Join(" | ", this.DynamicProperties.Where(obj=>!obj.IsBool).Take(6).Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
         }
     }
 }

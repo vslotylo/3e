@@ -3,13 +3,12 @@
     public class PageFilter : FilterBase
     {
         public const string KeyName = "page";
-        public const string DefaultValueStatic = "1";
 
         public PageFilter()
         {
             this.DefaultValue = "1";
             this.Page = 1;
-            this.Key = "page";            
+            this.Key = KeyName;            
         }
 
         public int Page { get; set; }
