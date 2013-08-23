@@ -8,14 +8,14 @@ namespace WebMarket.Core
 {
     public class FilterList : List<FilterBase>
     {
-        private readonly string[] staticFilters = new string[] { "page", "pagesize", "sort" };
+        private readonly string[] staticFilters = new[] { PageFilter.KeyName, PageSizeFilter.KeyName, SortFilter.KeyName };
 
         private RouteValueDictionary routes;
 
         public bool IsEmpty()
         {
             bool isEmpty = true;
-            base.ForEach((filter) =>
+            this.ForEach((filter) =>
             {
                 if (!this.staticFilters.Contains(filter.Key) && !filter.IsEmpty())
                 {
@@ -33,10 +33,7 @@ namespace WebMarket.Core
                 if (this.routes == null)
                 {
                     this.routes = new RouteValueDictionary();
-                    base.ForEach(filter =>
-                    {
-                        this.routes.Add(filter.Key, filter.Value);
-                    });
+                    this.ForEach(filter => this.routes.Add(filter.Key, filter.Value));
                 }
 
                 return this.routes;
@@ -46,25 +43,29 @@ namespace WebMarket.Core
         public RouteValueDictionary UpdateFilter(FilterBase filter, object value)
         {
             string strValue = value.ToString();
-            var routes = new RouteValueDictionary();
+            var updateFilter = new RouteValueDictionary();
             foreach (var route in this.Routes)
             {
-                routes[route.Key] = route.Value;
+                var f = this.GetFilter(route.Key);
+                if (string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) != 0)
+                {
+                    updateFilter[route.Key] = route.Value;
+                }
             }
 
-            routes[PageFilter.KeyName] = PageFilter.DefaultValueStatic;
+            // routes[PageFilter.KeyName] = PageFilter.DefaultValueStatic;
 
             bool contains = filter.Contains(strValue);
             if (!contains)
             {
-                routes[filter.Key] = filter.AddPart(strValue);
+                updateFilter[filter.Key] = filter.AddPart(strValue);
             }
             else
             {
-                routes[filter.Key] = filter.RemovePart(strValue);
+                updateFilter[filter.Key] = filter.RemovePart(strValue);
             }
 
-            return routes;
+            return updateFilter;
         }
 
         public FilterBase GetFilter(string key)
@@ -85,14 +86,22 @@ namespace WebMarket.Core
             var dictionary = new RouteValueDictionary();
             foreach (var route in this.Routes)
             {
-                dictionary.Add(route.Key, route.Value);
-            }
+                //skip page for navigating to default page when removing filter
+                if (route.Key == PageFilter.KeyName)
+                {
+                    continue;
+                }
 
-            dictionary[PageFilter.KeyName] = PageFilter.DefaultValueStatic;
+                var f = this.GetFilter(route.Key);
+                if (string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) != 0)
+                {
+                    dictionary.Add(route.Key, route.Value);
+                }
+            }
 
             dictionary[filter.Key] = value;
 
             return dictionary;
-        }        
+        }
     }
 }

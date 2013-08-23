@@ -16,7 +16,7 @@ namespace WebMarket.Filters
             this.Routes = new List<RouteValueDictionary>();
         }
 
-        private string Producers { get; set; }
+        public string Producers { get; set; }
 
         public IList<string> ProducersList
         {

@@ -17,7 +17,7 @@ namespace WebMarket.Filters
             this.DisplayList = new List<string>();
         }
 
-        private string Type { get; set; }
+        public string Type { get; set; }
         public IList<RouteValueDictionary> Routes { get; private set; }
         public IList<string> TypeList
         {
