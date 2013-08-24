@@ -1,6 +1,6 @@
 ﻿@model WebMarket.Core.DetailsViewModel
 @{
-    ViewBag.Title = string.Format("Стабілізотор напруги: {0}", Model.Product.Name);
+    ViewBag.Title = string.Format("Стабілізотор напруги: {0}", Model.Product.DisplayName);
 }
 @section scripts
 {
@@ -14,6 +14,6 @@
 }
 @section breadCrumb {
     <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.Product.CategoryName})">@Model.Metadata.DisplayCategory</a><span class="divider">/</span></li>
-    <li class="active">@Model.Product.Name</li>
+    <li class="active">@Model.Product.DisplayName</li>
 }
 @Html.Partial("ProductDetailTemplate", Model.Product)

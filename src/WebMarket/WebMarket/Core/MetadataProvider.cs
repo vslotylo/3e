@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using WebMarket.DAL.Common;
 
 namespace WebMarket.Core
 {
@@ -25,14 +26,16 @@ namespace WebMarket.Core
             }
 
             var metaDataItem = metadataString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var context = new WebMarketDbContext();
+            var categories = context.Categories.ToList();
             foreach (var info in metaDataItem.Select(item => item.Split(new []{"\","}, StringSplitOptions.RemoveEmptyEntries)))
             {
                 //todo improve logic
-                var categoryId = ParseValue(info[0]).ToLower();
-                var categoryDisplayName = this.ParseValue(info[1]);
-                var listTitle = this.ParseValue(info[2]);
-                var detailTitle = this.ParseValue(info[3]);
-                this.dict[categoryId] = new Metadata(categoryDisplayName, listTitle, detailTitle);
+                var categoryName = ParseValue(info[0]).ToLower();
+                var listTitle = this.ParseValue(info[1]);
+                var detailTitle = this.ParseValue(info[2]);
+                var categoryDisplayName = categories.SingleOrDefault(obj=>obj.Name == categoryName).DisplayName;
+                this.dict[categoryName] = new Metadata(categoryDisplayName, listTitle, detailTitle);
             }
         }
 

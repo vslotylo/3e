@@ -24,7 +24,7 @@ else
                     <li>
                         <div class="row-fluid">
                             <div class="span8">
-                                <h4>@Html.RouteLink(item.Name, "categoryAction", new { category = item.CategoryName, name = item.Name, action="details" })</h4>
+                                <h4>@Html.Partial("ProductLink", item)</h4>
                             </div>
                             <div class="span3">
                                 <span class="muted pull-right">Код: @item.ProductId</span>
@@ -45,7 +45,7 @@ else
                             <div class="span1">
                             </div>
                             <div class="span3">
-                                <a class="btn btn-primary pull-right" href="@Url.RouteUrl("categoryAction", new { category = item.CategoryName, name = item.Name, action="details" })">Деталі»</a>
+                                <a class="btn btn-primary pull-right" href="@Html.Partial("ProductLinkUrl", item)">Деталі»</a>
                             </div>
                         </div>
                     </li>

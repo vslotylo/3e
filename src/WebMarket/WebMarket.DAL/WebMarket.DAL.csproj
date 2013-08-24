@@ -125,6 +125,14 @@
     <Compile Include="Migrations\201308240841190_AddedStatusOrder.Designer.cs">
       <DependentUpon>201308240841190_AddedStatusOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308241328065_AddedDisplayName.cs" />
+    <Compile Include="Migrations\201308241328065_AddedDisplayName.Designer.cs">
+      <DependentUpon>201308241328065_AddedDisplayName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308241509132_ProductAddedName.cs" />
+    <Compile Include="Migrations\201308241509132_ProductAddedName.Designer.cs">
+      <DependentUpon>201308241509132_ProductAddedName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\WebMarketDbContext.cs" />
@@ -159,6 +167,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308240841190_AddedStatusOrder.resx">
       <DependentUpon>201308240841190_AddedStatusOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308241328065_AddedDisplayName.resx">
+      <DependentUpon>201308241328065_AddedDisplayName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308241509132_ProductAddedName.resx">
+      <DependentUpon>201308241509132_ProductAddedName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

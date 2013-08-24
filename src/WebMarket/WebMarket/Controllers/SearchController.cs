@@ -19,7 +19,7 @@ namespace WebMarket.Controllers
             var seperators = new[] { " ", "-" };
             var tokens = searchFilter.Keyword.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
             this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, pageFilter, searchFilter);
-            this.expression = obj=> tokens.All(t=> obj.Name.Contains(t));
+            this.expression = obj=> tokens.All(t=> obj.DisplayName.Contains(t));
             var products = DbContext.Products.Include(obj => obj.Producer).Where(this.expression);
             this.StartInitializeCommon(products.Count());
             this.EndInitializeCommon(products);

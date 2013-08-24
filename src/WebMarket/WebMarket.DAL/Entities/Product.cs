@@ -25,6 +25,7 @@ namespace WebMarket.DAL.Entities
         }
 
         public int Id { get; set; }
+        public string DisplayName { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public double Weight { get; set; }
@@ -128,7 +129,7 @@ namespace WebMarket.DAL.Entities
         {
             var list = new List<ProductInfo>
                            {
-                               new ProductInfo("Модель", this.Name),
+                               new ProductInfo("Модель", this.DisplayName),
                                new ProductInfo("Тип", this.SubCategoryName),
                                new ProductInfo("Виробник", this.Producer.Name)
                            };

@@ -14,24 +14,25 @@ namespace WebMarket.Controllers
         public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producerFilter, PageFilter pageFilter, TypeFilter typeFilter)
         {
             // todo validate args here
-            var metadata = MetadataProvider.Current.GetMetadataInfo(category);
-            this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter) { Metadata = metadata };
+            this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter);
             
             var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
             entities = this.StartInitialize(entities);
             this.EndInitialize(entities);
+            this.ViewModel.Metadata = MetadataProvider.Current.GetMetadataInfo(category);
             return this.View(this.ViewModel);
         }
 
         public ActionResult Details(string category, string name)
         {
-            var metadata = MetadataProvider.Current.GetMetadataInfo(category);
+            
             var entity = this.DbContext.Products.Include(i => i.Producer).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {
                 return this.RedirectToAction("Index", "Error", new { statusCode = 404});
             }
 
+            var metadata = MetadataProvider.Current.GetMetadataInfo(category);
             return this.View(new DetailsViewModel(entity, metadata));
         }
 
