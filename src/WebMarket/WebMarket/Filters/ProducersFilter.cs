@@ -18,18 +18,20 @@ namespace WebMarket.Filters
 
         public string Producers { get; set; }
 
-        public IList<string> ProducersList
+        public IList<string> ParsedProducers
         {
             get
             {
                 if (this.producersList == null)
                 {
-                    this.producersList = this.Producers.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(obj=>obj.ToLower()).ToList();
+                    this.producersList = this.Producers.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(o=>o.ToLower()).ToList();
                 }
 
                 return this.producersList;
             }
         }
+
+        public IList<string> ProducersList { get; set; }
 
         public IList<RouteValueDictionary> Routes { get; set; }
 
@@ -53,14 +55,14 @@ namespace WebMarket.Filters
 
         public override string AddPart(string item)
         {
-            var list = this.ProducersList.ToList();
+            var list = this.ParsedProducers.ToList();
             list.Add(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override string RemovePart(string item)
         {
-            var list = this.ProducersList.ToList();
+            var list = this.ParsedProducers.ToList();
             list.Remove(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }

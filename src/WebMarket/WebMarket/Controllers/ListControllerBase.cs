@@ -164,9 +164,10 @@ namespace WebMarket.Controllers
             }
 
             var producers = entities.GroupBy(p => p.Producer).Select(g => new GenericFilterModel<string> { Value = g.Key.Name, Name = g.Key.Name, ProductsCount = g.Count() }).ToList();
+            this.ViewModel.ProducersFilter.ProducersList = producers.Select(obj => obj.Name).Where(p => this.ViewModel.ProducersFilter.ParsedProducers.Contains(p.ToLower())).ToList();
             foreach (var item in producers)
             {
-                item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value.ToLower());
+                item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value);
             }
 
             this.ViewModel.Producers = producers;
