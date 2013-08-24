@@ -10,6 +10,7 @@ using System.Data.Entity;
 using WebMarket.DAL.Infrustructure;
 using WebMarket.DAL.Interfaces;
 using WebMarket.Notification;
+using WebMarket.Notification.Templates;
 using WebMarket.ViewModels;
 
 namespace WebMarket.Controllers
@@ -80,8 +81,7 @@ namespace WebMarket.Controllers
             {
                 Task.Factory.StartNew(() =>
                 {
-                    //Razor.
-                    var message = new NotificationMessage { Subject = "Нове замовлення!", To = new[] { order.Email }, Body = "Дякуємо за замовлення!" };
+                    var message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.CustomerOrderTemplate, To = new[] { order.Email } };
                     NotificationManager.Current.Notify(message);
                 });
                 

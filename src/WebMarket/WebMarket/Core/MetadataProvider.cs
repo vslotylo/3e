@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using WebMarket.DAL.Common;
 
 namespace WebMarket.Core
@@ -20,7 +21,7 @@ namespace WebMarket.Core
         {
             dict = new Dictionary<string, Metadata>();
             string metadataString;
-            using (var sr = File.OpenText(HttpContext.Current.Server.MapPath("~/Content/metadata/metadata.csv")))
+            using (var sr = File.OpenText(HostingEnvironment.MapPath(("~/Content/metadata/metadata.csv"))))
             {
                 metadataString = sr.ReadToEnd();
             }

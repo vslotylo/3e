@@ -1,0 +1,14 @@
+﻿<emailtemplate>
+    <bodytemplate>
+      <![CDATA[
+      <html xmlns="http://www.w3.org/1999/xhtml">
+            <head />
+            <body>
+                <p>Ваша замовлення на сайті <a href="3e.lviv.ua">3e.lviv.ua</a> прийнято.</p>
+                <p>Наш менеджер зв'яжиться з вами у найблищий час.</p>
+            </body>
+        </html>
+        ]]>
+    </bodytemplate>
+    <subject>Замовлення на сайті 3e.lviv.ua</subject>
+</emailtemplate>

@@ -50,18 +50,18 @@ namespace WebMarket.Notification
                 mailMessage.Bcc.Add(bccEmail);
             }
 
-            mailMessage.Subject = message.Subject;
+            mailMessage.Subject = message.EmailTemplate.Subject;
             mailMessage.SubjectEncoding = Encoding.UTF8;
             mailMessage.From = new MailAddress(Settings.From);
             
             mailMessage.BodyEncoding = Encoding.UTF8;
             mailMessage.IsBodyHtml = true;
-            mailMessage.Body = message.Body;
+            mailMessage.Body = message.EmailTemplate.Body;
             smtp.SendCompleted += this.SendCompleted;
             smtp.SendAsync(mailMessage, null);
         }
 
-        void SendCompleted(object sender, AsyncCompletedEventArgs e)
+        private void SendCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (e.Error != null)
             {
