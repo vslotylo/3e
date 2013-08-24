@@ -18,7 +18,7 @@
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="@Url.Action("index", "cart")"><i class="icon-shopping-cart icon-white"></i>Корзина<span id="cartTotalCount" class="badge badge-success">@ViewData["CartTotalCount"]</span></a>
                                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span
-                                                                                                                   class="caret"></span></a>
+                                        class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li>
                                             <div style="padding: 3px 20px;"><i class="icon-list-alt"></i>Разом: <span id="cartTotalSum" class="priceUahSmall">@ViewData["CartTotalSum"]</span><span class="priceUahSmall"> грн.</span></div>
@@ -36,57 +36,57 @@
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Стабілізатори <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li>@Html.RouteLink("Релейні","categoryBase", new {category = "avr", type = "релейні" })</li>
-                                        <li>@Html.RouteLink("Сервомоторні","categoryBase", new {category = "avr", type = "сервомоторні" })</li>
-                                        <li>@Html.RouteLink("Тиристорні","categoryBase", new {category = "avr", type = "тиристорні" })</li>
-                                        <li>@Html.RouteLink("Симісторні","categoryBase", new {category = "avr", type = "симісторні" })</li>
+                                        <li>@Html.RouteLink("Релейні", "categoryBase", new { category = "avr", producers = "", type = "релейні" })</li>
+                                        <li>@Html.RouteLink("Сервомоторні", "categoryBase", new { category = "avr", producers = "", type = "сервомоторні" })</li>
+                                        <li>@Html.RouteLink("Тиристорні", "categoryBase", new { category = "avr", producers = "", type = "тиристорні" })</li>
+                                        <li>@Html.RouteLink("Симісторні", "categoryBase", new { category = "avr", producers = "", type = "симісторні" })</li>
                                         <li class="divider"></li>
                                         <li class="nav-header">Виробники</li>
-                                        <li>@Html.RouteLink("Phantom","categoryBase", new {category = "avr", producers = "phantom"})</li>
-                                        <li>@Html.RouteLink("Volter","categoryBase", new {category = "avr", producers = "volter"})</li>
-                                        <li>@Html.RouteLink("Luxeon","categoryBase", new {category = "avr", producers = "luxeon"})</li>
-                                        <li>@Html.RouteLink("Вольт","categoryBase", new {category = "avr", producers = "вольт"})</li>
+                                        <li>@Html.RouteLink("Phantom", "categoryBase", new { category = "avr", producers = "phantom" })</li>
+                                        <li>@Html.RouteLink("Volter", "categoryBase", new { category = "avr", producers = "volter" })</li>
+                                        <li>@Html.RouteLink("Luxeon", "categoryBase", new { category = "avr", producers = "luxeon" })</li>
+                                        <li>@Html.RouteLink("Вольт", "categoryBase", new { category = "avr", producers = "вольт" })</li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Реле <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li>@Html.RouteLink("Реле напруги","categoryBase", new {category = "voltage-relay"})</li>
-                                        <li>@Html.RouteLink("Реле струму","categoryBase", new {category = "current-relay"})</li>
-                                        <li>@Html.RouteLink("Реле часу","categoryBase", new {category = "time-relay"})</li>
-                                        <li>@Html.RouteLink("Терморегулятори","categoryBase", new {category = "temperature-controller"})</li>
-                                        <li>@Html.RouteLink("Вольтметри","categoryBase", new {category = "voltmeter"})</li>
+                                        <li>@Html.RouteLink("Реле напруги", "categoryBase", new { category = "voltage-relay" })</li>
+                                        <li>@Html.RouteLink("Реле струму", "categoryBase", new { category = "current-relay" })</li>
+                                        <li>@Html.RouteLink("Реле часу", "categoryBase", new { category = "time-relay" })</li>
+                                        <li>@Html.RouteLink("Терморегулятори", "categoryBase", new { category = "temperature-controller" })</li>
+                                        <li>@Html.RouteLink("Вольтметри", "categoryBase", new { category = "voltmeter" })</li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Акумулятори <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li>@Html.RouteLink("Кислотно-лужні","categoryBase", new {category = "battery", type = "кислотно-лужні"})</li>
-                                        <li>@Html.RouteLink("Гелеві","categoryBase", new {category = "battery", type = "гелеві"})</li>
+                                        <li>@Html.RouteLink("Кислотно-лужні", "categoryBase", new { category = "battery", producers = "", type = "кислотно-лужні" })</li>
+                                        <li>@Html.RouteLink("Гелеві", "categoryBase", new { category = "battery", producers = "", type = "гелеві" })</li>
                                         <li class="divider"></li>
                                         <li class="nav-header">Виробники</li>
-                                        <li>@Html.RouteLink("Luxeon","categoryBase", new {category = "battery", producers = "luxeon"})</li>
-                                        <li>@Html.RouteLink("Ventura","categoryBase", new {category = "battery", producers = "ventura"})</li>
-                                        <li>@Html.RouteLink("B.B. Battery","categoryBase", new {category = "battery", producers = "b.b. battery"})</li>
-                                        <li>@Html.RouteLink("Vimar","categoryBase", new {category = "battery", producers = "vimar"})</li>
+                                        <li>@Html.RouteLink("Luxeon", "categoryBase", new { category = "battery", producers = "luxeon" })</li>
+                                        <li>@Html.RouteLink("Ventura", "categoryBase", new { category = "battery", producers = "ventura" })</li>
+                                        <li>@Html.RouteLink("B.B. Battery", "categoryBase", new { category = "battery", producers = "b.b. battery" })</li>
+                                        <li>@Html.RouteLink("Vimar", "categoryBase", new { category = "battery", producers = "vimar" })</li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">ББЖ <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li>@Html.RouteLink("Комп'ютерні","categoryBase", new {category = "ups", type = "комп'ютерні"})</li>
-                                        <li>@Html.RouteLink("Інтерактивні","categoryBase", new {category = "ups", type = "інтерактивні"})</li>
-                                        <li>@Html.RouteLink("On-line","categoryBase", new {category = "ups", type = "on-line"})</li>
-                                        <li>@Html.RouteLink("ББЖ-зарядки","categoryBase", new {category = "ups", type = "ббж-зарядки"})</li>
+                                        <li>@Html.RouteLink("Комп'ютерні", "categoryBase", new { category = "ups", producers = "", type = "комп'ютерні" })</li>
+                                        <li>@Html.RouteLink("Інтерактивні", "categoryBase", new { category = "ups", producers = "", type = "інтерактивні" })</li>
+                                        <li>@Html.RouteLink("On-line", "categoryBase", new { category = "ups", producers = "", type = "on-line" })</li>
+                                        <li>@Html.RouteLink("ББЖ-зарядки", "categoryBase", new { category = "ups", producers = "", type = "ббж-зарядки" })</li>
                                         <li class="divider"></li>
                                         <li class="nav-header">Виробники</li>
-                                        <li>@Html.RouteLink("Luxeon","categoryBase", new {category = "ups", producers = "luxeon"})</li>
-                                        <li>@Html.RouteLink("Volter","categoryBase", new {category = "ups", producers = "volter"})</li>
-                                        <li>@Html.RouteLink("Вольт","categoryBase", new {category = "ups", producers = "вольт"})</li>
+                                        <li>@Html.RouteLink("Luxeon", "categoryBase", new { category = "ups", producers = "luxeon" })</li>
+                                        <li>@Html.RouteLink("Volter", "categoryBase", new { category = "ups", producers = "volter" })</li>
+                                        <li>@Html.RouteLink("Вольт", "categoryBase", new { category = "ups", producers = "вольт" })</li>
                                     </ul>
                                 </li>
-                                <li>@Html.RouteLink("Зарядки","categoryBase", new {category = "charger"})</li>
-                                <li>@Html.RouteLink("Перетворювачі","categoryBase", new {category = "converter"})</li>
+                                <li>@Html.RouteLink("Зарядки", "categoryBase", new { category = "charger" })</li>
+                                <li>@Html.RouteLink("Перетворювачі", "categoryBase", new { category = "converter" })</li>
                                 @*<li>@Html.ActionLink("Інформація", "about", "home")</li>*@
                                 <li>@Html.ActionLink("Контакти", "contact", "home")</li>
                             </ul>

@@ -4,7 +4,7 @@ namespace WebMarket.Filters
 {
     public abstract class FilterBase
     {
-        protected readonly string[] Seperators = new[] { "-" };
+        protected readonly string[] Seperators = new[] { ";" };
         public string Key { get; protected set; }
         public abstract string Value { get; }
         public string DefaultValue { get; set; }
