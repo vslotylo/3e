@@ -12,21 +12,21 @@ namespace WebMarket.Extensions
 {
     public static class CssClassReslover
     {
-        public static string CssClass(this OrderStatus status)
+        public static string CssClass(this Status status)
         {
             switch (status)
             {
-                case OrderStatus.Pending:
+                case Status.Pending:
                     return "warning";
-                case OrderStatus.Cancelled:
+                case Status.Cancelled:
                     return "error";
-                case OrderStatus.Refunded:
+                case Status.Refunded:
                     return "error";
-                case OrderStatus.Completed:
+                case Status.Completed:
                     return "success";
-                case OrderStatus.Processing:
+                case Status.Processing:
                     return "info";
-                case OrderStatus.OnHold:
+                case Status.OnHold:
                     return "info";
             }
 

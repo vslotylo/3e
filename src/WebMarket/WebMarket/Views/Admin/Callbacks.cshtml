@@ -1,5 +1,5 @@
 ﻿@model List<WebMarket.DAL.Entities.Callback>
-
+@using WebMarket.Extensions
 @{
     ViewBag.Title = "Запити передзвонити";
 }
@@ -15,13 +15,15 @@
         <thead>
             <td>Дата</td>
             <td>Номер</td>
+            <td>Статус</td>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr class="@item.Status.CssClass()">
                     <td>@item.CreateTime</td>
                     <td>@item.Phone</td>
+                    <td>@item.Status</td>
                 </tr>
             }
         </tbody>

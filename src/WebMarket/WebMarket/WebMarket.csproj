@@ -186,6 +186,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
     <None Include="Content\metadata\metadata.csv" />
+    <Compile Include="Common\Settings.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -231,11 +232,13 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Notification\EmailManager.cs" />
+    <Compile Include="Notification\NotificationMessage.cs" />
+    <Compile Include="Notification\NotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AvrViewModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
-    <Compile Include="ViewModels\PagingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.MySql.sql" />

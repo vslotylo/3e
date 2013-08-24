@@ -4,15 +4,16 @@ namespace WebMarket.Common
 {
     public static class DateTimeExt
     {
+        private static readonly TimeZoneInfo TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time");
+
         public static DateTime ToUkrainianTimeZone(this DateTime dateTime)
         {
-            TimeZoneInfo timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time");
-            if (timeZoneInfo != null)
+            if (TimeZoneInfo != null)
             {
-                return TimeZoneInfo.ConvertTime(dateTime, timeZoneInfo);
+                return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo);
             }
 
-            return dateTime.ToUniversalTime().AddHours(2);
+            return dateTime.ToUniversalTime().AddHours(3);
         }
     }
 }

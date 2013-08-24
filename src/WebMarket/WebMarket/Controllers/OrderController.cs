@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.DAL.Entities;
@@ -8,6 +9,7 @@ using WebMarket.DAL.Entities.Enums;
 using System.Data.Entity;
 using WebMarket.DAL.Infrustructure;
 using WebMarket.DAL.Interfaces;
+using WebMarket.Notification;
 using WebMarket.ViewModels;
 
 namespace WebMarket.Controllers
@@ -51,9 +53,9 @@ namespace WebMarket.Controllers
                 var dbOrder = this.DbContext.Orders.Find(order.Id);
                 this.DbContext.Entry(dbOrder).State = EntityState.Modified;
                 dbOrder.Status = order.Status;
-                if (order.Status == OrderStatus.Completed || order.Status == OrderStatus.Refunded)
+                if (order.Status == Status.Completed || order.Status == Status.Refunded)
                 {
-                    dbOrder.CloseDate = DateTime.Now;
+                    dbOrder.CloseDate = DateTime.UtcNow.ToUkrainianTimeZone();
                 }
 
                 this.DbContext.SaveChanges();
@@ -71,11 +73,18 @@ namespace WebMarket.Controllers
                 order.Items.Add(new OrderItem { ProductId = item.Product.Id, Quantity = item.Quantity, UnitPrice = item.Product.CalculatedPrice.PriceFinalUah });
             }
 
-            order.Status = OrderStatus.Pending;
-            order.CreationDate = DateTime.UtcNow;
+            order.Status = Status.Pending;
+            order.CreationDate = DateTime.Now.ToUkrainianTimeZone();;
             this.DbContext.Orders.Add(order);
             try
             {
+                Task.Factory.StartNew(() =>
+                {
+                    //Razor.
+                    var message = new NotificationMessage { Subject = "Нове замовлення!", To = new[] { order.Email }, Body = "Дякуємо за замовлення!" };
+                    NotificationManager.Current.Notify(message);
+                });
+                
                 this.DbContext.SaveChanges();
             }
             catch (Exception e)

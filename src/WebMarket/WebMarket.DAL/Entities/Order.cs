@@ -20,7 +20,7 @@ namespace WebMarket.DAL.Entities
         public string Address { get; set; }
         public DateTime CreationDate { get; set; }
         public string Comment { get; set; }
-        public OrderStatus Status { get; set; }
+        public Status Status { get; set; }
         public List<OrderItem> Items { get; private set; }
         public DateTime? CloseDate { get; set; }
 

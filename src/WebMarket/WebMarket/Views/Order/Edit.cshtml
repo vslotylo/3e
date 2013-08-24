@@ -14,7 +14,7 @@
 
     @Html.HiddenFor(model => model.Id)
     <div class="editor-field">
-        @Html.DropDownListFor(model => model.Status, typeof(OrderStatus))
+        @Html.DropDownListFor(model => model.Status, typeof(Status))
         @Html.ValidationMessageFor(model => model.Status)
     </div>
     <button class="btn btn-primary" type="submit">Save</button>

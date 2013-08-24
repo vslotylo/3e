@@ -2,7 +2,7 @@
 
 namespace WebMarket.DAL.Entities.Enums
 {
-    public enum OrderStatus
+    public enum Status
     {
         [Description("Новий")]
         Pending,

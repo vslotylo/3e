@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.DAL.Entities;
+using WebMarket.DAL.Entities.Enums;
+using log4net;
 
 namespace WebMarket.Controllers
 {
@@ -34,17 +36,17 @@ namespace WebMarket.Controllers
                 return;
             }
 
-            var creationTime = DateTime.UtcNow.ToUkrainianTimeZone();
+            var creationTime = DateTime.Now.ToUkrainianTimeZone();
             var telephone = phone.Trim();
             try
             {
-                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone });
+                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending});
                 this.DbContext.SaveChanges();
             }
             catch (Exception e)
             {
-                // log error here
-                throw e;
+                Logger.Error(e);
+                throw;
             }
         }
     }
