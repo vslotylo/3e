@@ -1,14 +1,28 @@
 ﻿<emailtemplate>
-    <bodytemplate>
-      <![CDATA[
+  <bodytemplate>
+    <![CDATA[
       <html xmlns="http://www.w3.org/1999/xhtml">
-            <head />
+      <head>
+			<style>
+				body {color: #424F5A; font-family: arial;}
+				span {color: #3B9BDA;}
+				div {margin-left:5em;}
+			</style>
+			</head>			
             <body>
-                <p>Ваша замовлення на сайті <a href="3e.lviv.ua">3e.lviv.ua</a> прийнято.</p>
+                <p>Доброго дня, <span>@userName</span></p>
+                <br/>
+				<div>
+                <p>Вашe замовлення на сайті <a href="3e.lviv.ua">3e.lviv.ua</a> прийнято. Сума до оплати становить <span>@totalSum</span> грн.</p>
                 <p>Наш менеджер зв'яжиться з вами у найблищий час.</p>
+                <p>Контактна інформація: Moб. телефон: <strong>+38-067-33-57-863</strong>, <strong>+38-063-96-22-533</strong>; E-mail: <a href="mailto:3e.lviv@gmail.com">3e.lviv@gmail.com</a></p>
+                <p>Дякуємо за замовлення!</p>
+				<br/>
+				</div>
+                <p>З повагою, <a href="3e.lviv.ua">3e.lviv.ua</a></p>
             </body>
         </html>
         ]]>
-    </bodytemplate>
-    <subject>Замовлення на сайті 3e.lviv.ua</subject>
+  </bodytemplate>
+  <subject>Замовлення на сайті 3e.lviv.ua прийнято</subject>
 </emailtemplate>

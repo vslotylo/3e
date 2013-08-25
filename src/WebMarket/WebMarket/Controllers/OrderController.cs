@@ -81,7 +81,7 @@ namespace WebMarket.Controllers
             {
                 Task.Factory.StartNew(() =>
                 {
-                    var message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.CustomerOrderTemplate, To = new[] { order.Email } };
+                    var message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.GetCustomerOrderTemplate(order.User, order.Total), To = new[] { order.Email } };
                     NotificationManager.Current.Notify(message);
                 });
                 

@@ -185,7 +185,7 @@
     <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
-    <None Include="Content\metadata\metadata.csv" />
+    <Content Include="Content\metadata\metadata.csv" />
     <Compile Include="Common\Settings.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
@@ -241,7 +241,29 @@
     <Compile Include="ViewModels\AvrViewModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
-    <None Include="Notification\Templates\CustomerOrder.msgtmpl" />
+    <Content Include="Content\tiles\avr\Volter ИБП-300.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B100-12 12В 100АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B12-6 6В 12АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B160-12 12В 160АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B5-6 6В 5Ah.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B70-12 12В 70АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR B7_5-12 7_5Ач.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR BG110-12 12В 110АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR BG25-12 12В 25АЧ.jpg" />
+    <Content Include="Content\tiles\battery\VIMAR BG55-12 12В 55АЧ.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1203A 3А 12В 36Вт.1.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1203A 3А 12В 36Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1205A 5А 12В 60Вт.1.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1205A 5А 12В 60Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1205B 5А 12В 60Вт.1.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PS1205B 5А 12В 60Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PSC 12012 10A 12В 117Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PSC 3512 3A 12В 34Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon PSC 6012 5A 12В 60Вт.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.1.jpg" />
+    <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.jpg" />
+    <Content Include="Content\tiles\ups\Вольт MAX-300.jpg" />
+    <Content Include="Notification\Templates\CustomerOrder.msgtmpl" />
     <Content Include="Views\Shared\ProductLink.cshtml" />
     <Content Include="Views\Shared\ProductLinkUrl.cshtml" />
   </ItemGroup>
@@ -626,10 +648,6 @@
     <Content Include="Content\tiles\timerelay\prv_2n.png" />
     <Content Include="Content\tiles\timerelay\prv_5n.png" />
     <Content Include="Content\tiles\timerelay\pt_2.png" />
-    <Content Include="Content\tiles\ups\PS1203A 3A 12V 36W.jpg" />
-    <Content Include="Content\tiles\ups\PS1203B 3A 12V 36W.jpg" />
-    <Content Include="Content\tiles\ups\PS1205A 5A 12V 60W.jpg" />
-    <Content Include="Content\tiles\ups\PS1205B 5A 12V 60W.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000L3.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000LE LOW.jpg" />
     <Content Include="Content\tiles\ups\UPS-10000LE.jpg" />
