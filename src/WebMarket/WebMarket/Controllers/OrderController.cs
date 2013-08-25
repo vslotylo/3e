@@ -83,6 +83,8 @@ namespace WebMarket.Controllers
                 {
                     var message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.GetCustomerOrderTemplate(order.User, order.Total), To = new[] { order.Email } };
                     NotificationManager.Current.Notify(message);
+                    message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.GetSalesTemplate(order), To = new[] { Constants.SalesEmail } };
+                    NotificationManager.Current.Notify(message);
                 });
                 
                 this.DbContext.SaveChanges();

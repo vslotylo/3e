@@ -12,5 +12,6 @@
 
         public const string CartKey = "Cart";
         public const string AdminRoleName = "Administrator";
+        public const string SalesEmail = "3e.lviv@gmail.com";
     }
 }

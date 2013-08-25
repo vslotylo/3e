@@ -2,10 +2,10 @@
 {
     public class EmailTemplate
     {
-        public EmailTemplate(string subject, string body)
+        public EmailTemplate(string body, string subject)
         {
-            this.Subject = subject;
             this.Body = body;
+            this.Subject = subject;
         }
 
         public string Subject { get; set; }
