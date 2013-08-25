@@ -63,7 +63,7 @@
                       </tr>
                       <tr>
                           <td>E-mail</td>
-                          <td><span><a href="mailto:@userEmail"></a></span></td>
+                          <td><span><a href="mailto:@userEmail">@userEmail</a></span></td>
                       </tr>
                       <tr>
                           <td>Коментар</td>
