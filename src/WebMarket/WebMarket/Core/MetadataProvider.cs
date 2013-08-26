@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Hosting;
+using OfficeOpenXml;
 using WebMarket.DAL.Common;
 
 namespace WebMarket.Core
@@ -20,23 +20,26 @@ namespace WebMarket.Core
         private MetadataProvider()
         {
             dict = new Dictionary<string, Metadata>();
-            string metadataString;
-            using (var sr = File.OpenText(HostingEnvironment.MapPath(("~/Content/metadata/metadata.csv"))))
-            {
-                metadataString = sr.ReadToEnd();
-            }
-
-            var metaDataItem = metadataString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var context = new WebMarketDbContext();
             var categories = context.Categories.ToList();
-            foreach (var info in metaDataItem.Select(item => item.Split(new []{"\","}, StringSplitOptions.RemoveEmptyEntries)))
+            using (var fs = File.OpenRead(HostingEnvironment.MapPath(("~/Content/metadata/metadata.xlsx"))))
             {
-                //todo improve logic
-                var categoryName = ParseValue(info[0]).ToLower();
-                var listTitle = this.ParseValue(info[1]);
-                var detailTitle = this.ParseValue(info[2]);
-                var categoryDisplayName = categories.SingleOrDefault(obj=>obj.Name == categoryName).DisplayName;
-                this.dict[categoryName] = new Metadata(categoryDisplayName, listTitle, detailTitle);
+                var excelPackage = new ExcelPackage(fs);
+                var excelWorksheet = excelPackage.Workbook.Worksheets.FirstOrDefault(obj => !obj.Name.StartsWith("_"));
+                int row = 2;
+                int col = 1;
+                while (excelWorksheet.Cells[row, col].Value != null)
+                {
+                    var categoryName = excelWorksheet.Cells[row, col].Value.ToString().ToLower();
+                    col++;
+                    var listTitle = excelWorksheet.Cells[row, col].Value.ToString();
+                    col++;
+                    var detailTitle = excelWorksheet.Cells[row, col].Value.ToString();
+                    var categoryDisplayName = categories.SingleOrDefault(obj => obj.Name == categoryName).DisplayName;
+                    this.dict[categoryName] = new Metadata(categoryDisplayName, listTitle, detailTitle);
+                    row++;
+                    col = 1;
+                }
             }
         }
 
@@ -51,11 +54,6 @@ namespace WebMarket.Core
         public Metadata GetMetadataInfo(string category)
         {
             return dict[category.ToLower()];
-        }
-
-        private string ParseValue(string val)
-        {
-            return val.Replace("\"", string.Empty);
         }
     }
 }

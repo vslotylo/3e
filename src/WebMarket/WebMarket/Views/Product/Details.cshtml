@@ -1,6 +1,6 @@
 ﻿@model WebMarket.Core.DetailsViewModel
 @{
-    ViewBag.Title = string.Format("Стабілізотор напруги: {0}", Model.Product.DisplayName);
+    ViewBag.Title = string.Format("{0}: {1}", Model.Metadata.DisplayCategory, Model.Product.DisplayName);
 }
 @section scripts
 {
