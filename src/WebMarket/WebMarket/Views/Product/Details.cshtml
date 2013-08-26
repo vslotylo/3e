@@ -1,6 +1,7 @@
 ﻿@model WebMarket.Core.DetailsViewModel
 @{
-    ViewBag.Title = string.Format("{0}: {1}", Model.Metadata.DisplayCategory, Model.Product.DisplayName);
+    ViewBag.Title = string.Format("{0}: {1}", Model.Metadata.TitleDetails, Model.Product.DisplayName);
+    ViewBag.MetaDescription = Model.Metadata.MetadataDetailsDescription;
 }
 @section scripts
 {

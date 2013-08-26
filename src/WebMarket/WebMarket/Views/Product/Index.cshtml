@@ -1,6 +1,7 @@
 ﻿@model WebMarket.Core.FilterViewModelBase<WebMarket.DAL.Entities.Product>
 @{
-    ViewBag.Title = Model.Metadata.ListTitle;
+    ViewBag.Title = Model.Metadata.TitleList;
+    ViewBag.MetaDescription = Model.Metadata.MetaListDescription;
 }
 @section scripts
 {

@@ -22,7 +22,7 @@ namespace WebMarket.Core
             dict = new Dictionary<string, Metadata>();
             var context = new WebMarketDbContext();
             var categories = context.Categories.ToList();
-            using (var fs = File.OpenRead(HostingEnvironment.MapPath(("~/Content/metadata/metadata.xlsx"))))
+            using (var fs = File.OpenRead(HostingEnvironment.MapPath(("~/App_Data/metadata/metadata.xlsx"))))
             {
                 var excelPackage = new ExcelPackage(fs);
                 var excelWorksheet = excelPackage.Workbook.Worksheets.FirstOrDefault(obj => !obj.Name.StartsWith("_"));
@@ -34,9 +34,13 @@ namespace WebMarket.Core
                     col++;
                     var listTitle = excelWorksheet.Cells[row, col].Value.ToString();
                     col++;
-                    var detailTitle = excelWorksheet.Cells[row, col].Value.ToString();
+                    var detailsTitle = excelWorksheet.Cells[row, col].Value.ToString();
+                    col++;
+                    var metadataList = excelWorksheet.Cells[row, col].Value.ToString();
+                    col++;
+                    var metadataDetails = excelWorksheet.Cells[row, col].Value.ToString();
                     var categoryDisplayName = categories.SingleOrDefault(obj => obj.Name == categoryName).DisplayName;
-                    this.dict[categoryName] = new Metadata(categoryDisplayName, listTitle, detailTitle);
+                    this.dict[categoryName] = new Metadata(categoryDisplayName, listTitle, detailsTitle, metadataList, metadataDetails);
                     row++;
                     col = 1;
                 }
