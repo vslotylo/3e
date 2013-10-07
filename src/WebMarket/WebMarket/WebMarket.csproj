@@ -189,7 +189,6 @@
     <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
-    <Content Include="Content\metadata\metadata.csv" />
     <Compile Include="Common\Settings.cs" />
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
@@ -245,6 +244,7 @@
     <Compile Include="ViewModels\AvrViewModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
+    <Content Include="Content\js\analytics.js" />
     <Content Include="Content\tiles\avr\Volter ИБП-300.jpg" />
     <Content Include="Content\tiles\battery\VIMAR B100-12 12В 100АЧ.jpg" />
     <Content Include="Content\tiles\battery\VIMAR B12-6 6В 12АЧ.jpg" />
@@ -267,6 +267,7 @@
     <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.1.jpg" />
     <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.jpg" />
     <Content Include="Content\tiles\ups\Вольт MAX-300.jpg" />
+    <Content Include="google0a8ceae4b96d2cfc.html" />
     <Content Include="Notification\Templates\CustomerOrder.msgtmpl" />
     <Content Include="Views\Shared\ProductLink.cshtml" />
     <Content Include="Views\Shared\ProductLinkUrl.cshtml" />
@@ -765,6 +766,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\tiles\web.config" />
     <Content Include="Notification\Templates\SalesNotification.msgtmpl" />
+    <Content Include="App_Data\metadata\metadata.xlsx" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -853,9 +855,7 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
