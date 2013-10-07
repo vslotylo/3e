@@ -1,7 +1,14 @@
 ﻿@model WebMarket.Core.DetailsViewModel
 @{
-    ViewBag.Title = string.Format("{0}: {1}", Model.Metadata.TitleDetails, Model.Product.DisplayName);
-    ViewBag.MetaDescription = Model.Metadata.MetadataDetailsDescription;
+    ViewBag.Title = string.Format("{0} - {1}", Model.Metadata.TitleDetails, Model.Product.DisplayName);
+    ViewBag.MetaDescription = string.Format("{0} - {1}, Виробник: {2}, Тип: {3}, Ціна: {4} грн./{5} $, Гарантія: {6} м.", 
+        Model.Metadata.TitleDetails, 
+        Model.Product.DisplayName, 
+        Model.Product.Producer.Name,
+        Model.Product.SubCategoryName, 
+        Model.Product.CalculatedPrice.PriceFinalUah, 
+        Model.Product.CalculatedPrice.PriceFinalUsd, 
+        Model.Product.Warranty);
 }
 @section scripts
 {

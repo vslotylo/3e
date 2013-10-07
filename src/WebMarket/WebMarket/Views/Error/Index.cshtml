@@ -4,4 +4,20 @@
     ViewBag.Title = "На найшому сайті сталася помилка";
 }
 
-<h2>@Model.Message</h2>
+<div class="alert alert-error">
+    <h2>@Model.Message</h2>
+</div>
+
+<p>Спробуйте перейти за наступними посиланнями:</p>
+<ul>
+    <li>@Html.RouteLink("Стабілізатори напруги", "categoryBase", new { category = "avr" })</li>
+    <li>@Html.RouteLink("ДБЖ", "categoryBase", new { category = "ups" })</li>
+    <li>@Html.RouteLink("Акумулятори", "categoryBase", new { category = "battery" })</li>
+    <li>@Html.RouteLink("Реле напруги", "categoryBase", new { category = "voltage-relay" })</li>
+    <li>@Html.RouteLink("Реле струму", "categoryBase", new { category = "current-relay" })</li>
+    <li>@Html.RouteLink("Реле часу", "categoryBase", new { category = "time-relay" })</li>
+    <li>@Html.RouteLink("Терморегулятори", "categoryBase", new { category = "temperature-controller" })</li>
+    <li>@Html.RouteLink("Вольтметри", "categoryBase", new { category = "voltmeter" })</li>
+    <li>@Html.RouteLink("Зарядки", "categoryBase", new { category = "charger" })</li>
+    <li>@Html.RouteLink("Перетворювачі", "categoryBase", new { category = "converter" })</li>
+</ul>

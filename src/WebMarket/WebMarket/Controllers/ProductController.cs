@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,14 +14,21 @@ namespace WebMarket.Controllers
         [HttpGet]
         public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producerFilter, PageFilter pageFilter, TypeFilter typeFilter)
         {
-            // todo validate args here
-            this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter);
+            try
+            {
+                this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter);
+                var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
+                entities = this.StartInitialize(entities);
+                this.EndInitialize(entities);
+                this.ViewModel.Metadata = MetadataProvider.Current.GetMetadataInfo(category);
+                return this.View(this.ViewModel);
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+                return this.RedirectToAction("index", "error", new { statusCode = 500 });
+            }
             
-            var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
-            entities = this.StartInitialize(entities);
-            this.EndInitialize(entities);
-            this.ViewModel.Metadata = MetadataProvider.Current.GetMetadataInfo(category);
-            return this.View(this.ViewModel);
         }
 
         public ActionResult Details(string category, string name)
@@ -29,7 +37,7 @@ namespace WebMarket.Controllers
             var entity = this.DbContext.Products.Include(i => i.Producer).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {
-                return this.RedirectToAction("Index", "Error", new { statusCode = 404});
+                return this.RedirectToAction("index", "error", new { statusCode = 404});
             }
 
             var metadata = MetadataProvider.Current.GetMetadataInfo(category);
@@ -48,7 +56,7 @@ namespace WebMarket.Controllers
             {
                 this.DbContext.Products.Add(battery);
                 this.DbContext.SaveChanges();
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("index");
             }
 
             return this.View(battery);
@@ -59,7 +67,7 @@ namespace WebMarket.Controllers
             var battery = this.DbContext.Products.Find(id);
             if (battery == null)
             {
-                return this.RedirectToAction("Index", "Error");
+                return this.RedirectToAction("index", "error");
             }
             return this.View(battery);
         }
@@ -71,7 +79,7 @@ namespace WebMarket.Controllers
             {
                 this.DbContext.Entry(battery).State = EntityState.Modified;
                 this.DbContext.SaveChanges();
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("index");
             }
             return this.View(battery);
         }
@@ -81,7 +89,7 @@ namespace WebMarket.Controllers
             Product battery = this.DbContext.Products.Find(id);
             if (battery == null)
             {
-                return this.RedirectToAction("Index", "Error");
+                return this.RedirectToAction("index", "error");
             }
             return this.View(battery);
         }
@@ -92,7 +100,7 @@ namespace WebMarket.Controllers
             var battery = this.DbContext.Products.Find(id);
             this.DbContext.Products.Remove(battery);
             this.DbContext.SaveChanges();
-            return this.RedirectToAction("Index");
+            return this.RedirectToAction("index");
         }
 
         protected override void Dispose(bool disposing)
