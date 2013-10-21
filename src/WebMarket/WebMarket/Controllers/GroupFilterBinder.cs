@@ -9,13 +9,13 @@ namespace WebMarket.Controllers
         {
             if (bindingContext.ModelType == typeof (GroupFilter))
             {
-                var grValue = controllerContext.HttpContext.Request.Params.Get("gr");
-                if (string.IsNullOrEmpty(grValue))
+                var groupValue = controllerContext.HttpContext.Request.Params.Get("gr");
+                if (string.IsNullOrEmpty(groupValue))
                 {
                     return base.BindModel(controllerContext, bindingContext);
                 }
 
-                return new GroupFilter {Group = grValue};
+                return new GroupFilter {Group = groupValue};
             }
 
             return base.BindModel(controllerContext, bindingContext);
