@@ -7,13 +7,13 @@ namespace WebMarket.Core
 {
     public class FilterViewModelBase<T> where T : Product
     {
-        public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, TypeFilter typeFilter)
+        public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, GroupFilter groupFilter)
             : this(pageSizeFilter, sortFilter, pageFilter)
         {
             this.ProducersFilter = producersFilter;
-            this.TypesFilter = typeFilter;
+            this.GroupsFilter = groupFilter;
             this.Filters.Add(producersFilter);
-            this.Filters.Add(typeFilter);
+            this.Filters.Add(groupFilter);
         }
 
         public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, PageFilter pageFilter, SearchFilter searchFilter)
@@ -60,7 +60,7 @@ namespace WebMarket.Core
         }
 
         public IEnumerable<GenericFilterModel<string>> Producers { get; set; }
-        public IEnumerable<GenericFilterModel<string>> Types { get; set; }
+        public IEnumerable<GenericFilterModel<string>> Groups { get; set; }
         public IList<GenericFilterModelBase<int>> PageSize { get; private set; }
         public IList<GenericFilterModelBase<int>> Sort { get; private set; }
 
@@ -71,7 +71,7 @@ namespace WebMarket.Core
         public SortFilter SortFilter { get; private set; }
         public ProducersFilter ProducersFilter { get; private set; }
         public PageFilter PageFilter { get; private set; }
-        public TypeFilter TypesFilter { get; private set; }
+        public GroupFilter GroupsFilter { get; private set; }
         public SearchFilter SearchFilter { get; private set; }
         public int Count { get; set; }
         public Metadata Metadata { get; set; }

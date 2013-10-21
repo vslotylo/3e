@@ -14,6 +14,7 @@ namespace WebMarket.Filters
             this.DefaultValue = this.Producers;
             this.Key = "producers";
             this.Routes = new List<RouteValueDictionary>();
+            this.DisplayList = new List<string>();
         }
 
         public string Producers { get; set; }
@@ -41,6 +42,12 @@ namespace WebMarket.Filters
             {
                 return this.Producers;
             }
+        }
+
+        public IList<string> DisplayList
+        {
+            get;
+            private set;
         }
 
         public override bool IsEmpty()

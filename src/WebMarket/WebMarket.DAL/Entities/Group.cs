@@ -2,7 +2,7 @@
 
 namespace WebMarket.DAL.Entities
 {
-    public class Category
+    public class Group
     {
         [Key]
         public string Name { get; set; }

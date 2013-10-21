@@ -49,6 +49,7 @@
       <HintPath>..\packages\MySQL.Data.Entities.6.5.4.0\lib\net40\MySql.Data.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -69,7 +70,7 @@
     <Compile Include="Entities\Enums\DisplayClass.cs" />
     <Compile Include="Entities\Enums\Status.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\SubCategory.cs" />
+    <Compile Include="Entities\Group.cs" />
     <Compile Include="Exceptions\EntityImportException.cs" />
     <Compile Include="Infrustructure\Price.cs" />
     <Compile Include="Interfaces\IPreviewInfo.cs" />
@@ -133,6 +134,18 @@
     <Compile Include="Migrations\201308241509132_ProductAddedName.Designer.cs">
       <DependentUpon>201308241509132_ProductAddedName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310191324207_AddedGroups.cs" />
+    <Compile Include="Migrations\201310191324207_AddedGroups.Designer.cs">
+      <DependentUpon>201310191324207_AddedGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310191329511_ChangedCategoryKey.cs" />
+    <Compile Include="Migrations\201310191329511_ChangedCategoryKey.Designer.cs">
+      <DependentUpon>201310191329511_ChangedCategoryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310211342195_AddedProducerDisplayName.cs" />
+    <Compile Include="Migrations\201310211342195_AddedProducerDisplayName.Designer.cs">
+      <DependentUpon>201310211342195_AddedProducerDisplayName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\WebMarketDbContext.cs" />
@@ -140,15 +153,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201306131555043_Initial.resx">
       <DependentUpon>201306131555043_Initial.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201306151553477_Callback.resx">
       <DependentUpon>201306151553477_Callback.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307131803393_RemovedTotalItemPrice.resx">
       <DependentUpon>201307131803393_RemovedTotalItemPrice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201307251557034_AddedAvailability.resx">
       <DependentUpon>201307251557034_AddedAvailability.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308040927291_AddedDisplayClass.resx">
       <DependentUpon>201308040927291_AddedDisplayClass.cs</DependentUpon>
@@ -173,6 +189,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308241509132_ProductAddedName.resx">
       <DependentUpon>201308241509132_ProductAddedName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310191324207_AddedGroups.resx">
+      <DependentUpon>201310191324207_AddedGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310191329511_ChangedCategoryKey.resx">
+      <DependentUpon>201310191329511_ChangedCategoryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310211342195_AddedProducerDisplayName.resx">
+      <DependentUpon>201310211342195_AddedProducerDisplayName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

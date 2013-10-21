@@ -201,6 +201,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GroupFilterBinder.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,7 +228,7 @@
     <Compile Include="Filters\ProducersFilter.cs" />
     <Compile Include="Filters\SearchFilter.cs" />
     <Compile Include="Filters\SortFilter.cs" />
-    <Compile Include="Filters\TypeFilter.cs" />
+    <Compile Include="Filters\GroupFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,7 +268,6 @@
     <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.1.jpg" />
     <Content Include="Content\tiles\ups\Luxeon S1203B 3А 12В 36В.jpg" />
     <Content Include="Content\tiles\ups\Вольт MAX-300.jpg" />
-    <Content Include="google0a8ceae4b96d2cfc.html" />
     <Content Include="Notification\Templates\CustomerOrder.msgtmpl" />
     <Content Include="Views\Shared\ProductLink.cshtml" />
     <Content Include="Views\Shared\ProductLinkUrl.cshtml" />
@@ -788,6 +788,7 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -5,30 +5,30 @@ using System.Web.Routing;
 
 namespace WebMarket.Filters
 {
-    public class TypeFilter : FilterBase
+    public class GroupFilter : FilterBase
     {
-        private IList<string> typeList;
-        public TypeFilter()
+        private IList<string> groupList;
+        public GroupFilter()
         {
-            this.Type = string.Empty;
-            this.DefaultValue = this.Type;
-            this.Key = "type";
+            this.Group = string.Empty;
+            this.DefaultValue = this.Group;
+            this.Key = "gr";
             this.Routes = new List<RouteValueDictionary>();
             this.DisplayList = new List<string>();
         }
 
-        public string Type { get; set; }
+        public string Group { get; set; }
         public IList<RouteValueDictionary> Routes { get; private set; }
-        public IList<string> TypeList
+        public IList<string> GroupList
         {
             get
             {
-                if (this.typeList == null)
+                if (this.groupList == null)
                 {
-                    this.typeList = this.Type.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(t => t.ToLower()).ToList();
+                    this.groupList = this.Group.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(t => t.ToLower()).ToList();
                 }
 
-                return this.typeList;
+                return this.groupList;
             }
         }
 
@@ -39,26 +39,26 @@ namespace WebMarket.Filters
 
         public override string Value
         {
-            get { return this.Type; }
+            get { return this.Group; }
         }
 
         public override string AddPart(string item)
         {
-            var list = this.TypeList.ToList();
+            var list = this.GroupList.ToList();
             list.Add(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override string RemovePart(string item)
         {
-            var list = this.TypeList.ToList();
+            var list = this.GroupList.ToList();
             list.Remove(item.ToLower());
             return string.Join(this.Seperators[0], list);
         }
 
         public override bool Contains(string value)
         {
-            return this.TypeList.Any(p => string.Compare(p, value, StringComparison.InvariantCultureIgnoreCase) == 0);
+            return this.GroupList.Any(p => string.Compare(p, value, StringComparison.InvariantCultureIgnoreCase) == 0);
         }
     }
 }

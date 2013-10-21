@@ -12,11 +12,11 @@ namespace WebMarket.Controllers
     public class ProductController : ListControllerBase
     {
         [HttpGet]
-        public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producerFilter, PageFilter pageFilter, TypeFilter typeFilter)
+        public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producerFilter, PageFilter pageFilter, [ModelBinder(typeof(GroupFilterBinder))] GroupFilter groupFilter)
         {
             try
             {
-                this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter);
+                this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);
@@ -27,8 +27,7 @@ namespace WebMarket.Controllers
             {
                 Logger.Error(e);
                 return this.RedirectToAction("index", "error", new { statusCode = 500 });
-            }
-            
+            }            
         }
 
         public ActionResult Details(string category, string name)

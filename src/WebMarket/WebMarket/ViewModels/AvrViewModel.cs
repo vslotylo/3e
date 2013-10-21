@@ -12,9 +12,9 @@ namespace WebMarket.ViewModels
             SortFilter sortFilter, 
             ProducersFilter producerFilter, 
             PageFilter pageFilter, 
-            TypeFilter typeFilter, 
+            GroupFilter groupFilter, 
             PowerCapacityFilter powerCapacityFilter)
-            : base(pageSizeFilter, sortFilter, producerFilter, pageFilter, typeFilter)
+            : base(pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter)
         {
             this.Filters.Add(powerCapacityFilter);
         }

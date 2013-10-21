@@ -62,21 +62,22 @@ namespace WebMarket.Controllers
             foreach (var item in this.ViewModel.ProducersFilter.ProducersList)
             {
                 this.ViewModel.ProducersFilter.Routes.Add(this.ViewModel.Filters.RemoveFilterPart(this.ViewModel.ProducersFilter, item));
+                this.ViewModel.ProducersFilter.DisplayList.Add(this.ViewModel.Producers.Single(obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
             }
         }
 
-        protected void InitializeSelectedTypes()
+        protected void InitializeSelectedGroups()
         {
-            if (this.ViewModel.TypesFilter == null)
+            if (this.ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
             // todo
-            foreach (var item in this.ViewModel.TypesFilter.TypeList)
+            foreach (var item in this.ViewModel.GroupsFilter.GroupList)
             {
-                this.ViewModel.TypesFilter.Routes.Add(this.ViewModel.Filters.RemoveFilterPart(this.ViewModel.TypesFilter, item));
-                this.ViewModel.TypesFilter.DisplayList.Add(this.ViewModel.Types.Single(obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
+                this.ViewModel.GroupsFilter.Routes.Add(this.ViewModel.Filters.RemoveFilterPart(this.ViewModel.GroupsFilter, item));
+                this.ViewModel.GroupsFilter.DisplayList.Add(this.ViewModel.Groups.Single(obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
             }
         }
 
@@ -109,16 +110,16 @@ namespace WebMarket.Controllers
             }
         }
 
-        protected void InitializeTypeFilter()
+        protected void InitializeGroupFilter()
         {
-            if (this.ViewModel.TypesFilter == null)
+            if (this.ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
-            foreach (var item in this.ViewModel.Types)
+            foreach (var item in this.ViewModel.Groups)
             {
-                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.TypesFilter, item.Value);                
+                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.GroupsFilter, item.Value);                
             }
         }
 
@@ -127,11 +128,11 @@ namespace WebMarket.Controllers
             this.InitializePageSizeFilter();
             this.InitializeSortFilter();
             this.InitializeProducerFilter();
-            this.InitializeTypeFilter();
+            this.InitializeGroupFilter();
 
             this.InitializePager(entities);
             this.InitializeSelectedProducer();
-            this.InitializeSelectedTypes();
+            this.InitializeSelectedGroups();
         }
 
         protected void EndInitializeCommon(IEnumerable<Product> entities)
@@ -139,11 +140,11 @@ namespace WebMarket.Controllers
             this.InitializePageSizeFilter();
             this.InitializeSortFilter();
             this.InitializeProducerFilter();
-            this.InitializeTypeFilter();
+            this.InitializeGroupFilter();
 
             this.InitializePager(entities);
             this.InitializeSelectedProducer();
-            this.InitializeSelectedTypes();
+            this.InitializeSelectedGroups();
         }
 
         private void InitializeSort()
@@ -163,11 +164,11 @@ namespace WebMarket.Controllers
                 return;
             }
 
-            var producers = entities.GroupBy(p => p.Producer).Select(g => new GenericFilterModel<string> { Value = g.Key.Name, Name = g.Key.Name, ProductsCount = g.Count() }).ToList();
-            this.ViewModel.ProducersFilter.ProducersList = producers.Select(obj => obj.Name).Where(p => this.ViewModel.ProducersFilter.ParsedProducers.Contains(p.ToLower())).ToList();
+            var producers = entities.GroupBy(p => p.Producer).Select(g => new GenericFilterModel<string> { Value = g.Key.Name, Name = g.Key.DisplayName, ProductsCount = g.Count() }).ToList();
+            this.ViewModel.ProducersFilter.ProducersList = producers.Select(obj => obj.Value.ToLower()).Where(p => this.ViewModel.ProducersFilter.ParsedProducers.Contains(p.ToLower())).ToList();
             foreach (var item in producers)
             {
-                item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value);
+                item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value.ToLower());
             }
 
             this.ViewModel.Producers = producers;
@@ -187,9 +188,9 @@ namespace WebMarket.Controllers
             this.InitializeProducerFilter(entities);
             this.InitializeTypesFilter(entities);
 
-            if (this.ViewModel.TypesFilter != null && this.ViewModel.TypesFilter.TypeList.Any())
+            if (this.ViewModel.GroupsFilter != null && this.ViewModel.GroupsFilter.GroupList.Any())
             {
-                entities = entities.Where(o => this.ViewModel.TypesFilter.TypeList.Contains(o.SubCategoryName));
+                entities = entities.Where(o => this.ViewModel.GroupsFilter.GroupList.Contains(o.GroupName));
             }
 
             if (this.ViewModel.ProducersFilter != null && this.ViewModel.ProducersFilter.ProducersList.Any())
@@ -202,22 +203,24 @@ namespace WebMarket.Controllers
 
         private void InitializeTypesFilter(IQueryable<Product> entities)
         {
-            if (this.ViewModel.TypesFilter == null)
+            if (this.ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
-            var types =
-                entities.GroupBy(item => item.SubCategoryName)
+            var allGroups = DbContext.Groups.ToList();
+
+            var groups =
+                entities.GroupBy(item => item.GroupName)
                         .ToList()
-                        .Select(g => new GenericFilterModel<string> { Value = g.Key, Name = g.FirstOrDefault().SubCategoryName, ProductsCount = g.Count() })
+                        .Select(g => new GenericFilterModel<string> { Value = g.Key, Name = allGroups.Single(obj=>obj.Name == g.Key).DisplayName, ProductsCount = g.Count() })
                         .ToList();
-            foreach (var item in types)
+            foreach (var item in groups)
             {
-                item.IsSelected = this.ViewModel.TypesFilter.TypeList.Contains(item.Value.ToLower());
+                item.IsSelected = this.ViewModel.GroupsFilter.GroupList.Contains(item.Value.ToLower());
             }
 
-            this.ViewModel.Types = types;
+            this.ViewModel.Groups = groups;
         }
     }
 }

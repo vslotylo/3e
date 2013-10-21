@@ -27,7 +27,7 @@ app.filters.current = function () {
     });
 
     var val = "";
-    var comma = "%3B";
+    var comma = "-";
     var isFirst = true;
     for (var i = 0; i < app.filters.length; i++) {
         if (app.filters[i].items.length > 0) {

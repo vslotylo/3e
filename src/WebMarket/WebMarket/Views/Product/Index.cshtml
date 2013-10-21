@@ -24,7 +24,7 @@
         {
             <div class="alert alert-block">
                 @Html.Partial("FilterSelectedByProducers", Model.Filters.GetFilter("producers"))
-                @Html.Partial("FilterSelectedByType", Model.Filters.GetFilter("type"))
+                @Html.Partial("FilterSelectedByType", Model.Filters.GetFilter("gr"))
                @* @Html.Partial("FilterSelectedByPowerCapacity", Model)*@
                 @if (Model.Pagging.List.TotalItemCount != Model.Count)
                 {
@@ -42,7 +42,7 @@
                 Підбір за параметрами:</p>
             <div class="entityFilterContainer">
                 @Html.Partial("FilterByProducers", Model.Producers)
-                @Html.Partial("FilterByType", Model.Types)
+                @Html.Partial("FilterByType", Model.Groups)
                @* @Html.Partial("FilterAvrByPower", Model)*@
             </div>
             @Html.Partial("FilterButton")

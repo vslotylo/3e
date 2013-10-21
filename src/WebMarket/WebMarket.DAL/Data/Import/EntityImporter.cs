@@ -14,11 +14,13 @@ namespace WebMarket.DAL.Data.Import
     {
         private readonly List<Producer> producers;
         private readonly List<Category> categories;
+        private readonly List<Group> groups;
 
         public EntityImporter(WebMarketDbContext context)
         {
             this.producers = context.Producers.ToList();
             this.categories = context.Categories.ToList();
+            this.groups = context.Groups.ToList();
         }
 
         // used via reflection
@@ -49,7 +51,7 @@ namespace WebMarket.DAL.Data.Import
             {
                 var entity = new T();
                 PropertyInfo[] properties = entityType.GetProperties();
-                var dynaicProperties = new Dictionary<string, string>();
+                var dynamicProperties = new Dictionary<string, string>();
                 for (int i = 1; i <= columnNames.Keys.Count; i++)
                 {
                     PropertyInfo property = properties.FirstOrDefault(p => string.Compare(p.Name, columnNames[i], StringComparison.OrdinalIgnoreCase) == 0);
@@ -68,10 +70,11 @@ namespace WebMarket.DAL.Data.Import
                         continue;
                     }
 
+                    
                     if (isProduct && property == null)
                     {
                         var suffix = excelWorksheet.Cells[2, i].Value ?? string.Empty;
-                        dynaicProperties[columnNames[i]] = string.Format("{0} {1}", value.ToString().Trim(), suffix.ToString().Trim());
+                        dynamicProperties[columnNames[i]] = string.Format("{0} {1}", value.ToString().Trim(), suffix.ToString().Trim());
                         continue;
                     }
 
@@ -94,6 +97,12 @@ namespace WebMarket.DAL.Data.Import
                         string valueStr = value.ToString();
                         propertyValue = this.producers.FirstOrDefault(p => string.Compare(p.Name, valueStr, StringComparison.OrdinalIgnoreCase) == 0);
                     }
+                    else if (propertyType == typeof (Group))
+                    {
+                        propertyValue = this.groups.Single(obj => string.Compare(obj.Name, value.ToString(), StringComparison.OrdinalIgnoreCase) == 0);
+                        var gropNameProp = properties.Single(obj => obj.Name == "GroupName");
+                        gropNameProp.SetValue(entity, value.ToString(), null);
+                    }
 
                     property.SetValue(entity, propertyValue, null);
                 }
@@ -104,17 +113,18 @@ namespace WebMarket.DAL.Data.Import
                 }
                 if (isProduct)
                 {
-                    string valueStr = excelWorksheet.Name;
-                    var category = this.categories.FirstOrDefault(p => string.Compare(p.Name, valueStr, StringComparison.OrdinalIgnoreCase) == 0);
+                    string categoryName = excelWorksheet.Name;
+                    var category = this.categories.Single(obj => string.Compare(obj.Name, categoryName, StringComparison.OrdinalIgnoreCase) == 0);
+                    
                     var categoryProp = properties.FirstOrDefault(obj => obj.Name == "Category");
                     categoryProp.SetValue(entity, category, null);
 
                     var categoryNameProp = properties.FirstOrDefault(obj => obj.Name == "CategoryName");
-                    categoryNameProp.SetValue(entity, valueStr, null);
+                    categoryNameProp.SetValue(entity, categoryName, null);
 
                     var infoProp = properties.SingleOrDefault(p => p.Name == "Info");
                     var serializer = new JavaScriptSerializer();
-                    infoProp.SetValue(entity, serializer.Serialize(dynaicProperties), null);
+                    infoProp.SetValue(entity, serializer.Serialize(dynamicProperties), null);
                 }
 
                 entities.Add(entity);

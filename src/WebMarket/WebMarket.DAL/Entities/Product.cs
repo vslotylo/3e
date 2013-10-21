@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web.Script.Serialization;
 using WebMarket.DAL.Entities.Enums;
@@ -38,10 +40,14 @@ namespace WebMarket.DAL.Entities
         public string Dimension { get; set; }
         public int Warranty { get; set; }
         public Producer Producer { get; set; }
+        [ForeignKey("CategoryName")]
         public Category Category { get; set; }
+        [Required, MaxLength(128)]
         public string CategoryName { get; set; }
-        public SubCategory SubCategory { get; set; }
-        public string SubCategoryName { get; set; }
+        [ForeignKey("GroupName")]
+        public Group Group { get; set; }
+        [Required]
+        public string GroupName { get; set; }
         public double Discount { get; set; }
         public string Info { get; set; }
 
@@ -130,7 +136,7 @@ namespace WebMarket.DAL.Entities
             var list = new List<ProductInfo>
                            {
                                new ProductInfo("Модель", this.DisplayName),
-                               new ProductInfo("Тип", this.SubCategoryName),
+                               new ProductInfo("Тип", this.GroupName),
                                new ProductInfo("Виробник", this.Producer.Name)
                            };
             return list;
