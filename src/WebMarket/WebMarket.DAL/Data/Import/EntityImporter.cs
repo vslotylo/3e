@@ -70,7 +70,6 @@ namespace WebMarket.DAL.Data.Import
                         continue;
                     }
 
-                    
                     if (isProduct && property == null)
                     {
                         var suffix = excelWorksheet.Cells[2, i].Value ?? string.Empty;
@@ -102,6 +101,18 @@ namespace WebMarket.DAL.Data.Import
                         propertyValue = this.groups.Single(obj => string.Compare(obj.Name, value.ToString(), StringComparison.OrdinalIgnoreCase) == 0);
                         var gropNameProp = properties.Single(obj => obj.Name == "GroupName");
                         gropNameProp.SetValue(entity, value.ToString(), null);
+                    }
+
+                    if (isProduct && property.Name == "Name")
+                    {
+                        try
+                        {
+                            NameValidator.ValidateName(propertyValue.ToString());
+                        }
+                        catch (Exception e)
+                        {
+                            throw new Exception(string.Format("Validation exception on category {0} row {1}" ,excelWorksheet.Name,  row), e);
+                        }
                     }
 
                     property.SetValue(entity, propertyValue, null);

@@ -53,6 +53,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +65,7 @@
     <Compile Include="Common\CustomMySqlClientFactory.cs" />
     <Compile Include="Data\Import\DataImporter.cs" />
     <Compile Include="Data\Import\EntityImporter.cs" />
+    <Compile Include="Data\Import\NameValidator.cs" />
     <Compile Include="Entities\Callback.cs" />
     <Compile Include="Entities\Enums\Availability.cs" />
     <Compile Include="Entities\Enums\Currency.cs" />

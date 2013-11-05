@@ -33,7 +33,7 @@ namespace WebMarket.Controllers
         public ActionResult Details(string category, string name)
         {
             
-            var entity = this.DbContext.Products.Include(i => i.Producer).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
+            var entity = this.DbContext.Products.Include(i => i.Producer).Include(o=>o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {
                 return this.RedirectToAction("index", "error", new { statusCode = 404});

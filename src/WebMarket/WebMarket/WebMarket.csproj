@@ -208,6 +208,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Core\DetailsViewModel.cs" />
     <Compile Include="Core\FilterList.cs" />
     <Compile Include="Core\FilterViewModelBase.cs" />
