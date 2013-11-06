@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,13 +11,13 @@ namespace WebMarket.Controllers
         public ActionResult Index()
         {
             var xdoc = new XDocument();
-            
-            XNamespace rootns = XNamespace.Get("http://www.sitemaps.org/schemas/sitemap/0.9");
-            XNamespace imagens = XNamespace.Get("http://www.google.com/schemas/sitemap-image/1.1");
-            
+
+            var rootns = XNamespace.Get("http://www.sitemaps.org/schemas/sitemap/0.9");
+            var imagens = XNamespace.Get("http://www.google.com/schemas/sitemap-image/1.1");
+
             var root = new XElement(rootns + "urlset");
             root.Add(new XAttribute(XNamespace.Xmlns + "image", imagens));
-            
+
             var settings = new XmlWriterSettings
                 {
                     Encoding = Encoding.UTF8,
@@ -40,8 +37,8 @@ namespace WebMarket.Controllers
 
             foreach (var link in links)
             {
-               var url = new XElement(rootns + "url");
-               url.Add(new XElement(rootns + "loc", link.Url));
+                var url = new XElement(rootns + "url");
+                url.Add(new XElement(rootns + "loc", link.Url));
                 var photo = new XElement(imagens + "image");
                 photo.Add(new XElement(imagens + "loc", link.Photo));
                 url.Add(photo);
