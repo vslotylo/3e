@@ -28,20 +28,24 @@ namespace WebMarket.Controllers
 
             var products = DbContext.Products.ToList();
 
-            var host = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, string.Empty);
+            var host = string.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority);
             var links = products.Select(obj => new
                 {
                     Url = string.Format("{0}/{1}/details/{2}", host, obj.CategoryName, obj.Name),
-                    Photo = string.Format("{0}/Content/tiles/{1}/{2}", host, obj.CategoryName, obj.GetPreview())
+                    Photo = string.IsNullOrEmpty(obj.GetPreview()) ? null : string.Format("{0}/Content/tiles/{1}/{2}", host, obj.CategoryName, obj.GetPreview())
                 });
 
             foreach (var link in links)
             {
                 var url = new XElement(rootns + "url");
                 url.Add(new XElement(rootns + "loc", link.Url));
-                var photo = new XElement(imagens + "image");
-                photo.Add(new XElement(imagens + "loc", link.Photo));
-                url.Add(photo);
+                if (!string.IsNullOrEmpty(link.Photo))
+                {
+                    var photo = new XElement(imagens + "image");
+                    photo.Add(new XElement(imagens + "loc", link.Photo));
+                    url.Add(photo);
+                }
+                
                 root.Add(url);
             }
 

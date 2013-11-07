@@ -10,6 +10,9 @@
         Model.Product.CalculatedPrice.PriceFinalUsd, 
         Model.Product.Warranty);
 }
+@section head {
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Product.CategoryName, name = Model.Product.Name, action="details" }), Request.Url.Scheme, Request.Url.Host)">
+}
 @section scripts
 {
     @Scripts.Render("~/bundles/app")

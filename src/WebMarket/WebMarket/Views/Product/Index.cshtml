@@ -7,6 +7,9 @@
 {
     @Scripts.Render("~/bundles/app")
 }
+@section head {
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)">
+}
 @section breadCrumb {
     <li class="active">@Model.Metadata.DisplayCategory</li>
 }
@@ -25,7 +28,7 @@
             <div class="alert alert-block">
                 @Html.Partial("FilterSelectedByProducers", Model.Filters.GetFilter("producers"))
                 @Html.Partial("FilterSelectedByType", Model.Filters.GetFilter("gr"))
-               @* @Html.Partial("FilterSelectedByPowerCapacity", Model)*@
+                @* @Html.Partial("FilterSelectedByPowerCapacity", Model)*@
                 @if (Model.Pagging.List.TotalItemCount != Model.Count)
                 {
                     <div>
@@ -33,17 +36,17 @@
                         </span><span class="badge">@Model.Count</span>
                     </div>
                 }
-                <a href="@Url.Action("Index", @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())">
-                    Забрати всі фільтри</a>
+                <a href="@Url.RouteUrl("categoryAction", new { category = Model.Category, action = string.Empty })">Забрати всі фільтри</a>
             </div>
         }
         <div class="well">
             <p>
-                Підбір за параметрами:</p>
+                Підбір за параметрами:
+            </p>
             <div class="entityFilterContainer">
                 @Html.Partial("FilterByProducers", Model.Producers)
                 @Html.Partial("FilterByType", Model.Groups)
-               @* @Html.Partial("FilterAvrByPower", Model)*@
+                @* @Html.Partial("FilterAvrByPower", Model)*@
             </div>
             @Html.Partial("FilterButton")
         </div>

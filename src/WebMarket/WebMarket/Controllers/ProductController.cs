@@ -16,7 +16,7 @@ namespace WebMarket.Controllers
         {
             try
             {
-                this.ViewModel = new FilterViewModelBase<Product>(pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
+                this.ViewModel = new FilterViewModelBase<Product>(category, pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);

@@ -4,7 +4,7 @@
 {
     <div class="alert alert-info">
         <strong>Увага!</strong><p>За вибранем критерієм не було знайденого жодного товару. Спробуйте змінити фільтр та натисніть кнопку <strong>"Фільтрувати"</strong> або натисніть</p>
-        <a href='@Url.Action("Index", HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())' >Забрати всі фльтри</a>
+        <a href='@Url.RouteUrl("categoryAction", new { category = Model.Category, action = string.Empty })' >Забрати всі фльтри</a>
     </div>
 }
 else

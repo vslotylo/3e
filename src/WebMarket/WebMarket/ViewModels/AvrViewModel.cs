@@ -6,19 +6,19 @@ using WebMarket.Filters;
 
 namespace WebMarket.ViewModels
 {
-    public class AvrViewModel : FilterViewModelBase<Product>
+    public class AvrViewModel //: FilterViewModelBase<Product>
     {
-        public AvrViewModel(PageSizeFilter pageSizeFilter, 
-            SortFilter sortFilter, 
-            ProducersFilter producerFilter, 
-            PageFilter pageFilter, 
-            GroupFilter groupFilter, 
-            PowerCapacityFilter powerCapacityFilter)
-            : base(pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter)
-        {
-            this.Filters.Add(powerCapacityFilter);
-        }
-    
-        public IEnumerable<GenericFilterModel<Tuple<double, double>>> PowerCapacity { get; set; }
+        //public AvrViewModel(PageSizeFilter pageSizeFilter,
+        //    SortFilter sortFilter,
+        //    ProducersFilter producerFilter,
+        //    PageFilter pageFilter,
+        //    GroupFilter groupFilter,
+        //    PowerCapacityFilter powerCapacityFilter)
+        //    : base(pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter)
+        //{
+        //    this.Filters.Add(powerCapacityFilter);
+        //}
+
+        //public IEnumerable<GenericFilterModel<Tuple<double, double>>> PowerCapacity { get; set; }
     }
 }

@@ -7,13 +7,14 @@ namespace WebMarket.Core
 {
     public class FilterViewModelBase<T> where T : Product
     {
-        public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, GroupFilter groupFilter)
+        public FilterViewModelBase(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, GroupFilter groupFilter)
             : this(pageSizeFilter, sortFilter, pageFilter)
         {
             this.ProducersFilter = producersFilter;
             this.GroupsFilter = groupFilter;
             this.Filters.Add(producersFilter);
             this.Filters.Add(groupFilter);
+            this.Category = category;
         }
 
         public FilterViewModelBase(PageSizeFilter pageSizeFilter, SortFilter sortFilter, PageFilter pageFilter, SearchFilter searchFilter)
@@ -56,7 +57,7 @@ namespace WebMarket.Core
                                         Name = Constants.RateDesc
                                     }
                             };
-            this.Pagging = new PagingViewModel();
+            this.Pagging = new PagingViewModel(this.Category);
         }
 
         public IEnumerable<GenericFilterModel<string>> Producers { get; set; }
@@ -73,6 +74,7 @@ namespace WebMarket.Core
         public PageFilter PageFilter { get; private set; }
         public GroupFilter GroupsFilter { get; private set; }
         public SearchFilter SearchFilter { get; private set; }
+        public string Category { get; private set; }
         public int Count { get; set; }
         public Metadata Metadata { get; set; }
     }
