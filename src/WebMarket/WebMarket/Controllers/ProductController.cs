@@ -26,13 +26,12 @@ namespace WebMarket.Controllers
             catch (Exception e)
             {
                 Logger.Error(e);
-                return this.RedirectToAction("index", "error", new { statusCode = 500 });
+                return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }            
         }
 
         public ActionResult Details(string category, string name)
         {
-            
             var entity = this.DbContext.Products.Include(i => i.Producer).Include(o=>o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {

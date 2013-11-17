@@ -6,9 +6,10 @@ namespace WebMarket.Controllers
 {
     public class ErrorController : Controller
     {
-        public ActionResult Index(HttpStatusCode statusCode)
+        public ActionResult Index(HttpStatusCode statusCode = HttpStatusCode.NotFound)
         {
             var viewModel = new ErrorViewModel { StatusCode = statusCode };
+            this.HttpContext.Response.StatusCode = (int)statusCode;
             switch (statusCode)
             {
                 case HttpStatusCode.NotFound:
