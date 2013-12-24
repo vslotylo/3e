@@ -20,7 +20,7 @@ namespace WebMarket.Controllers
                 {
                     if (this.Request.Url.Query.Contains("type"))
                     {
-                        return this.RedirectToAction("removed", "SEO");
+                        return this.RedirectToAction("index", "error", new { statusCode = 404 });
                     }
                 }
 
@@ -44,7 +44,7 @@ namespace WebMarket.Controllers
             {
                 if (this.Request.Url.Query.Contains("type"))
                 {
-                    return this.RedirectToAction("removed", "SEO");
+                    return this.RedirectToAction("index", "error", new { statusCode = 404 });
                 }
             }
 

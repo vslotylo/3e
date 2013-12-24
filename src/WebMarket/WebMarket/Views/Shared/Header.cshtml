@@ -24,7 +24,7 @@
                                             <div style="padding: 3px 20px;"><i class="icon-list-alt"></i>Разом: <span id="cartTotalSum" class="priceUahSmall">@ViewData["CartTotalSum"]</span><span class="priceUahSmall"> грн.</span></div>
                                         </li>
                                         <li class="divider"></li>
-                                        <li><a href="@Url.Action("index", "order")"><i class="i"></i>Оформити замовлення</a></li>
+                                        <li><a href="@Url.Action("index", "order")"><i class="icon-shopping-cart"></i>Оформити замовлення</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -87,7 +87,6 @@
                                 </li>
                                 <li>@Html.RouteLink("Зарядки", "categoryBase", new { category = "charger" })</li>
                                 <li>@Html.RouteLink("Перетворювачі", "categoryBase", new { category = "converter" })</li>
-                                @*<li>@Html.ActionLink("Інформація", "about", "home")</li>*@
                                 <li>@Html.ActionLink("Контакти", "contact", "home")</li>
                             </ul>
 
@@ -95,12 +94,6 @@
                     </div>
                 </div>
             </div>
-
-
-            @*<div class="infotext">
-                +38 063 15 12 110 Василь +38 067 33 57 863 Ігор
-            </div>*@
-
         </div>
     </div>
 </div>

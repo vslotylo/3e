@@ -208,7 +208,6 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\SEOController.cs" />
     <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Core\DetailsViewModel.cs" />
     <Compile Include="Core\FilterList.cs" />
@@ -829,7 +828,6 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
-    <Content Include="Views\SEO\Removed.cshtml" />
     <Content Include="Views\Shared\Copy of _Layout.cshtml" />
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
   </ItemGroup>

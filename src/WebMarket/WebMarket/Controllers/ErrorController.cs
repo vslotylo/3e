@@ -14,6 +14,7 @@ namespace WebMarket.Controllers
             {
                 case HttpStatusCode.NotFound:
                     {
+                        Response.Headers.Add("X-Robots-Tag", "noindex");
                         viewModel.Message = "Сторінка, яку ви намагаєтесь відкрити не існує. Змініть параметри запиту та спробуйте ще раз!";
                         break;
                     }
@@ -23,7 +24,7 @@ namespace WebMarket.Controllers
                         break;
                     }
             }
-
+            
             return View(viewModel);
         }
     }
