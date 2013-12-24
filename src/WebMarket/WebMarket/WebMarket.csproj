@@ -570,6 +570,7 @@
     <Content Include="Content\tiles\voltagerelay\Energohit-Vp-50A-DIN.png" />
     <Content Include="Content\tiles\voltagerelay\Energohit-Vp-63A-DIN.png" />
     <Content Include="Content\tiles\voltagerelay\Energohit-Vp-6A.png" />
+    <Content Include="google084ba9a068221a1e.html" />
     <Content Include="Notification\Templates\CustomerOrder.msgtmpl" />
     <Content Include="robots.txt" />
     <Content Include="Views\Shared\ProductLink.cshtml" />
