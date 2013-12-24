@@ -13,16 +13,16 @@
                 <p>Доброго дня, <span>@userName</span></p>
                 <br/>
 				<div>
-                <p>Вашe замовлення на сайті <a href="3e.lviv.ua">3e.lviv.ua</a> прийнято. Сума до оплати становить <span>@totalSum</span> грн.</p>
+                <p>Вашe замовлення на сайті <a href="www.3e.lviv.ua">3e.lviv.ua</a> прийнято. Сума до оплати становить <span>@totalSum</span> грн.</p>
                 <p>Наш менеджер зв'яжиться з вами у найблищий час.</p>
                 <p>Контактна інформація: Moб. телефон: <strong>+38-067-33-57-863</strong>, <strong>+38-063-96-22-533</strong>; E-mail: <a href="mailto:3e.lviv@gmail.com">3e.lviv@gmail.com</a></p>
                 <p>Дякуємо за замовлення!</p>
 				<br/>
 				</div>
-                <p>З повагою, <a href="3e.lviv.ua">3e.lviv.ua</a></p>
+                <p>З повагою, <a href="www.3e.lviv.ua">www.3e.lviv.ua</a></p>
             </body>
         </html>
         ]]>
   </bodytemplate>
-  <subject>Замовлення на сайті 3e.lviv.ua прийнято</subject>
+  <subject>Замовлення на сайті www.3e.lviv.ua прийнято</subject>
 </emailtemplate>

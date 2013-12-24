@@ -136,7 +136,7 @@ namespace WebMarket.DAL.Entities
             var list = new List<ProductInfo>
                            {
                                new ProductInfo("Модель", this.DisplayName),
-                               new ProductInfo("Тип", this.GroupName),
+                               new ProductInfo("Тип", this.Group.DisplayName),
                                new ProductInfo("Виробник", this.Producer.Name)
                            };
             return list;

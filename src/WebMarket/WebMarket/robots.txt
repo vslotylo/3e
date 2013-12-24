@@ -1,0 +1,11 @@
+﻿User-Agent: *
+Disallow: /account
+Disallow: /search
+Disallow: /admin
+Disallow: /error
+Disallow: /admin
+Disallow: /cart
+
+Host: www.3e.lviv.ua
+
+Sitemap: http://www.3e.lviv.ua/sitemap

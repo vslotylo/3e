@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using WebMarket.Core;
 using WebMarket.DAL.Entities;
@@ -16,6 +17,14 @@ namespace WebMarket.Controllers
         {
             try
             {
+                if (!string.IsNullOrEmpty(this.Request.Url.Query))
+                {
+                    if (this.Request.Url.Query.Contains("type"))
+                    {
+                        return this.RedirectToAction("index", "error", new { statusCode = 404 });
+                    }
+                }
+
                 this.ViewModel = new FilterViewModelBase<Product>(category, pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
@@ -32,6 +41,14 @@ namespace WebMarket.Controllers
 
         public ActionResult Details(string category, string name)
         {
+            if (!string.IsNullOrEmpty(this.Request.Url.Query))
+            {
+                if (this.Request.Url.Query.Contains("type"))
+                {
+                    return this.RedirectToAction("index", "error", new { statusCode = 404 });
+                }
+            }
+
             var entity = this.DbContext.Products.Include(i => i.Producer).Include(o=>o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {

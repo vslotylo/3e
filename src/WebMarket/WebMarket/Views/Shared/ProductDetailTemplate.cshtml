@@ -1,4 +1,4 @@
-﻿@model WebMarket.DAL.Entities.Product
+﻿@model WebMarket.Core.DetailsViewModel
 @{
     ViewBag.Title = "ProductDeatails";
 }
@@ -6,7 +6,7 @@
 <div class="row-fluid">
     <div class="span4">
         <div>
-            @Html.Partial("ProductPreview", Model)
+            @Html.Partial("ProductPreview", Model.Product)
         </div>
     </div>
     <div class="span8">
@@ -14,23 +14,24 @@
             <li>
                 <div class="row-fluid">
                     <div class="span10">
-                        <span class="muted">Характеристики </span><span class="lead text-info">@Model.DisplayName</span>
+                        <h2 class="details">@Model.Metadata.TitleDetails</h2>&nbsp;
+                        <h1 class="details">@Model.Product.DisplayName</h1>
                     </div>
                     <div class="span2">
-                        <span class="muted pull-right">Код: @Model.ProductId</span>
+                        <span class="muted pull-right">Код: @Model.Product.ProductId</span>
                     </div>
                 </div>
             </li>
-            <li>@Model.GetProductPreviewInfo()
+            <li>@Model.Product.GetProductPreviewInfo()
             </li>
             <li>
                 <div class="row-fluid">
                     <div class="span4">
-                        @Html.Partial("PriceTemplate", Model)
+                        @Html.Partial("PriceTemplate", Model.Product)
                     </div>
                     <div class="span3">
-                        @Html.Partial("ProductRate", Model)
-                        @Html.Partial("ProductAvailability", Model)
+                        @Html.Partial("ProductRate", Model.Product)
+                        @Html.Partial("ProductAvailability", Model.Product)
                     </div>
                     <div class="span4">
                         <span>
@@ -45,12 +46,12 @@
                 </div>
             </li>
         </ul>
-        @Html.Partial("AddToCartModal", Model)
+        @Html.Partial("AddToCartModal", Model.Product)
         @Html.Partial("CallbackModal")
     </div>
 </div>
 <div class="thumbnails yoxview">
-    @foreach (var item in Model.GetPhotos())
+    @foreach (var item in Model.Product.GetPhotos())
     {            
         <a href="@string.Format("/Content/tiles/avr/{0}", item.Value)">
             <img src="@string.Format("/Content/tiles/avr/{0}", item.Key)" alt="First" title="WWWWWWWWWWWWWWWWWWWWWWWWWw" /></a>
@@ -66,7 +67,7 @@
         <div id="home" class="tab-pane fade active in">
             <table class="table table-condensed table-bordered table-hover">
                 <tbody>
-                    @foreach (var item in Model.ProductInfo)
+                    @foreach (var item in Model.Product.ProductInfo)
                     {
                         <tr>
                             <td>@item.Key
@@ -76,7 +77,7 @@
                             </td>
                         </tr>
                     }
-                    @foreach (var item in Model.DynamicProperties)
+                    @foreach (var item in Model.Product.DynamicProperties)
                     {
                         <tr>
                             <td>
@@ -104,39 +105,39 @@
                             </td>
                         </tr>
                     }
-                    @if (!string.IsNullOrWhiteSpace(@Model.WorkingConditions))
+                    @if (!string.IsNullOrWhiteSpace(@Model.Product.WorkingConditions))
                     {
                         <tr>
                             <td>Робочі умови
                             </td>
-                            <td>@Model.WorkingConditions
+                            <td>@Model.Product.WorkingConditions
                             </td>
                         </tr>
                     }
-                    @if (!string.IsNullOrWhiteSpace(@Model.Dimension))
+                    @if (!string.IsNullOrWhiteSpace(@Model.Product.Dimension))
                     {
                         <tr>
                             <td>Розміри
                             </td>
-                            <td>@Model.Dimension д/ш/в
+                            <td>@Model.Product.Dimension д/ш/в
                             </td>
                         </tr>
                     }
-                    @if (Model.Weight > 0)
+                    @if (Model.Product.Weight > 0)
                     {
                         <tr>
                             <td>Вага
                             </td>
-                            <td>@Model.Weight кг.
+                            <td>@Model.Product.Weight кг.
                             </td>
                         </tr>
                     }
-                    @if (Model.Warranty > 0)
+                    @if (Model.Product.Warranty > 0)
                     {
                         <tr>
                             <td>Гарантія
                             </td>
-                            <td>@Model.Warranty м.
+                            <td>@Model.Product.Warranty м.
                             </td>
                         </tr>
                     }
@@ -144,11 +145,11 @@
             </table>
         </div>
         <div id="profile" class="tab-pane fade ">
-            <p>@Html.Raw(Model.Description)</p>
+            <p>@Html.Raw(Model.Product.Description)</p>
         </div>
         <div id="d" class="tab-pane fade ">
             <ol>
-                @foreach (var item in Model.ParsedSuppliedItems)
+                @foreach (var item in Model.Product.ParsedSuppliedItems)
                 {
                     <li>
                         @item

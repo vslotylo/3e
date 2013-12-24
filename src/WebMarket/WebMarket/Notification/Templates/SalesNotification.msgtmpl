@@ -37,7 +37,7 @@
           <p>Доброго дня,</p>
           <br />
           <div>
-              <p>На сайті <a href="3e.lviv.ua">3e.lviv.ua</a> було створено нове замовлення.</p>
+              <p>На сайті <a href="www.3e.lviv.ua">www.3e.lviv.ua</a> було створено нове замовлення.</p>
               <table>
                   <thead />
                   <tbody>
@@ -86,10 +86,10 @@
               <p>Загальна сума до оплати становить <strong><span>@totalSum</span> грн.</strong></p>
               <br />
           </div>
-          <p>З повагою, <a href="3e.lviv.ua">3e.lviv.ua</a></p>
+          <p>З повагою, <a href="www.3e.lviv.ua">www.3e.lviv.ua</a></p>
       </body>
     </html>
         ]]>
   </bodytemplate>
-  <subject>Поступило нове замовлення - 3e.lviv.ua</subject>
+  <subject>Поступило нове замовлення - www.3e.lviv.ua</subject>
 </emailtemplate>

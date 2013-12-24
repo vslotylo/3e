@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Xml;
@@ -49,14 +51,10 @@ namespace WebMarket.Controllers
                 root.Add(url);
             }
 
+            xdoc.Declaration = new XDeclaration("1.0", "utf-8", null);
             xdoc.Add(root);
-            var sb = new StringBuilder();
-            using (var xw = XmlWriter.Create(sb, settings))
-            {
-                xdoc.Save(xw);
-            }
-
-            return Content(sb.ToString(), "text/xml");
+           
+            return Content(string.Format("{0}{1}{2}", xdoc.Declaration, Environment.NewLine, xdoc), "text/xml");
         }
     }
 }
