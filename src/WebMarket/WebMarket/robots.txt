@@ -1,10 +1,10 @@
-﻿User-Agent: *
-Disallow: /account
-Disallow: /search
-Disallow: /admin
-Disallow: /error
-Disallow: /admin
-Disallow: /cart
+﻿user-agent: *
+disallow: /account
+disallow: /admin
+disallow: /cart
+disallow: /error
+disallow: /search
+disallow: /order
 
 Host: www.3e.lviv.ua
 
