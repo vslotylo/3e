@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using WebMarket.Core;
 using WebMarket.DAL.Entities;
@@ -21,7 +20,7 @@ namespace WebMarket.Controllers
                 {
                     if (this.Request.Url.Query.Contains("type"))
                     {
-                        return this.RedirectToAction("index", "error", new { statusCode = 404 });
+                        return this.RedirectToAction("removed", "SEO");
                     }
                 }
 
@@ -45,7 +44,7 @@ namespace WebMarket.Controllers
             {
                 if (this.Request.Url.Query.Contains("type"))
                 {
-                    return this.RedirectToAction("index", "error", new { statusCode = 404 });
+                    return this.RedirectToAction("removed", "SEO");
                 }
             }
 

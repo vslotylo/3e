@@ -57,7 +57,7 @@ namespace WebMarket.Controllers
             }
 
             string str;
-            using (var stream = new FileStream(Server.MapPath(string.Format("../{0}.log", logLevel)), FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var stream = new FileStream(Server.MapPath(string.Format("../logs/{0}.log", logLevel)), FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 using (var streamReader = new StreamReader(stream))
                 {
