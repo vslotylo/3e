@@ -16,7 +16,6 @@ namespace WebMarket.DAL.Entities
         private readonly Lazy<Price> price;
         private readonly Lazy<List<ProductInfo>> dynamicProperties;
         private static readonly JavaScriptSerializer Serializer = new JavaScriptSerializer();
-        private string[] parsedSuppliedItems;
 
         public Product()
         {
@@ -75,26 +74,6 @@ namespace WebMarket.DAL.Entities
             get
             {
                 return this.dynamicProperties.Value;
-            }
-        }
-
-        public string[] ParsedSuppliedItems
-        {
-            get
-            {
-                if (parsedSuppliedItems == null)
-                {
-                    if (!string.IsNullOrEmpty(this.SuppliedItems))
-                    {
-                        parsedSuppliedItems = this.SuppliedItems.Split(',');
-                    }
-                    else
-                    {
-                        return new string[0];
-                    }
-                }
-
-                return parsedSuppliedItems;
             }
         }
 
@@ -211,6 +190,13 @@ namespace WebMarket.DAL.Entities
         public string GetProductPreviewInfo()
         {
             return string.Join(" | ", this.DynamicProperties.Where(obj=>!obj.IsBool).Take(6).Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
+        }
+
+        public IEnumerable<string> GetParsedSuppliedItems(Metadata metadata)
+        {
+           return Serializer.Deserialize<string[]>(this.SuppliedItems)
+                .Select(obj => obj.Replace("{metadata}", metadata.TitleDetails))
+                .Select(obj => obj.Replace("{displayname}", this.DisplayName));
         }
     }
 }

@@ -269,17 +269,9 @@ img {
     background-position: -512px 0;
 }
 
-h1[class="details"] {
+h1 {
     font-size: 22px;
     color: #3a87ad;
-    line-height: 22px;
-    margin: 0;
-    display: inline;
-}
-
-h2[class="details"] {
-    font-size: 20px;
-    color: #999999;
     line-height: 22px;
     margin: 0;
     display: inline;

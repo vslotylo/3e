@@ -214,10 +214,8 @@
     <Compile Include="Core\FilterViewModelBase.cs" />
     <Compile Include="Core\GenericFilterModel.cs" />
     <Compile Include="Controllers\ListControllerBase.cs" />
-    <Compile Include="Core\MetadataProvider.cs" />
     <Compile Include="Core\PagingViewModel.cs" />
     <Compile Include="Core\SortingMode.cs" />
-    <Compile Include="Core\Metadata.cs" />
     <Compile Include="Extensions\CssClassReslover.cs" />
     <Compile Include="Extensions\FormatExtensions.cs" />
     <Compile Include="Filters\CategoryFilter.cs" />
@@ -741,7 +739,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\tiles\web.config" />
     <Content Include="Notification\Templates\SalesNotification.msgtmpl" />
-    <Content Include="App_Data\metadata\metadata.xlsx" />
     <Content Include="Content\bootstrap3.1.1\css\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap3.1.1\css\bootstrap.css.map" />
     <Content Include="Content\bootstrap3.1.1\fonts\glyphicons-halflings-regular.eot" />
@@ -837,7 +834,9 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

@@ -28,7 +28,7 @@ namespace WebMarket.Controllers
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);
-                this.ViewModel.Metadata = MetadataProvider.Current.GetMetadataInfo(category);
+                this.ViewModel.Metadata = DbContext.Metadata.FirstOrDefault(obj => obj.CategoryName == category);
                 return this.View(this.ViewModel);
             }
             catch (Exception e)
@@ -54,7 +54,7 @@ namespace WebMarket.Controllers
                 return this.RedirectToAction("index", "error", new { statusCode = 404});
             }
 
-            var metadata = MetadataProvider.Current.GetMetadataInfo(category);
+            var metadata = DbContext.Metadata.FirstOrDefault(obj => obj.CategoryName == category);
             return this.View(new DetailsViewModel(entity, metadata));
         }
 

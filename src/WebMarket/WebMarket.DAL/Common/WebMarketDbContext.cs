@@ -24,6 +24,7 @@ namespace WebMarket.DAL.Common
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Callback> Callbacks { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Metadata> Metadata { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Group> Groups { get; set; }
     }
