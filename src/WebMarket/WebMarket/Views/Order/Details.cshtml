@@ -4,14 +4,14 @@
     ViewBag.Title = "Деталі замовлення";
 }
 @section breadCrumb {
-    <li><a href="@Url.Action("list", "order")">Список замовлень</a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("list", "order")">Список замовлень</a></li>
     <li class="active">@ViewBag.Title</li>
 }
 <span class="lead">@ViewBag.Title</span>
 <hr />
 
-<div class="row-fluid">
-    <div class="span8">
+<div class="row">
+    <div class="col-md-8">
         <table class="table table-condensed table-bordered table-hover">
             <thead>
                 <td>Код товару</td>
@@ -37,8 +37,8 @@
         </table>
         @Html.Partial("TotalSum", Model.Order.Total)
     </div>
-    <div class="span4">
-        <div class="well well-small">
+    <div class="col-md-4">
+        <div class="well well-sm">
             <table class="table">
                 <caption>Інформація</caption>
                 <tr>

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.DAL.Entities;
 using WebMarket.DAL.Entities.Enums;
-using log4net;
 
 namespace WebMarket.Controllers
 {
@@ -29,7 +28,7 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
-        public void Callback(string phone)
+        public void Callback(string phone, string url)
         {
             if (string.IsNullOrEmpty(phone))
             {
@@ -40,7 +39,7 @@ namespace WebMarket.Controllers
             var telephone = phone.Trim();
             try
             {
-                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending});
+                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending, Url = url });
                 this.DbContext.SaveChanges();
             }
             catch (Exception e)

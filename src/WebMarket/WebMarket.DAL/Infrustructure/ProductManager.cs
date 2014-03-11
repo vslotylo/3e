@@ -11,7 +11,7 @@ namespace WebMarket.DAL.Infrustructure
         private readonly WebMarketDbContext dbContext = new WebMarketDbContext();
         public Product GetProductByPid(int id)
         {
-            return dbContext.Products.Where(obj => obj.Id == id).Include(obj => obj.Producer).SingleOrDefault();
+            return dbContext.Products.Where(obj => obj.Id == id).Include(obj => obj.Producer).Include(obj => obj.Group).SingleOrDefault();
         }
     }
 }

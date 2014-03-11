@@ -4,40 +4,44 @@
 }
 
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-    class="modal hide fade" id="addToCartModal" style="display: none;">
-    <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
-            ×</button>
-        <h3 id="myModalLabel">Додавання в корзину</h3>
-    </div>
-    <div class="modal-body">
-        <div class="row-fluid">
-            <div class="span4" style="text-align: center;">
-                @Html.Partial("ProductPreviewSmall", Model)
+    class="modal fade" id="addToCartModal" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    ×</button>
+                <h3 id="myModalLabel">Додавання в корзину</h3>
             </div>
-            <div class="span4">
-                <h4>@Html.Partial("ProductLink", Model)</h4>
-                <input id="pid" type="hidden" value="@Model.Id" />
-                <p class="muted">
-                    Код: @Model.ProductId
-                </p>
-            </div>
-            <div class="span4">
-                <div class="control-group">
-                    <input id="count" type="number" class="input-mini" value="1">
-                    <span class="help-inline">шт.</span>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4" style="text-align: center;">
+                        @Html.Partial("ProductPreviewSmall", Model)
+                    </div>
+                    <div class="col-md-4">
+                        <h4>@Html.Partial("ProductLink", Model)</h4>
+                        <input id="pid" type="hidden" value="@Model.Id" />
+                        <p class="disabled">
+                            Код: @Model.ProductId
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input id="count" type="number" class="input-sm form-control" value="1">
+                            <span>шт.</span>
+                        </div>
+                        <input id="originalPrice" type="hidden" value="@Model.CalculatedPrice.PriceFinalUah" />
+                        <div id="price" class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
+                    </div>
                 </div>
-                <input id="originalPrice" type="hidden" value="@Model.CalculatedPrice.PriceFinalUah" />
-                <div id="price" class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
+            </div>
+            <div class="modal-footer">
+                <span>
+                    <button id="addToCartBtn" class="btn btn-default btn-info">
+                        Додати в корзину</button>
+                    <button id="addAndPurchase" class="btn btn-default btn-primary">
+                        Додати і оформити замовлення</button>
+                </span>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <span>
-            <button id="addToCartBtn" class="btn btn-info">
-                Додати в корзину</button>
-            <button id="addAndPurchase" class="btn btn-primary">
-                Додати і оформити замовлення</button>
-        </span>
     </div>
 </div>

@@ -10,9 +10,9 @@
     @Scripts.Render("~/bundles/app")
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.deleteFromCart').on('click', function (e) {
-                var pid = $(this).closest('div').children('.pid').val();
-                deleteFromCart(pid, function (e) {
+            $('button[data-action="deleteFromCart"]').on('click', function () {
+                var pid = $(this).closest('div').children('input[data-target="pid"]').val();
+                deleteFromCart(pid, function () {
                     window.location = "/cart";
                 });
             });
@@ -34,46 +34,44 @@
 else
 {
     <table class="table  table-hover">
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td>
-            <div class="row-fluid">
-                <div class="span3">
-                    @Html.Partial("ProductPreviewSmall", item.Product)
-                </div>
-                <div class="span3">
-                    <h4>@Html.ActionLink(item.Product.DisplayName, "details", item.Product.CategoryName, new { id = item.Product.Id }, null)</h4>
-                    <div class="muted">
-                        Код: @item.Product.ProductId
-                    </div>
-                    <div>
-                        @Html.Partial("ProductAvailability", item.Product)
-                    </div>
-                </div>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-3">
+                            @Html.Partial("ProductPreviewSmall", item.Product)
+                        </div>
+                        <div class="col-md-3">
+                            <h4>@Html.ActionLink(item.Product.DisplayName, "details", item.Product.CategoryName, new { id = item.Product.Id }, null)</h4>
+                            <span class="disabled">Код: @item.Product.ProductId
+                            </span>
+                            <div>
+                                @Html.Partial("ProductAvailability", item.Product)
+                            </div>
+                        </div>
 
-                <div class="span3">
-                    <span class="badge badge-success">@item.Quantity</span> * <span >@item.Product.CalculatedPrice.PriceFinalUah грн.</span>
-                </div>
-                <div class="span2">
-                    <span class="priceUahSmall">@item.TotalItemPrice грн.</span>
-                </div>
-                <div class="span1">
-                    <input class="pid" type="hidden" value="@item.Product.Id" />
-                    <button class="btn btn-mini deleteFromCart">
-                        видалити</button>
-                </div>
-            </div>
+                        <div class="col-md-3">
+                            <span class="badge badge-success">@item.Quantity</span> * <span>@item.Product.CalculatedPrice.PriceFinalUah грн.</span>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="priceUahSmall">@item.TotalItemPrice грн.</span>
+                        </div>
+                        <div class="col-md-1">
+                            <input data-target="pid" type="hidden" value="@item.Product.Id" />
+                            <button data-action="deleteFromCart" class="btn btn-default btn-xs">видалити</button>
+                        </div>
+                    </div>
                 </td>
-        </tr>
-    }
-        </table>
+            </tr>
+        }
+    </table>
     <hr />
-    <div class="row-fluid">
-        <div class="span3 offset9">
-            <span >Разом за замовлення:</span><span class="priceUah">@Model.TotalPrice грн.</span>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <span>Разом за замовлення:</span><span class="priceUah">@Model.TotalPrice грн.</span>
         </div>
-        
+
     </div>
-    <a id="purchase" href="@Url.Action("index", "order")" class="btn btn-large btn-primary pull-right">Оформити замовленя</a> 
+    <a id="purchase" href="@Url.Action("index", "order")" class="btn btn-default btn-lg btn-primary pull-right">Оформити замовленя</a> 
 }

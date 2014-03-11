@@ -4,7 +4,7 @@
     ViewBag.Title = "Запити передзвонити";
 }
 @section breadCrumb {
-    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a></li>
     <li class="active">@ViewBag.Title</li>
 }
 <span class="lead">@ViewBag.Title</span>
@@ -15,6 +15,7 @@
         <thead>
             <td>Дата</td>
             <td>Номер</td>
+            <td>Лінк</td>
             <td>Статус</td>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <tr class="@item.Status.CssClass()">
                     <td>@item.CreateTime</td>
                     <td>@item.Phone</td>
+                    <td><a href="@item.Url">@item.Url</a></td>
                     <td>@item.Status</td>
                 </tr>
             }

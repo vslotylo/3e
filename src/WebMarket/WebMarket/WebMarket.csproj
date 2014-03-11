@@ -15,7 +15,7 @@
     <AssemblyName>WebMarket</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -246,6 +246,13 @@
     <Compile Include="ViewModels\AvrViewModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailViewModel.cs" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap.css" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap3.1.1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap3.1.1\js\bootstrap.js" />
+    <Content Include="Content\bootstrap3.1.1\js\bootstrap.min.js" />
     <Content Include="Content\js\analytics.js" />
     <Content Include="Content\tiles\avr\Luxeon-A1S-15-SERVO-LCD.jpg" />
     <Content Include="Content\tiles\avr\Luxeon-A1S-20-SERVO-LCD.jpg" />
@@ -582,11 +589,6 @@
     <Content Include="App_Readme\Elmah.SqlServer.sql" />
     <Content Include="App_Readme\Elmah.SqlServer.txt" />
     <Content Include="App_Readme\Elmah.txt" />
-    <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap\css\bootstrap.css" />
-    <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
-    <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\images\carousel1.jpg" />
     <Content Include="Content\images\carousel2.jpg" />
     <Content Include="Content\images\carousel3.jpg" />
@@ -740,6 +742,11 @@
     <Content Include="Content\tiles\web.config" />
     <Content Include="Notification\Templates\SalesNotification.msgtmpl" />
     <Content Include="App_Data\metadata\metadata.xlsx" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap3.1.1\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap3.1.1\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap3.1.1\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap3.1.1\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -828,7 +835,6 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
-    <Content Include="Views\Shared\Copy of _Layout.cshtml" />
     <Content Include="Views\Shared\_EmptyLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
@@ -859,7 +865,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>11111</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/WebMarket</IISUrl>
+          <IISUrl>http://localhost:11111/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://3e.lviv.ua</CustomServerUrl>

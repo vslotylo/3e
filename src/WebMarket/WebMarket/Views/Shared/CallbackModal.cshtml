@@ -1,20 +1,23 @@
 ﻿<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-    class="modal hide fade" id="callbackDialog" style="display: none;">
-    <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-        <h3 id="myModalLabel">Передзвоніть мені</h3>
-    </div>
-    <div class="modal-body">
-        <form class="form-inline">
-
-            <p class="text-info">Надішліть нам Ваш номер і ми Вам передзвонимо!</p>
-            <label class="control-label" for="inputEmail">Номер телефону:</label>
-            <input type="text" id="mobilePhone">
-        </form>
-    </div>
-    <div class="modal-footer">
-        <span>
-            <button id="getCallback" class="btn btn-primary">Надіслати</button>
-        </span>
+    class="modal fade" id="callbackDialog" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h3 id="myModalLabel">Передзвоніть мені</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <p class="text-info">Надішліть нам Ваш номер і ми Вам передзвонимо!</p>
+                    <label class="control-label" for="mobilePhone">Номер телефону:</label>
+                    <input type="text" id="mobilePhone">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span>
+                    <button id="getCallback" class="btn btn-default btn-primary">Надіслати</button>
+                </span>
+            </div>
+        </div>
     </div>
 </div>

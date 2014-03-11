@@ -2,7 +2,7 @@
 @using WebMarket.Extensions
 @if (!Model.List.Any())
 {
-    <div class="alert alert-info">
+    <div class="alert alert-warning">
         <strong>Увага!</strong><p>За вибранем критерієм не було знайденого жодного товару. Спробуйте змінити фільтр та натисніть кнопку <strong>"Фільтрувати"</strong> або натисніть</p>
         <a href='@Url.RouteUrl("categoryAction", new { category = Model.Category, action = string.Empty })' >Забрати всі фльтри</a>
     </div>
@@ -11,41 +11,41 @@ else
 {
     foreach (var item in Model.List)
     {
-    <div class="thumbnail">
-        <div class="row-fluid">
-            <div class="span4">
+    <div class="panel product-panel">
+        <div class="row">
+            <div class="col-md-4">
                 <div class="image-wrap2">
                     <span class="ribbon ribbon-list @item.CssRibbonClass()"></span>
                     @Html.Partial("ProductImageLink", item)
                 </div>
             </div>
-            <div class="span8">
-                <ul class="unstyled">
+            <div class="col-md-8">
+                <ul class="list-unstyled">
                     <li>
-                        <div class="row-fluid">
-                            <div class="span8">
+                        <div class="row">
+                            <div class="col-md-8">
                                 <h4>@Html.Partial("ProductLink", item)</h4>
                             </div>
-                            <div class="span3">
-                                <span class="muted pull-right">Код: @item.ProductId</span>
+                            <div class="col-md-3">
+                                <span class="disabled pull-right">Код: @item.ProductId</span>
                             </div>
                         </div>
                     </li>
                     <li>@item.GetProductPreviewInfo()
                     </li>
                     <li>
-                        <div class="row-fluid">
-                            <div class="span4">
+                        <div class="row">
+                            <div class="col-md-4">
                                 @Html.Partial("PriceTemplate", item)
                             </div>
-                            <div class="span3">
+                            <div class="col-md-3">
                                 @Html.Partial("ProductRate", item)
                                 @Html.Partial("ProductAvailability", item)
                             </div>
-                            <div class="span1">
+                            <div class="col-md-1">
                             </div>
-                            <div class="span3">
-                                <a class="btn btn-primary pull-right" href="@Html.Partial("ProductLinkUrl", item)">Деталі»</a>
+                            <div class="col-md-3">
+                                <a class="btn btn-default btn-primary pull-right" href="@Html.Partial("ProductLinkUrl", item)">Деталі»</a>
                             </div>
                         </div>
                     </li>

@@ -9,5 +9,6 @@ namespace WebMarket.DAL.Entities
         public string Phone { get; set; }
         public DateTime CreateTime { get; set; }
         public Status Status { get; set; }
+        public string Url { get; set; }
     }
 }

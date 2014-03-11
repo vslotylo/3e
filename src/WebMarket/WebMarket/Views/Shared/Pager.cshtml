@@ -1,36 +1,36 @@
 ﻿@model WebMarket.Core.PagingViewModel
-<div class="pagination pagination-centered">
-    <ul>
-        @if (Model.List.HasPreviousPage)
-        {
-            <li><a href=@Url.Action("index", Model.Routes[0])>&larr;</a></li>
-        }
-        else
-        {
-            <li class="disabled"><a href=@Url.Action("index", Model.Routes[0])>&larr;</a></li>
-        }
-        @for (int i = 1; i < Model.List.PageNumber; i++)
-        {
-            <li>
-                @Html.ActionLink(i.ToString(), "index", Model.Routes[i])
-            </li>
-        }
-        <li class="active">
-            @Html.ActionLink(Model.List.PageNumber.ToString(), "index", Model.Routes[Model.List.PageNumber])
+
+<ul class="pagination">
+    @if (Model.List.HasPreviousPage)
+    {
+        <li><a href=@Url.Action("index", Model.Routes[0])>&larr;</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a href=@Url.Action("index", Model.Routes[0])>&larr;</a></li>
+    }
+    @for (int i = 1; i < Model.List.PageNumber; i++)
+    {
+        <li>
+            @Html.ActionLink(i.ToString(), "index", Model.Routes[i])
         </li>
-        @for (int i = Model.List.PageNumber + 1; i <= Model.List.PageCount; i++)
-        {
-            <li>
-                @Html.ActionLink(i.ToString(), "index", Model.Routes[i])
-            </li>
-        }
-        @if (Model.List.HasNextPage)
-        {
-            <li><a href=@Url.Action("index", Model.Routes[Model.List.PageNumber + 1])>&rarr;</a></li>
-        }
-        else
-        {
-            <li class="disabled"><a href=@Url.Action("index", Model.Routes[Model.List.PageCount])>&rarr;</a></li>
-        }
-    </ul>
-</div>
+    }
+    <li class="active">
+        @Html.ActionLink(Model.List.PageNumber.ToString(), "index", Model.Routes[Model.List.PageNumber])
+    </li>
+    @for (int i = Model.List.PageNumber + 1; i <= Model.List.PageCount; i++)
+    {
+        <li>
+            @Html.ActionLink(i.ToString(), "index", Model.Routes[i])
+        </li>
+    }
+    @if (Model.List.HasNextPage)
+    {
+        <li><a href=@Url.Action("index", Model.Routes[Model.List.PageNumber + 1])>&rarr;</a></li>
+    }
+    else
+    {
+        <li class="disabled"><a href=@Url.Action("index", Model.Routes[Model.List.PageCount])>&rarr;</a></li>
+    }
+</ul>
+

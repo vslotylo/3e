@@ -21,11 +21,11 @@
     </span>
 </div>
 <hr />
-<div class="row-fluid">
-    <div class="span3">
+<div class="row">
+    <div class="col-md-3">
         @if (!Model.Filters.IsEmpty())
         {
-            <div class="alert alert-block">
+            <div class="alert alert-filter">
                 @Html.Partial("FilterSelectedByProducers", Model.Filters.GetFilter("producers"))
                 @Html.Partial("FilterSelectedByType", Model.Filters.GetFilter("gr"))
                 @* @Html.Partial("FilterSelectedByPowerCapacity", Model)*@
@@ -51,7 +51,7 @@
             @Html.Partial("FilterButton")
         </div>
     </div>
-    <div class="span9">
+    <div class="col-md-9">
         <div>
             <div>
                 @Html.Partial("ProductListTemplate", Model.Pagging)

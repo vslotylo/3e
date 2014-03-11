@@ -1,12 +1,12 @@
 ﻿@model IList<WebMarket.Core.GenericFilterModelBase<int>>
-<span class="muted">Сортувати: </span>
+<span class="disabled">Сортувати: </span>
 <div class="btn-group">
-    <button data-toggle="dropdown" class="btn dropdown-toggle">@Model.FirstOrDefault(p => p.IsSelected).Name<span class="caret"></span></button>
+    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">@Model.FirstOrDefault(p => p.IsSelected).Name<span class="caret"></span></button>
     <ul class="dropdown-menu">
         @foreach (var item in Model)
         {
             <li>
-                @Html.ActionLink(item.Name, "Index", item.Routes)
+                @Html.ActionLink(item.Name, "index", item.Routes)
             </li>        
         }
     </ul>

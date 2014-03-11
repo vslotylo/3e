@@ -3,76 +3,79 @@
     ViewBag.ShowBreadCrumb = false;
 }
 @section featured {
-    <section class="featured">
-        <div class="carousel slide" id="myCarousel">
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-                <li data-target="#myCarousel" data-slide-to="4"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img alt="" src="~/Content/images/carousel1.jpg">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1>Стабілізатори напруги відчизняного виробництва.</h1>
-                            <p class="lead">Надійні захисники Вашої побутової техніки. Вони не тільки допоможуть захистисти електротехніку, а й зможуть подовжить термін її служби, та допоможуть заощадити кошти.</p>
-                            <a href="@Url.RouteUrl("categoryBase", new { category = "avr" })" class="btn btn-large btn-primary">Переглянути</a>
-                        </div>
-                    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img alt="900x500" src="~/Content/images/carousel1.jpg" />
+
+                <div class="carousel-caption-landing carousel-caption-landing-left">
+                    <h1>Стабілізатори напруги відчизняного виробництва.</h1>
+                    <p class="lead">Надійні захисники Вашої побутової техніки. Вони не тільки допоможуть захистисти електротехніку, а й зможуть подовжить термін її служби, та допоможуть заощадити кошти.</p>
+                    <a href="@Url.RouteUrl("categoryBase", new { category = "avr" })" class="btn btn-default btn-lg btn-primary">Переглянути</a>
                 </div>
-                <div class="item">
-                    <img alt="" src="~/Content/images/carousel2.jpg">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1>Стабілізатори напруги.</h1>
-                            <p class="lead">Надійні захисники Вашої побутової техніки. Вони не тільки допоможуть захистисти електротехніку, а й зможуть подовжить термін її служби, та допоможуть заощадити коштию</p>
-                            <a href="@Url.RouteUrl("categoryBase", new { category = "avr" })" class="btn btn-large btn-primary">Переглянути</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img alt="" src="~/Content/images/carousel3.jpg">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1>ДБЖ.</h1>
-                            <p class="lead">Джерела безперебійного живлення - забезпечатять постійною стабільною електроенергією будь-яку електротехніку (комп'ютер, котел, телевізор, акустичі системи).</p>
-                            <a href="@Url.RouteUrl("categoryBase", new { category = "ups" })" class="btn btn-large btn-primary">Переглянути</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img alt="" src="~/Content/images/carousel4.jpg">
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h1>Акумулятори.</h1>
-                            <p class="lead">Накопичення енергії в будь-якій кількость: від звичайного ліхтарика до цілого будинку чи квартири.</p>
-                            <a href="@Url.RouteUrl("categoryBase", new { category = "battery" })" class="btn btn-large btn-primary">Переглянути</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img alt="" src="~/Content/images/carousel5.jpg">
-                    <div class="container">
-                        <div class="carousel-caption caption-right">
-                            <h1>Автоматика.</h1>
-                            <p class="lead">Автоматика для будь-яких потреб: реле напруги, часу, струму, терморегулятори, вольтметри.</p>
-                            <a href="@Url.RouteUrl("categoryBase", new { category = "voltage-relay" })" class="btn btn-large btn-primary">Переглянути</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-            <a data-slide="prev" href="#myCarousel" class="left carousel-control">‹</a>
-            <a data-slide="next" href="#myCarousel" class="right carousel-control">›</a>
+            <div class="item">
+                <img alt="900x500" src="~/Content/images/carousel2.jpg" />
+
+                <div class="carousel-caption-landing carousel-caption-landing-left">
+                    <h1>Стабілізатори напруги.</h1>
+                    <p class="lead">Надійні захисники Вашої побутової техніки. Вони не тільки допоможуть захистисти електротехніку, а й зможуть подовжить термін її служби, та допоможуть заощадити коштию</p>
+                    <a href="@Url.RouteUrl("categoryBase", new { category = "avr" })" class="btn btn-default btn-lg btn-primary">Переглянути</a>
+                </div>
+
+            </div>
+            <div class="item">
+                <img alt="900x500" src="~/Content/images/carousel3.jpg" />
+
+                <div class="carousel-caption-landing carousel-caption-landing-left">
+                    <h1>ДБЖ.</h1>
+                    <p class="lead">Джерела безперебійного живлення - забезпечатять постійною стабільною електроенергією будь-яку електротехніку (комп'ютер, котел, телевізор, акустичі системи).</p>
+                    <a href="@Url.RouteUrl("categoryBase", new { category = "ups" })" class="btn btn-default btn-lg btn-primary">Переглянути</a>
+                </div>
+
+            </div>
+            <div class="item">
+                <img alt="900x500" src="~/Content/images/carousel4.jpg" />
+
+                <div class="carousel-caption-landing carousel-caption-landing-left">
+                    <h1>Акумулятори.</h1>
+                    <p class="lead">Накопичення енергії в будь-якій кількость: від звичайного ліхтарика до цілого будинку чи квартири.</p>
+                    <a href="@Url.RouteUrl("categoryBase", new { category = "battery" })" class="btn btn-default btn-lg btn-primary">Переглянути</a>
+                </div>
+
+            </div>
+            <div class="item">
+                <img alt="900x500" src="~/Content/images/carousel5.jpg" />
+
+                <div class="carousel-caption-landing carousel-caption-landing-right">
+                    <h1>Автоматика.</h1>
+                    <p class="lead">Автоматика для будь-яких потреб: реле напруги, часу, струму, терморегулятори, вольтметри.</p>
+                    <a href="@Url.RouteUrl("categoryBase", new { category = "voltage-relay" })" class="btn btn-default btn-lg btn-primary">Переглянути</a>
+                </div>
+
+            </div>
         </div>
-    </section>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
 }
-<div class="row-fluid">
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "avr" })">
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "avr" })">
                 <img src="~/Content/images/tile1.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Стабілізатори напругу</strong> - надійні захисники Вашої побутової техніки. Вони не тільки допоможуть захистисти електротехніку, а й зможуть подовжить термін її служби, та допоможуть заощадити кошти.</p>
@@ -86,9 +89,9 @@
             </div>
         </div>
     </div>
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "ups" })">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "ups" })">
                 <img src="~/Content/images/tile2.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Джерела Безперебійного Живлення</strong> - забезпечать Ваш дім електроенергією у період її відсутності. Є незамінними помічниками приладів для яких наявність постійного живлення є обов'язковою.</p>
@@ -101,9 +104,9 @@
             </div>
         </div>
     </div>
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "battery" })">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "battery" })">
                 <img src="~/Content/images/tile3.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Акумулятори</strong> - дозволять накопичувати електроенергію для майбутнього використання. Є невідмємною частиною альтернативних джерел живлення.</p>
@@ -119,37 +122,37 @@
     </div>
 </div>
 <br>
-<div class="row-fluid">
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "voltage-relay" })">
+<div class="row">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "voltage-relay" })">
                 <img src="~/Content/images/tile4.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Реле напруги</strong> - захистять Вашу техніку від нестабільної мережі відімкнувши її від мережі електропостачання у небезпечний періодю</p>
                 <p>
                     <span class="tileheader">Виробники: </span>
                     @Html.RouteLink("Энергохит", "categoryBase", new { category = "voltage-relay", producers = "энергохит" })
-                    @Html.RouteLink("Volter", "categoryBase", new { category = "voltage-relay", producers = "volter" })                    
+                    @Html.RouteLink("Volter", "categoryBase", new { category = "voltage-relay", producers = "volter" })
                 </p>
             </div>
         </div>
     </div>
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "converter" })">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "converter" })">
                 <img src="~/Content/images/tile5.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Перетворювачі напруги</strong> - втомобільний перетворювач напруги 12 220 DC/AC (автомобільний інвертор) служить для перетворення напруги постійного струму 12 В в напругу змінного струму 220 В</p>
                 <p>
                     <span class="tileheader">Виробники: </span>
-                    @Html.RouteLink("Luxeon", "categoryBase", new { category = "converter", producers = "luxeon" })      
+                    @Html.RouteLink("Luxeon", "categoryBase", new { category = "converter", producers = "luxeon" })
                 </p>
             </div>
         </div>
     </div>
-    <div class="span4">
-        <div class="thumbnail">
-            <a class="thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "charger" })">
+    <div class="col-md-4">
+        <div class="img-thumbnail">
+            <a class="img-thumbnail thumbnail-inner" href="@Url.RouteUrl("categoryBase", new { category = "charger" })">
                 <img src="~/Content/images/tile6.jpg" /></a>
             <div class="caption">
                 <p><strong class="text-success">Зарядні пристроїі</strong> - захистять Вашу техніку нестабільної мережі відімкнивши її від мережі електропостачання у небезпечний періодю</p>

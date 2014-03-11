@@ -1,14 +1,28 @@
-﻿.unstyled li
-{
+﻿.list-unstyled li {
     line-height: 25px;
 }
 
-.priceUah
-{
+.priceUah {
     font: Arial;
     font-size: 1.9em;
     color: #468847;
     font-weight: bold;
+}
+
+.alert-filter {
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+}
+
+.disabled {
+    opacity: .65;
+}
+
+.product-panel {
+    border-color: #DDD;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 0;
 }
 
 .oldprice {
@@ -22,8 +36,7 @@
     font-size: 1.4em;
 }
 
-.priceUahSmall
-{
+.priceUahSmall {
     font: Arial;
     font-size: 14px;
     line-height: 20px;
@@ -31,95 +44,55 @@
     font-weight: bold;
 }
 
-.priceUsd
-{
+.priceUsd {
     font: Arial;
     font-size: 1.25em;
     color: #468847;
 }
 
-.maincontentregion
-{
-    padding-top: 81px;
+.maincontentregion {
+    padding-top: 83px;
     padding-bottom: 41px;
 }
 
-.carousel
-{
-    margin-bottom: 60px;
+.carousel {
+    margin-bottom: 20px;
 }
 
-    .carousel .container
-    {
-        position: relative;
-        z-index: 9;
-    }
-
-.carousel-control
-{
-    height: 80px;
-    margin-top: 0;
-    font-size: 120px;
-    text-shadow: 0 1px 1px rgba(0,0,0,.4);
-    background-color: transparent;
-    border: 0;
-    z-index: 10;
+#myCarousel {
+    margin-top: 20px;
 }
 
-.carousel .item
-{
-    height: 500px;
+.navbar-small {
+    min-height: 30px;
 }
 
-.carousel img
-{
+.carousel-caption-landing {
     position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    height: 500px;
+    bottom: 20px;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
 }
 
-.carousel-caption
-{
-    background-color: transparent !important;
-    position: static !important;
-    max-width: 550px;
-    padding: 0 60px;
-    margin-top: 200px;
+.carousel-caption-landing-left {
+    left: 15%;
+    right: 50%;
+}
+.carousel-caption-landing-right {
+    left: 50%;
+    right: 15%;
 }
 
-.caption-right
-{
-    margin-left: 500px;
-}
-    .carousel-caption h1,
-    .carousel-caption .lead
-    {
-        margin: 0;
-        line-height: 1.25;
-        color: #fff;
-        text-shadow: 0 1px 1px rgba(0,0,0,.4);
-    }
-
-    .carousel-caption .btn
-    {
-        margin-top: 10px;
-    }
-
-.carousel-indicators
-{
-    z-index: 15;
-}
-
-.menuitem
-{
+.menuitem {
     font: Arial;
     font-size: 1.4em;
 }
 
-.infotext
-{
+.infotext {
     font: Arial;
     padding: 5px 0 0 300px;
     font-size: 1.9em;
@@ -127,31 +100,30 @@
     font-weight: bold;
 }
 
-/*.carousel1
-{
-	background-image: url("../Content/images/carousel1.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 380px;     
-}*/
-
-.brand
-{
-    padding: 5px 0px 5px 20px !important;
+.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.logo
-{
-    height: 70px;
+.navbar-brand {
+    height: auto;
 }
 
-.navcontainer
-{
-    margin: 10px 0 0 0 !important;
+    .navbar-brand > img {
+        height: 50px;
+    }
+
+img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.form-prm
-{
+.menu-form {
+    padding-right: 0;
+    margin-bottom: 0;
+}
+
+.form-prm {
     background-color: #FFFFFF;
     border: 1px solid #E5E5E5;
     border-radius: 5px 5px 5px 5px;
@@ -161,14 +133,12 @@
     padding: 19px 29px 29px;
 }
 
-.thumbnail-inner
-{
+.thumbnail-inner {
     border: 1px solid #FFFFFF;
     padding: 0px;
 }
 
-.tileheader
-{
+.tileheader {
     color: #999999;
     font-size: 12px;
     font-weight: bold;
@@ -178,26 +148,18 @@
     text-transform: uppercase;
 }
 
-#myCarousel
-{
-    margin-top: 20px;
-}
-
-.navbar-inverse .brand, .navbar-inverse .nav > li > a
-{
+.navbar-inverse .navbar-brand, .navbar-inverse .nav > li > a {
     color: #FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
     .navbar-inverse .nav > li > a:focus,
-    .navbar-inverse .nav > li > a:hover
-    {
+    .navbar-inverse .nav > li > a:hover {
         color: #00bfff;
         background-color: transparent;
     }
 
-#map_canvas
-{
+#map_canvas {
     margin: 0;
     padding: 0;
     background-color: #E5E3DF;
@@ -207,29 +169,24 @@
     width: 100%;
 }
 
-    #map_canvas img
-    {
+    #map_canvas img {
         max-width: none;
     }
 
-.map_container label
-{
+.map_container label {
     width: auto;
     display: inline;
 }
 
-.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle
-{
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
     background-color: #006DCC;
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
 }
 
 .details-image-wrap {
-    
     width: 320px;
     height: 320px;
-    
 }
 
 .details-image-link {
@@ -261,7 +218,6 @@
 }
 
 .image-wrap2 {
-   
     position: relative;
     width: 240px;
     height: 240px;
@@ -278,39 +234,39 @@
     z-index: 1;
 }
 
-.ribbon.ribbon-details {
-    top: -5px;
-    left: -5px;
-}
+    .ribbon.ribbon-details {
+        top: -5px;
+        left: -5px;
+    }
 
-.ribbon.ribbon-list {
-    top: -10px;
-    left: -10px;
-}
+    .ribbon.ribbon-list {
+        top: -10px;
+        left: -10px;
+    }
 
 .ribbon-new {
-     background-image: url("../Content/images/sprite.png");
-     background-position: 0 0;
+    background-image: url("../Content/images/sprite.png");
+    background-position: 0 0;
 }
 
 .ribbon-ourchoise {
-     background-image: url("../Content/images/sprite.png");
-     background-position: -128px 0;
+    background-image: url("../Content/images/sprite.png");
+    background-position: -128px 0;
 }
 
 .ribbon-sale {
-     background-image: url("../Content/images/sprite.png");
-     background-position: -256px 0;
+    background-image: url("../Content/images/sprite.png");
+    background-position: -256px 0;
 }
 
 .ribbon-top {
-     background-image: url("../Content/images/sprite.png");
-     background-position: -384px 0;
+    background-image: url("../Content/images/sprite.png");
+    background-position: -384px 0;
 }
 
 .ribbon-bestprice {
-     background-image: url("../Content/images/sprite.png");
-     background-position: -512px 0;
+    background-image: url("../Content/images/sprite.png");
+    background-position: -512px 0;
 }
 
 h1[class="details"] {
@@ -321,10 +277,25 @@ h1[class="details"] {
     display: inline;
 }
 
-h2[class="details"]{
+h2[class="details"] {
     font-size: 20px;
     color: #999999;
     line-height: 22px;
     margin: 0;
     display: inline;
+}
+
+/*bootstrap3 missing styles*/
+.badge-success {
+    background-color: #468847;
+}
+
+.alert, .alert h4 {
+color: #C09853;
+}
+
+.alert .close {
+top: -2px;
+right: -21px;
+line-height: 20px;
 }

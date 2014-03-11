@@ -4,7 +4,7 @@
     ViewBag.Title = "Список замовлень";
 }
 @section breadCrumb {
-    <li><a href="@Url.Action("index", "admin")">Адміністрування</a><span class="divider">/</span></li>
+    <li><a href="@Url.Action("index", "admin")">Адміністрування</a></li>
     <li class="active">@ViewBag.Title</li>
 }
 <span class="lead">@ViewBag.Title</span>
@@ -31,8 +31,8 @@
                     <td>@item.Email</td>
                     <td>@item.CreationDate</td>
                     <td>@item.Status</td>
-                    <td><a class="button" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
-                        <a class="button" href="@Url.Action("edit", new { id = item.Id })">Редагувати</a>
+                    <td><a class="btn btn-primary" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
+                        <a class="btn btn-primary" href="@Url.Action("edit", new { id = item.Id })">Редагувати</a>
                     </td>
                 </tr>
             }

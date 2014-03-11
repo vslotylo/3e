@@ -22,8 +22,9 @@ namespace WebMarket
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/bundles/bootstrap/css/").Include("~/Content/bootstrap/css/bootstrap.css")
-                .Include("~/Content/bootstrap/css/bootstrap-responsive.css"));
+            bundles.Add(new StyleBundle("~/bundles/bootstrap/css/").Include("~/Content/bootstrap3.1.1/css/bootstrap.css")
+                .Include("~/Content/bootstrap3.1.1/css/bootstrap-theme.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
@@ -41,7 +42,7 @@ namespace WebMarket
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Content/bootstrap/js/bootstrap.js"));
+                        "~/Content/bootstrap3.1.1/js/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/analytics").Include(
                         "~/Content/js/analytics.js"));
