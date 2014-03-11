@@ -11,10 +11,10 @@
     <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)">
 }
 @section breadCrumb {
-    <li class="active">@Model.Metadata.DisplayCategory</li>
+    <li class="active">@Model.Metadata.Category.DisplayName</li>
 }
 <div>
-    <span class="lead">@Model.Metadata.DisplayCategory</span>
+    <span class="lead">@Model.Metadata.Category.DisplayName</span>
     <span class="pull-right">
         @Html.Partial("ControlSort", Model.Sort)
         @Html.Partial("ControlPageSize", Model.PageSize)

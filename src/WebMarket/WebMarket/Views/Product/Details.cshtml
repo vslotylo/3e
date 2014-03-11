@@ -24,7 +24,7 @@
     </script>
 }
 @section breadCrumb {
-    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.Product.CategoryName})">@Model.Metadata.DisplayCategory</a></li>
+    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.Product.CategoryName})">@Model.Metadata.Category.DisplayName</a></li>
     <li class="active">@Model.Product.DisplayName</li>
 }
 @Html.Partial("ProductDetailTemplate", Model)

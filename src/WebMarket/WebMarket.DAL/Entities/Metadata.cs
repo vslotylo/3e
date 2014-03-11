@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebMarket.DAL.Entities
 {
@@ -6,6 +7,8 @@ namespace WebMarket.DAL.Entities
     {
         [Key]
         public string CategoryName { get; set; }
+        [ForeignKey("CategoryName")]
+        public Category Category { get; set; }
         public string TitleList { get; set; }
         public string TitleDetails { get; set; }
         public string MetaListDescription { get; set; }

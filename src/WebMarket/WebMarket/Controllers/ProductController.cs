@@ -28,14 +28,14 @@ namespace WebMarket.Controllers
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);
-                this.ViewModel.Metadata = DbContext.Metadata.FirstOrDefault(obj => obj.CategoryName == category);
+                this.ViewModel.Metadata = DbContext.Metadata.Include(obj => obj.Category).FirstOrDefault(obj => obj.CategoryName == category);
                 return this.View(this.ViewModel);
             }
             catch (Exception e)
             {
                 Logger.Error(e);
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
-            }            
+            }
         }
 
         public ActionResult Details(string category, string name)
@@ -48,13 +48,13 @@ namespace WebMarket.Controllers
                 }
             }
 
-            var entity = this.DbContext.Products.Include(i => i.Producer).Include(o=>o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
+            var entity = this.DbContext.Products.Include(i => i.Producer).Include(o => o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
             if (entity == null)
             {
-                return this.RedirectToAction("index", "error", new { statusCode = 404});
+                return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
-            var metadata = DbContext.Metadata.FirstOrDefault(obj => obj.CategoryName == category);
+            var metadata = DbContext.Metadata.Include(obj => obj.Category).FirstOrDefault(obj => obj.CategoryName == category);
             return this.View(new DetailsViewModel(entity, metadata));
         }
 
