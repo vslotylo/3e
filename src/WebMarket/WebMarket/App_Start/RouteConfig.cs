@@ -9,10 +9,22 @@ namespace WebMarket
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("default", "{controller}/{action}/{name}", new { controller = "home", action = "index", name = UrlParameter.Optional }, new RouteValueDictionary { { "controller", "home|account|admin|cart|error|order|search|sitemap|seo" } });
-            
+            routes.MapRoute("default", "{controller}/{action}",
+                new { controller = "home", action = "index" }, 
+                new RouteValueDictionary
+                    {
+                        { "controller", "home|account|admin|cart|error|order|search|sitemap|seo|producer" }
+                    });
+
+            routes.MapRoute("categoryAction", "{category}/{action}/{name}", 
+                new {controller = "product", action = "index", name = UrlParameter.Optional},
+                new RouteValueDictionary
+                    {
+                        {"action", "index|edit|create|details|delete"}
+                    });
+
             routes.MapRoute("categoryBase", "{category}/{producers}", new { controller = "product", action = "index", producers = UrlParameter.Optional });
-            routes.MapRoute("categoryAction", "{category}/{action}/{name}", new { controller = "product", action = "details", name = UrlParameter.Optional });
+            
         }
     }
 }

@@ -34,16 +34,16 @@ namespace WebMarket.Notification.Templates
 
         public static EmailTemplate GetSalesTemplate(Order order)
         {
-            var body = SalesTemplate.Body.Replace("@userName", order.User.Trim());
-            body = body.Replace("@userEmail", order.Email.Trim());
-            body = body.Replace("@userCity", order.City.Trim());
-            body = body.Replace("@userAddress", order.Address.Trim());
+            var body = SalesTemplate.Body.Replace("@userName", string.IsNullOrEmpty(order.User) ? string.Empty : order.User.Trim());
+            body = body.Replace("@userEmail", string.IsNullOrEmpty(order.Email) ? string.Empty : order.Email.Trim());
+            body = body.Replace("@userCity", string.IsNullOrEmpty(order.City) ? string.Empty : order.City.Trim());
+            body = body.Replace("@userAddress", string.IsNullOrEmpty(order.Address) ? string.Empty : order.Address.Trim());
             var culture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("uk-UA");
             body = body.Replace("@orderCreationDate", order.CreationDate.ToString("G"));
             Thread.CurrentThread.CurrentCulture = culture;
-            body = body.Replace("@userPhone", order.Phone.Trim());
-            body = body.Replace("@userComment", order.Comment);
+            body = body.Replace("@userPhone", string.IsNullOrEmpty(order.Phone) ? string.Empty : order.Phone.Trim());
+            body = body.Replace("@userComment", string.IsNullOrEmpty(order.Comment) ? string.Empty : order.Comment.Trim());
 
             var context = new WebMarketDbContext();
             var ids = order.Items.Select(obj => obj.ProductId);

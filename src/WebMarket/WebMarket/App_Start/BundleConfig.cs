@@ -48,7 +48,10 @@ namespace WebMarket
                         "~/Content/js/analytics.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                        "~/Content/js/app.js").Include("~/Content/js/cart.js").Include("~/Content/js/callback.js"));
+                        "~/Content/js/app.js")
+                        .Include("~/Content/js/cart.js")
+                        .Include("~/Content/js/callback.js")
+                        .Include("~/Content/js/productEdit.js"));
         }
     }
 }

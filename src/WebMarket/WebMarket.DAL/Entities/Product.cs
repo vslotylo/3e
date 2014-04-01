@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Web.Script.Serialization;
+using System.Web.Mvc;
+using Newtonsoft.Json;
 using WebMarket.DAL.Entities.Enums;
 using WebMarket.DAL.Infrustructure;
 using WebMarket.DAL.Interfaces;
@@ -14,15 +15,13 @@ namespace WebMarket.DAL.Entities
     {
         private readonly Lazy<List<ProductInfo>> infos;
         private readonly Lazy<Price> price;
-        private readonly Lazy<List<ProductInfo>> dynamicProperties;
-        private static readonly JavaScriptSerializer Serializer = new JavaScriptSerializer();
-
+        private IEnumerable<ProductInfo> dynamicProperties;
+        
         public Product()
         {
             this.Photo = string.Empty;
             this.price = new Lazy<Price>(this.InitPrice);
             this.infos = new Lazy<List<ProductInfo>>(this.InitInfos);
-            this.dynamicProperties = new Lazy<List<ProductInfo>>(this.InitDynamicProperties);
         }
 
         public int Id { get; set; }
@@ -32,9 +31,9 @@ namespace WebMarket.DAL.Entities
         public double Weight { get; set; }
         public double Rate { get; set; }
         public string Photo { get; set; }
+        [AllowHtml]
         public string Description { get; set; }
         public string WorkingConditions { get; set; }
-
         public string SuppliedItems { get; set; }
         public string Dimension { get; set; }
         public int Warranty { get; set; }
@@ -73,7 +72,25 @@ namespace WebMarket.DAL.Entities
         {
             get
             {
-                return this.dynamicProperties.Value;
+                if (this.dynamicProperties == null)
+                {
+                    if (this.Info == null)
+                    {
+                        return new List<ProductInfo>();
+                    }
+
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(this.Info);
+
+                    this.dynamicProperties = dict.Select(item => new ProductInfo(item.Key, item.Value)).ToList();
+                }
+
+                return this.dynamicProperties;
+            }
+            set
+            {
+                this.dynamicProperties = value;
+                var dict = this.dynamicProperties.ToDictionary(obj => obj.Key, obj => obj.Value);
+                this.Info = JsonConvert.SerializeObject(dict);
             }
         }
 
@@ -83,26 +100,6 @@ namespace WebMarket.DAL.Entities
             {
                 return this.infos.Value;
             }
-        }
-
-        private List<ProductInfo> InitDynamicProperties()
-        {
-            var dict = Serializer.Deserialize<Dictionary<string, string>>(this.Info);
-            var typedProp = new List<ProductInfo>();
-            foreach (var item in dict)
-            {
-                bool result;
-                if (bool.TryParse(item.Value, out result))
-                {
-                    typedProp.Add(new ProductInfo(item.Key, result, true));
-                }
-                else
-                {
-                    typedProp.Add(new ProductInfo(item.Key, item.Value));
-                }
-            }
-
-            return typedProp;
         }
 
         private Price InitPrice()
@@ -115,8 +112,7 @@ namespace WebMarket.DAL.Entities
             var list = new List<ProductInfo>
                            {
                                new ProductInfo("Модель", this.DisplayName),
-                               new ProductInfo("Тип", this.Group.DisplayName),
-                               new ProductInfo("Виробник", this.Producer.Name)
+                               new ProductInfo("Тип", this.Group.DisplayName)
                            };
             return list;
         }
@@ -189,14 +185,14 @@ namespace WebMarket.DAL.Entities
 
         public string GetProductPreviewInfo()
         {
-            return string.Join(" | ", this.DynamicProperties.Where(obj=>!obj.IsBool).Take(6).Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
+            return string.Join(" | ", this.DynamicProperties.Where(obj => !obj.IsBool).Take(6).Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
         }
 
-        public IEnumerable<string> GetParsedSuppliedItems(Metadata metadata)
+        public IEnumerable<string> GetParsedSuppliedItems(Category category)
         {
-           return Serializer.Deserialize<string[]>(this.SuppliedItems)
-                .Select(obj => obj.Replace("{metadata}", metadata.TitleDetails))
-                .Select(obj => obj.Replace("{displayname}", this.DisplayName));
+            return JsonConvert.DeserializeObject<string[]>(this.SuppliedItems)
+                 .Select(obj => obj.Replace("{titledetails}", category.TitleDetails))
+                 .Select(obj => obj.Replace("{displayname}", this.DisplayName));
         }
     }
 }

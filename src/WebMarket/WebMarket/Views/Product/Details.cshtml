@@ -1,17 +1,17 @@
-﻿@model WebMarket.Core.DetailsViewModel
+﻿@model WebMarket.DAL.Entities.Product
 @{
-    ViewBag.Title = string.Format("{0} - {1}", Model.Metadata.TitleDetails, Model.Product.DisplayName);
+    ViewBag.Title = string.Format("{0} - {1}", Model.Category.TitleDetails, Model.DisplayName);
     ViewBag.MetaDescription = string.Format("{0} - {1}, Виробник: {2}, Тип: {3}, Ціна: {4} грн./{5} $, Гарантія: {6} м.", 
-        Model.Metadata.MetadataDetailsDescription, 
-        Model.Product.DisplayName, 
-        Model.Product.Producer.Name,
-        Model.Product.Group.DisplayName, 
-        Model.Product.CalculatedPrice.PriceFinalUah, 
-        Model.Product.CalculatedPrice.PriceFinalUsd, 
-        Model.Product.Warranty);
-}
+        Model.Category.MetadataDetailsDescription, 
+        Model.DisplayName, 
+        Model.Producer.Name,
+        Model.Group.DisplayName, 
+        Model.CalculatedPrice.PriceFinalUah, 
+        Model.CalculatedPrice.PriceFinalUsd, 
+        Model.Warranty);
+}                    
 @section head {
-    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Product.CategoryName, name = Model.Product.Name, action="details" }), Request.Url.Scheme, Request.Url.Host)">
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action="details" }), Request.Url.Scheme, Request.Url.Host)">
 }
 @section scripts
 {
@@ -24,7 +24,7 @@
     </script>
 }
 @section breadCrumb {
-    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.Product.CategoryName})">@Model.Metadata.Category.DisplayName</a></li>
-    <li class="active">@Model.Product.DisplayName</li>
+    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName})">@Model.Category.DisplayName</a></li>
+    <li class="active">@Model.DisplayName</li>
 }
 @Html.Partial("ProductDetailTemplate", Model)

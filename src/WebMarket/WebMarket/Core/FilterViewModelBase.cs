@@ -76,6 +76,6 @@ namespace WebMarket.Core
         public SearchFilter SearchFilter { get; private set; }
         public string Category { get; private set; }
         public int Count { get; set; }
-        public Metadata Metadata { get; set; }
+        public Category CategoryObj { get; set; }
     }
 }

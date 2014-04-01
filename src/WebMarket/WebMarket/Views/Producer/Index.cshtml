@@ -1,0 +1,15 @@
+﻿@model List<WebMarket.DAL.Entities.Producer>
+
+@{
+    ViewBag.Title = "Список виробників представлених на сайті";
+}
+@section breadCrumb {
+    <li class="active">Виробники</li>
+}
+
+<ul>
+    @foreach (var producer in Model)
+    {
+        <li>@Html.ActionLink(producer.Name, "details", "producer", new { name = producer.Name }, null)</li>
+    }
+</ul>

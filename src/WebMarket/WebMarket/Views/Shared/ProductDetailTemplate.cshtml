@@ -1,4 +1,5 @@
-﻿@model WebMarket.Core.DetailsViewModel
+﻿@using WebMarket.Security
+@model WebMarket.DAL.Entities.Product
 @{
     ViewBag.Title = "ProductDeatails";
 }
@@ -6,157 +7,82 @@
 <div class="row">
     <div class="col-md-4">
         <div>
-            @Html.Partial("ProductPreview", Model.Product)
+            @Html.Partial("ProductPreview", Model)
         </div>
     </div>
     <div class="col-md-8">
-        <ul class="list-unstyled">
-            <li>
-                <div class="row">
-                    <div class="col-md-10">
-                        <h1>@Model.Metadata.TitleDetails <b>@Model.Product.DisplayName</b></h1>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="disabled pull-right">Код: @Model.Product.ProductId</span>
-                    </div>
+        <div class="row">
+            <div class="col-md-10">
+                <h1 class="details-header">@Model.Category.TitleDetails <b>@Model.DisplayName</b></h1>
+            </div>
+            <div class="col-md-2">
+                <span class="disabled pull-right">Код: @Model.ProductId</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Model.GetProductPreviewInfo()
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.Partial("PriceTemplate", Model)
+            </div>
+            <div class="col-md-3">
+                @Html.Partial("ProductRate", Model)
+                @Html.Partial("ProductAvailability", Model)
+            </div>
+            <div class="col-md-4">
+                <span>
+                    <span>
+                        <a id="getCallBackBtn" class="btn btn-default btn-info" href="#callbackDialog" data-toggle="modal" style="margin: 10px 0 0 0">Передзвонити мені</a>
+                    </span>
+                    <span>
+                        <a id="buyBtn" class="btn btn-default btn-primary" href="#addToCartModal" data-toggle="modal" style="margin: 10px 0 0 0">Купити</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        @if (User.IsAdministrator())
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-default" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, id = Model.Id, action="edit" }), Request.Url.Scheme, Request.Url.Host)">Редагувати</a>
+                    <a class="btn btn-default">Видалити</a>
                 </div>
-            </li>
-            <li>@Model.Product.GetProductPreviewInfo()
-            </li>
-            <li>
-                <div class="row">
-                    <div class="col-md-4">
-                        @Html.Partial("PriceTemplate", Model.Product)
-                    </div>
-                    <div class="col-md-3">
-                        @Html.Partial("ProductRate", Model.Product)
-                        @Html.Partial("ProductAvailability", Model.Product)
-                    </div>
-                    <div class="col-md-4">
-                        <span>
-                            <span>
-                                <a id="getCallBackBtn" class="btn btn-default btn-info" href="#callbackDialog" data-toggle="modal" style="margin: 10px 0 0 0">Передзвонити мені</a>
-                            </span>
-                            <span>
-                                <a id="buyBtn" class="btn btn-default btn-primary" href="#addToCartModal" data-toggle="modal" style="margin: 10px 0 0 0">Купити</a>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        @Html.Partial("AddToCartModal", Model.Product)
+            </div>
+            
+        }
+        @Html.Partial("AddToCartModal", Model)
         @Html.Partial("CallbackModal")
     </div>
 </div>
 <div class="thumbnails yoxview">
-    @foreach (var item in Model.Product.GetPhotos())
+    @foreach (var item in Model.GetPhotos())
     {            
         <a href="@string.Format("/Content/tiles/avr/{0}", item.Value)">
             <img src="@string.Format("/Content/tiles/avr/{0}", item.Key)" alt="First" title="WWWWWWWWWWWWWWWWWWWWWWWWWw" /></a>
     }
 </div>
 <div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Технічні характеристики <b>@Model.Product.DisplayName</b></h3>
-        </div>
-        <table class="table table-condensed table-bordered table-hover">
-            <tbody>
-                @foreach (var item in Model.Product.ProductInfo)
-                {
-                    <tr>
-                        <td>@item.Key
-                        </td>
-                        <td>
-                            @item.Value
-                        </td>
-                    </tr>
-                }
-                @foreach (var item in Model.Product.DynamicProperties)
-                {
-                    <tr>
-                        <td>
-                            @item.Key
-                        </td>
-                        <td>
-                            @{
-                    if (item.IsBool)
-                    {
-                        if ((bool)item.Value)
-                        {
-                                <span class="label label-success">+</span>
-                        }
-                        else
-                        {
-                                <span class="label label-danger">-</span>
-                        }
-                    }
-                    else
-                    {
-                                @item.Value
-                    }
-                            }
-
-                        </td>
-                    </tr>
-                }
-                @if (!string.IsNullOrWhiteSpace(@Model.Product.WorkingConditions))
-                {
-                    <tr>
-                        <td>Робочі умови
-                        </td>
-                        <td>@Model.Product.WorkingConditions
-                        </td>
-                    </tr>
-                }
-                @if (!string.IsNullOrWhiteSpace(@Model.Product.Dimension))
-                {
-                    <tr>
-                        <td>Розміри
-                        </td>
-                        <td>@Model.Product.Dimension д/ш/в
-                        </td>
-                    </tr>
-                }
-                @if (Model.Product.Weight > 0)
-                {
-                    <tr>
-                        <td>Вага
-                        </td>
-                        <td>@Model.Product.Weight кг.
-                        </td>
-                    </tr>
-                }
-                @if (Model.Product.Warranty > 0)
-                {
-                    <tr>
-                        <td>Гарантія
-                        </td>
-                        <td>@Model.Product.Warranty м.
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    @Html.Partial("ProductDynamicProperties", Model)
     <br />
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Опис <b>@Model.Product.DisplayName</b></h3>
+            <h3 class="panel-title">Опис <b>@Model.DisplayName</b></h3>
         </div>
         <div class="panel-body">
-            <p>@Html.Raw(Model.Product.Description)</p>
+            <p>@Html.Raw(Model.Description)</p>
         </div>
     </div>
     <br />
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Комплектація <b>@Model.Product.DisplayName</b></h3>
+            <h3 class="panel-title">Комплектація <b>@Model.DisplayName</b></h3>
         </div>
         <div class="panel-body">
             <ul>
-                @foreach (var item in Model.Product.GetParsedSuppliedItems(Model.Metadata))
+                @foreach (var item in Model.GetParsedSuppliedItems(Model.Category))
                 {
                     <li>
                         @item

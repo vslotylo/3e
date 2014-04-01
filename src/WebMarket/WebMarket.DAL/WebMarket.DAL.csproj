@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MySQL.Data.Entities.6.5.4.0\lib\net40\MySql.Data.Entity.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\WebMarket\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -55,6 +58,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,7 +77,6 @@
     <Compile Include="Entities\Enums\Status.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Group.cs" />
-    <Compile Include="Entities\Metadata.cs" />
     <Compile Include="Exceptions\EntityImportException.cs" />
     <Compile Include="Infrustructure\Price.cs" />
     <Compile Include="Interfaces\IPreviewInfo.cs" />
@@ -149,9 +152,13 @@
     <Compile Include="Migrations\201310211342195_AddedProducerDisplayName.Designer.cs">
       <DependentUpon>201310211342195_AddedProducerDisplayName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201403112157203_AddedMetadata.cs" />
-    <Compile Include="Migrations\201403112157203_AddedMetadata.Designer.cs">
-      <DependentUpon>201403112157203_AddedMetadata.cs</DependentUpon>
+    <Compile Include="Migrations\201403121428202_ExtendedCategory.cs" />
+    <Compile Include="Migrations\201403121428202_ExtendedCategory.Designer.cs">
+      <DependentUpon>201403121428202_ExtendedCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403121428488_ExtendedProducer.cs" />
+    <Compile Include="Migrations\201403121428488_ExtendedProducer.Designer.cs">
+      <DependentUpon>201403121428488_ExtendedProducer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,8 +213,11 @@
     <EmbeddedResource Include="Migrations\201310211342195_AddedProducerDisplayName.resx">
       <DependentUpon>201310211342195_AddedProducerDisplayName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201403112157203_AddedMetadata.resx">
-      <DependentUpon>201403112157203_AddedMetadata.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201403121428202_ExtendedCategory.resx">
+      <DependentUpon>201403121428202_ExtendedCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403121428488_ExtendedProducer.resx">
+      <DependentUpon>201403121428488_ExtendedProducer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,12 @@
+﻿@model WebMarket.DAL.Entities.Producer
+
+@{
+    ViewBag.Title = string.Format("{0} - опис сторінки виробника", Model.DisplayName);
+}
+@section breadCrumb {
+    <li>@Html.ActionLink("Виробники", "index", "producer")</li>
+    <li class="active">@Model.DisplayName</li>
+}
+<h2>@Model.DisplayName</h2>
+<a href="@Model.HomePage">@string.Format("Домашня сторінка {0}", Model.DisplayName)</a>
+<div>@Model.Description</div>

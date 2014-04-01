@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using WebMarket.Common;
 using WebMarket.Core;
 using WebMarket.DAL.Entities;
+using WebMarket.DAL.Infrustructure;
 using WebMarket.Filters;
 
 namespace WebMarket.Controllers
@@ -28,7 +31,7 @@ namespace WebMarket.Controllers
                 var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);
-                this.ViewModel.Metadata = DbContext.Metadata.Include(obj => obj.Category).FirstOrDefault(obj => obj.CategoryName == category);
+                this.ViewModel.CategoryObj = DbContext.Categories.FirstOrDefault(obj => obj.Name == category);
                 return this.View(this.ViewModel);
             }
             catch (Exception e)
@@ -48,14 +51,13 @@ namespace WebMarket.Controllers
                 }
             }
 
-            var entity = this.DbContext.Products.Include(i => i.Producer).Include(o => o.Group).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
-            if (entity == null)
+            var product = this.DbContext.Products.Include(i => i.Producer).Include(o => o.Group).Include(o => o.Category).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
+            if (product == null)
             {
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
-            var metadata = DbContext.Metadata.Include(obj => obj.Category).FirstOrDefault(obj => obj.CategoryName == category);
-            return this.View(new DetailsViewModel(entity, metadata));
+            return this.View(product);
         }
 
         public ActionResult Create()
@@ -76,39 +78,67 @@ namespace WebMarket.Controllers
             return this.View(battery);
         }
 
-        public ActionResult Edit(int id = 0)
+        [Authorize(Roles = Constants.AdminRoleName)]
+        public ActionResult Edit(int id)
         {
-            var battery = this.DbContext.Products.Find(id);
-            if (battery == null)
+            var product = this.DbContext.Products
+                .Include(i => i.Producer)
+                .Include(o => o.Group)
+                .Include(o => o.Category)
+                .FirstOrDefault(obj => obj.Id == id);
+
+            
+            if (product == null)
             {
-                return this.RedirectToAction("index", "error");
+                return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
-            return this.View(battery);
+
+            return this.View(product);
         }
 
         [HttpPost]
-        public ActionResult Edit(Product battery)
+        [Authorize(Roles = Constants.AdminRoleName)]
+        public ActionResult Edit(Product product)
         {
-            if (this.ModelState.IsValid)
+            var currentProduct = DbContext.Products
+                .Include(obj => obj.Category).FirstOrDefault(obj => obj.Id == product.Id);
+            if (currentProduct == null)
             {
-                this.DbContext.Entry(battery).State = EntityState.Modified;
-                this.DbContext.SaveChanges();
-                return this.RedirectToAction("index");
+                return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
-            return this.View(battery);
+
+            var name = product.Name.Trim();
+            var discount = product.Discount;
+            var price = product.Price;
+            var description = string.IsNullOrEmpty(product.Description) ? string.Empty : product.Description.Trim();
+            var dynamicProperties = product.DynamicProperties.Where(obj => !string.IsNullOrEmpty(obj.Key) && !string.IsNullOrEmpty(obj.Value.ToString()));
+
+            product = currentProduct;
+            product.Name = name;
+            product.Discount = discount;
+            product.Price = price;
+            product.Description = description;
+            product.DynamicProperties = dynamicProperties;
+
+            //todo
+            this.DbContext.Entry(product).State = EntityState.Modified;
+            this.DbContext.SaveChanges();
+            return this.RedirectToAction("details" , new { category = product.CategoryName, name = product.Name});
         }
 
+        [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Delete(int id = 0)
         {
-            Product battery = this.DbContext.Products.Find(id);
-            if (battery == null)
+            Product product = this.DbContext.Products.Find(id);
+            if (product == null)
             {
                 return this.RedirectToAction("index", "error");
             }
-            return this.View(battery);
+            return this.View(product);
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult DeleteConfirmed(int id)
         {
             var battery = this.DbContext.Products.Find(id);

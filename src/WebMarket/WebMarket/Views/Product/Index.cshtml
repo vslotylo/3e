@@ -1,7 +1,7 @@
 ﻿@model WebMarket.Core.FilterViewModelBase<WebMarket.DAL.Entities.Product>
 @{
-    ViewBag.Title = Model.Metadata.TitleList;
-    ViewBag.MetaDescription = Model.Metadata.MetaListDescription;
+    ViewBag.Title = Model.CategoryObj.TitleList;
+    ViewBag.MetaDescription = Model.CategoryObj.MetaListDescription;
 }
 @section scripts
 {
@@ -11,10 +11,10 @@
     <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)">
 }
 @section breadCrumb {
-    <li class="active">@Model.Metadata.Category.DisplayName</li>
+    <li class="active">@Model.CategoryObj.DisplayName</li>
 }
 <div>
-    <span class="lead">@Model.Metadata.Category.DisplayName</span>
+    <span class="lead">@Model.CategoryObj.DisplayName</span>
     <span class="pull-right">
         @Html.Partial("ControlSort", Model.Sort)
         @Html.Partial("ControlPageSize", Model.PageSize)

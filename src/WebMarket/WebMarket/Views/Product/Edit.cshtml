@@ -1,8 +1,93 @@
-﻿@model WebMarket.DAL.Entities.Product
+﻿@using WebMarket.DAL.Entities.Enums;
+@model WebMarket.DAL.Entities.Product
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = string.Format("Редагування {0}", Model.DisplayName);
+}
+@section breadCrumb {
+    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName })">@Model.Category.DisplayName</a></li>
+    <li><a href="@Html.Partial("ProductLinkUrl", Model)">@Model.DisplayName</a></li>
+    <li class="active">Редагування @Model.DisplayName</li>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/app")
 }
 
-<h2>title</h2>
+@using (Html.BeginForm("edit", "product", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Редагування товару</legend>
+        @Html.HiddenFor(model => model.Id)
+        <div class="panel panel-default panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Основні значення</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, "Назва", new { @class = "control-label col-md-1" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Price, "Ціна", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                    </div>
+                    @if (Model.Producer.BuyCurrency == Currency.Usd)
+                    {
+                        <div class="col-md-2">
+                            <span class="label label-success">$</span>
+                        </div>
+                    }
+                    else if (Model.Producer.BuyCurrency == Currency.Uah)
+                    {
+                        <div class="col-md-2">
+                            <span class="label label-primary">грн.</span>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, "Знижка", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => model.Discount, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        <span class="label label-default">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Редагування технічні характеристик</h3>
+            </div>
+            <div class="panel-body">
+                <table id="tableDynamicProperties" class="table">
+                    <tbody>
+                        @Html.EditorFor(obj => Model.DynamicProperties)
+                    </tbody>
+                </table>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-default btn-primary btn-sm btn-panel" id="btnAddNewDynamicProperty">Додати характеристику</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Редагування опису</h3>
+            </div>
+            <div class="panel-body">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 10 })
+                <div class="btn-group pull-right">
+                    <button type="submit" class="btn btn-default btn-success btn-panel">Зберегти</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
