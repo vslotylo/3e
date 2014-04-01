@@ -13,7 +13,7 @@ namespace WebMarket.Filters
             this.Key = KeyName;            
         }
 
-        public int PageSize { get; private set; }
+        public int PageSize { get; set; }
         public override string Value
         {
             get

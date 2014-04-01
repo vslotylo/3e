@@ -11,7 +11,7 @@
             this.Key = KeyName;
         }
 
-        public int Sort { get; private set; }
+        public int Sort { get; set; }
         public override string Value
         {
             get

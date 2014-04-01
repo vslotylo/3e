@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.Core;
 using WebMarket.DAL.Entities;
-using WebMarket.DAL.Infrustructure;
 using WebMarket.Filters;
 
 namespace WebMarket.Controllers
