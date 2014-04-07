@@ -1,19 +1,26 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public class ProducerController : ControllerBase
     {
+        private readonly IProducerRepository producerRepository;
+
+        public ProducerController(IProducerRepository producerRepository)
+        {
+            this.producerRepository = producerRepository;
+        }
+
         public ActionResult Index(string name)
         {
-            var producers = DbContext.Producers.ToList();
+            var producers = producerRepository.GetAll();
             return View(producers);
         }
 
         public ActionResult Details(string name)
         {
-            var producer = DbContext.Producers.FirstOrDefault(obj => obj.Name == name);
+            var producer = producerRepository.GetByName(name);
             return View(producer);
         }
     }

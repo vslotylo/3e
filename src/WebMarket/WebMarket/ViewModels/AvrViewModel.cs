@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebMarket.Core;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 using WebMarket.Filters;
 
 namespace WebMarket.ViewModels

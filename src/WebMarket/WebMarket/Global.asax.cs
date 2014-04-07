@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMarket.App_Start;
 using log4net;
 
 namespace WebMarket
@@ -39,6 +40,7 @@ namespace WebMarket
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            UnityConfig.RegisterComponents();
             //ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder()); 
         }
 

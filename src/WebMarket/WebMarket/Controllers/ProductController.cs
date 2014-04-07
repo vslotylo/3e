@@ -1,17 +1,25 @@
 ﻿using System;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.Core;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 using WebMarket.Filters;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public class ProductController : ListControllerBase
     {
+        private readonly IProductRepository productRepository;
+        private readonly ICategoryRepository categoryRepository;
+
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        {
+            this.productRepository = productRepository;
+            this.categoryRepository = categoryRepository;
+        }
+
         [HttpGet]
         public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producerFilter, PageFilter pageFilter, [ModelBinder(typeof(GroupFilterBinder))] GroupFilter groupFilter)
         {
@@ -25,11 +33,11 @@ namespace WebMarket.Controllers
                     }
                 }
 
-                this.ViewModel = new FilterViewModelBase<Product>(category, pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
-                var entities = this.DbContext.Products.Include(i => i.Producer).Where(obj => obj.CategoryName == category).AsQueryable();
+                this.ViewModel = new FilterViewModelBase(category, pageSizeFilter, sortFilter, producerFilter, pageFilter, groupFilter);
+                var entities = this.productRepository.GetProductsWithProducerByProductName(category);
                 entities = this.StartInitialize(entities);
                 this.EndInitialize(entities);
-                this.ViewModel.CategoryObj = DbContext.Categories.FirstOrDefault(obj => obj.Name == category);
+                this.ViewModel.CategoryObj = categoryRepository.GetByName(category);
                 return this.View(this.ViewModel);
             }
             catch (Exception e)
@@ -49,7 +57,7 @@ namespace WebMarket.Controllers
                 }
             }
 
-            var product = this.DbContext.Products.Include(i => i.Producer).Include(o => o.Group).Include(o => o.Category).FirstOrDefault(obj => obj.CategoryName == category && obj.Name == name);
+            var product = productRepository.Details(category, name);
             if (product == null)
             {
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
@@ -64,27 +72,22 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product battery)
+        public ActionResult Create(Product product)
         {
             if (this.ModelState.IsValid)
             {
-                this.DbContext.Products.Add(battery);
-                this.DbContext.SaveChanges();
+                this.productRepository.Insert(product);
+                this.productRepository.Commit();
                 return this.RedirectToAction("index");
             }
 
-            return this.View(battery);
+            return this.View(product);
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Edit(int id)
         {
-            var product = this.DbContext.Products
-                .Include(i => i.Producer)
-                .Include(o => o.Group)
-                .Include(o => o.Category)
-                .FirstOrDefault(obj => obj.Id == id);
-
+            var product = productRepository.GetWithCategory(id);
             
             if (product == null)
             {
@@ -98,8 +101,8 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Edit(Product product)
         {
-            var currentProduct = DbContext.Products
-                .Include(obj => obj.Category).FirstOrDefault(obj => obj.Id == product.Id);
+            // todo simple get?
+            var currentProduct = productRepository.GetWithCategory(product.Id);
             if (currentProduct == null)
             {
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
@@ -118,16 +121,15 @@ namespace WebMarket.Controllers
             product.Description = description;
             product.DynamicProperties = dynamicProperties;
 
-            //todo
-            this.DbContext.Entry(product).State = EntityState.Modified;
-            this.DbContext.SaveChanges();
+            productRepository.Update(product);
+            productRepository.Commit();
             return this.RedirectToAction("details" , new { category = product.CategoryName, name = product.Name});
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Delete(int id = 0)
         {
-            Product product = this.DbContext.Products.Find(id);
+            Product product = this.productRepository.Get(id);
             if (product == null)
             {
                 return this.RedirectToAction("index", "error");
@@ -139,16 +141,10 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult DeleteConfirmed(int id)
         {
-            var battery = this.DbContext.Products.Find(id);
-            this.DbContext.Products.Remove(battery);
-            this.DbContext.SaveChanges();
+            var product = this.productRepository.Get(id);
+            this.productRepository.Delete(product);
+            this.productRepository.Commit();
             return this.RedirectToAction("index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            this.DbContext.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

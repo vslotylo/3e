@@ -5,13 +5,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMarket.Common;
-using WebMarket.DAL.Data.Import;
+using WebMarket.Repository.Data.Import;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public class AdminController : ControllerBase
     {
-        private string[] supportedLogLevels = new[] { "error", "info" };
+        private readonly IDataImporter dataImporter;
+        private readonly ICallbackRepository callbackRepository;
+        private readonly string[] supportedLogLevels = new[] { "error", "info" };
+
+        public AdminController(IDataImporter dataImporter, ICallbackRepository callbackRepository)
+        {
+            this.dataImporter = dataImporter;
+            this.callbackRepository = callbackRepository;
+        }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Index()
@@ -31,13 +40,12 @@ namespace WebMarket.Controllers
         {
             try
             {
-                var importer = new DataImporter();
                 foreach (var file in files.Where(obj => obj.ContentLength > 0))
                 {
-                    importer.Import(file.InputStream, this.DbContext);
+                    this.dataImporter.Import(file.InputStream);
                 }
 
-                this.DbContext.SaveChanges();
+                this.dataImporter.Comit();
             }
             catch (Exception e)
             {
@@ -72,8 +80,7 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Callbacks()
         {
-            var callbacks = DbContext.Callbacks.ToList();
-            return View(callbacks);
+            return View(this.callbackRepository.GetAll());
         }
     }
 }

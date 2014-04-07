@@ -1,14 +1,18 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using WebMarket.DAL.Interfaces;
-using WebMarket.DAL.Infrustructure;
 using WebMarket.Models;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public class CartController : ControllerBase
     {
-        private readonly IProductManager manager = new ProductManager();
+        private readonly IProductRepository repository;
+
+        public CartController(IProductRepository repository)
+        {
+            this.repository = repository;
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -19,9 +23,9 @@ namespace WebMarket.Controllers
         [HttpPost]
         public JsonResult Add(int pid, int quantity)
         {
-            var product = this.manager.GetProductByPid(pid);
+            var product = this.repository.GetWithProducersGroups(pid);
             var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
-            if( cartItem == null)
+            if (cartItem == null)
             {
                 this.Cart.Items.Add(new CartItem { Product = product, Quantity = quantity });
             }
@@ -40,7 +44,7 @@ namespace WebMarket.Controllers
             var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
             if (cartItem != null)
             {
-                this.Cart.Items.Remove(cartItem);                
+                this.Cart.Items.Remove(cartItem);
             }
 
             return true;

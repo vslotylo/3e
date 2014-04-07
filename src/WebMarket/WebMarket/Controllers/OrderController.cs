@@ -1,23 +1,27 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebMarket.Common;
-using WebMarket.DAL.Entities;
-using WebMarket.DAL.Entities.Enums;
-using System.Data.Entity;
-using WebMarket.DAL.Infrustructure;
-using WebMarket.DAL.Interfaces;
+using WebMarket.Repository.Entities;
+using WebMarket.Repository.Entities.Enums;
 using WebMarket.Notification;
 using WebMarket.Notification.Templates;
+using WebMarket.Repository.Interfaces;
 using WebMarket.ViewModels;
 
 namespace WebMarket.Controllers
 {
     public class OrderController : ControllerBase
     {
-        private readonly IProductManager manager = new ProductManager();
+        private readonly IProductRepository productRepository;
+        private readonly IOrderRepository orderRepository;
+
+        public OrderController(IProductRepository productRepository, IOrderRepository orderRepository)
+        {
+            this.productRepository = productRepository;
+            this.orderRepository = orderRepository;
+        }
 
         public ActionResult Index()
         {
@@ -27,21 +31,21 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult List()
         {
-            return this.View(DbContext.Orders.ToList());
+            return this.View(orderRepository.GetAll());
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Details(int id)
         {
-            var order = DbContext.Orders.Include(obj => obj.Items).FirstOrDefault(obj => obj.Id == id);
-            var products = order.Items.Select(obj => manager.GetProductByPid(obj.ProductId));
+            var order = orderRepository.Get(id);
+            var products = order.Items.Select(obj => productRepository.GetWithProducersGroups(obj.ProductId));
             return this.View(new OrderDetailViewModel(order, products));
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Edit(int id)
         {
-            var order = DbContext.Orders.Include(obj => obj.Items).FirstOrDefault(obj => obj.Id == id);
+            var order = orderRepository.Get(id);
             return this.View(order);
         }
 
@@ -51,15 +55,8 @@ namespace WebMarket.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var dbOrder = this.DbContext.Orders.Find(order.Id);
-                this.DbContext.Entry(dbOrder).State = EntityState.Modified;
-                dbOrder.Status = order.Status;
-                if (order.Status == Status.Completed || order.Status == Status.Refunded)
-                {
-                    dbOrder.CloseDate = DateTime.UtcNow.ToUkrainianTimeZone();
-                }
-
-                this.DbContext.SaveChanges();
+                orderRepository.Update(order);
+                orderRepository.Commit();
                 return this.RedirectToAction("list");
             }
 
@@ -75,19 +72,20 @@ namespace WebMarket.Controllers
             }
 
             order.Status = Status.Pending;
-            order.CreationDate = DateTime.Now.ToUkrainianTimeZone();;
-            this.DbContext.Orders.Add(order);
+            order.CreationDate = DateTime.Now.ToUkrainianTimeZone();
+            this.orderRepository.Insert(order);
             try
             {
+                var templatesProvider = new EmailTemplatesProvider(productRepository);
                 Task.Factory.StartNew(() =>
                 {
-                    var message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.GetCustomerOrderTemplate(order.User, order.Total), To = new[] { order.Email } };
+                    var message = new NotificationMessage { EmailTemplate = templatesProvider.GetCustomerOrderTemplate(order.User, order.Total), To = new[] { order.Email } };
                     NotificationManager.Current.Notify(message);
-                    message = new NotificationMessage { EmailTemplate = EmailTemplatesProvider.GetSalesTemplate(order), To = new[] { Constants.SalesEmail } };
+                    message = new NotificationMessage { EmailTemplate = templatesProvider.GetSalesTemplate(order), To = new[] { Constants.SalesEmail } };
                     NotificationManager.Current.Notify(message);
                 });
                 
-                this.DbContext.SaveChanges();
+                this.orderRepository.Commit();
             }
             catch (Exception e)
             {

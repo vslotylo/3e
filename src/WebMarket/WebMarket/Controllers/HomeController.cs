@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebMarket.Common;
-using WebMarket.DAL.Entities;
-using WebMarket.DAL.Entities.Enums;
+using WebMarket.Repository.Entities;
+using WebMarket.Repository.Entities.Enums;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public class HomeController : ControllerBase
     {
+        private readonly ICallbackRepository callbackRepository;
+
+        public HomeController(ICallbackRepository callbackRepository)
+        {
+            this.callbackRepository = callbackRepository;
+        }
+
         public ActionResult Index()
         {
             this.ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -39,8 +47,8 @@ namespace WebMarket.Controllers
             var telephone = phone.Trim();
             try
             {
-                this.DbContext.Callbacks.Add(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending, Url = url });
-                this.DbContext.SaveChanges();
+                callbackRepository.Insert(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending, Url = url });
+                callbackRepository.Commit();
             }
             catch (Exception e)
             {

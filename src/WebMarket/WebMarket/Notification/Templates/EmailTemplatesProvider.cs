@@ -1,40 +1,40 @@
-﻿using System.Data;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Web.Hosting;
 using System.Web.UI;
 using System.Xml.Linq;
-using WebMarket.DAL.Common;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Notification.Templates
 {
-    public static class EmailTemplatesProvider
+    public class EmailTemplatesProvider
     {
-        private static readonly EmailTemplate CustomerOrderTemplate;
-        private static readonly EmailTemplate SalesTemplate;
+        private readonly EmailTemplate customerOrderTemplate;
+        private readonly EmailTemplate salesTemplate;
+        private readonly IProductRepository productRepository;
 
-        static EmailTemplatesProvider()
+        public EmailTemplatesProvider(IProductRepository productRepository)
         {
+            this.productRepository = productRepository;
             var doc = XDocument.Load(HostingEnvironment.MapPath("~/Notification/Templates/CustomerOrder.msgtmpl")).Root;
-            CustomerOrderTemplate = new EmailTemplate(doc.Element("bodytemplate").Value.Trim(), doc.Element("subject").Value.Trim());
+            this.customerOrderTemplate = new EmailTemplate(doc.Element("bodytemplate").Value.Trim(), doc.Element("subject").Value.Trim());
             doc = XDocument.Load(HostingEnvironment.MapPath("~/Notification/Templates/SalesNotification.msgtmpl")).Root;
-            SalesTemplate = new EmailTemplate(doc.Element("bodytemplate").Value.Trim(), doc.Element("subject").Value.Trim());
+            this.salesTemplate = new EmailTemplate(doc.Element("bodytemplate").Value.Trim(), doc.Element("subject").Value.Trim());
         }
-
-        public static EmailTemplate GetCustomerOrderTemplate(string userName, double totalSum)
+        
+        public EmailTemplate GetCustomerOrderTemplate(string userName, double totalSum)
         {
-            var body = CustomerOrderTemplate.Body.Replace("@userName", userName);
+            var body = this.customerOrderTemplate.Body.Replace("@userName", userName);
             body = body.Replace("@totalSum", string.Format("{0:0.##}", totalSum));
-            return new EmailTemplate(body, CustomerOrderTemplate.Subject);
+            return new EmailTemplate(body, this.customerOrderTemplate.Subject);
         }
 
-        public static EmailTemplate GetSalesTemplate(Order order)
+        public EmailTemplate GetSalesTemplate(Order order)
         {
-            var body = SalesTemplate.Body.Replace("@userName", string.IsNullOrEmpty(order.User) ? string.Empty : order.User.Trim());
+            var body = this.salesTemplate.Body.Replace("@userName", string.IsNullOrEmpty(order.User) ? string.Empty : order.User.Trim());
             body = body.Replace("@userEmail", string.IsNullOrEmpty(order.Email) ? string.Empty : order.Email.Trim());
             body = body.Replace("@userCity", string.IsNullOrEmpty(order.City) ? string.Empty : order.City.Trim());
             body = body.Replace("@userAddress", string.IsNullOrEmpty(order.Address) ? string.Empty : order.Address.Trim());
@@ -45,9 +45,8 @@ namespace WebMarket.Notification.Templates
             body = body.Replace("@userPhone", string.IsNullOrEmpty(order.Phone) ? string.Empty : order.Phone.Trim());
             body = body.Replace("@userComment", string.IsNullOrEmpty(order.Comment) ? string.Empty : order.Comment.Trim());
 
-            var context = new WebMarketDbContext();
             var ids = order.Items.Select(obj => obj.ProductId);
-            var products = context.Products.Where(obj => ids.Contains(obj.Id)).ToList();
+            var products = productRepository.GetByIds(ids);
             using(var stringWriter = new StringWriter())
             using (var writer = new HtmlTextWriter(stringWriter))
             {
@@ -75,7 +74,7 @@ namespace WebMarket.Notification.Templates
 
             
             body = body.Replace("@totalSum", string.Format("{0:0.##}", order.Total));
-            return new EmailTemplate(body, SalesTemplate.Subject);
+            return new EmailTemplate(body, this.salesTemplate.Subject);
         }
     }
 }

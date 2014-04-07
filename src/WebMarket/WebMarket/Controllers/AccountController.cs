@@ -53,7 +53,6 @@ namespace WebMarket.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
-
             return RedirectToAction("index", "home");
         }
 

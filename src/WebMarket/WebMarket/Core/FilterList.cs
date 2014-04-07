@@ -15,7 +15,7 @@ namespace WebMarket.Core
         public bool IsEmpty()
         {
             bool isEmpty = true;
-            this.ForEach((filter) =>
+            this.ForEach(filter =>
             {
                 if (!this.staticFilters.Contains(filter.Key) && !filter.IsEmpty())
                 {

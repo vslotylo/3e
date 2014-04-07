@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using WebMarket.Common;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 using WebMarket.Filters;
 
 namespace WebMarket.Core
 {
-    public class FilterViewModelBase<T> where T : Product
+    public class FilterViewModelBase
     {
         public FilterViewModelBase(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter, ProducersFilter producersFilter, PageFilter pageFilter, GroupFilter groupFilter)
             : this(pageSizeFilter, sortFilter, pageFilter)

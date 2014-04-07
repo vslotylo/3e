@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.Unity;
 using WebMarket.Core;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 using System.Web.Routing;
 using WebMarket.Helpers;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
     public abstract class ListControllerBase : ControllerBase
     {
-        public FilterViewModelBase<Product> ViewModel { get; set; }
+        public FilterViewModelBase ViewModel { get; set; }
 
         protected void InitializePager(IQueryable<Product> entities)
         {
@@ -50,6 +52,9 @@ namespace WebMarket.Controllers
 
             this.ViewModel.Pagging.Routes = pagingRoutes;
         }
+
+        [Dependency]
+        public IGroupRepository GroupRepository { get; set; }
 
         protected void InitializeSelectedProducer()
         {
@@ -208,7 +213,7 @@ namespace WebMarket.Controllers
                 return;
             }
 
-            var allGroups = DbContext.Groups.ToList();
+            var allGroups = GroupRepository.GetAll();
 
             var groups =
                 entities.GroupBy(item => item.GroupName)

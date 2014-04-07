@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using WebMarket.Common;
-using WebMarket.DAL.Common;
 using WebMarket.Models;
 using log4net;
 
@@ -8,7 +7,6 @@ namespace WebMarket.Controllers
 {
     public class ControllerBase : Controller
     {
-        private readonly WebMarketDbContext dbContext = new WebMarketDbContext();
         protected readonly ILog Logger;
 
         public ControllerBase()
@@ -47,14 +45,6 @@ namespace WebMarket.Controllers
         public void RemoveCart()
         {
             this.ControllerContext.HttpContext.Session[Constants.CartKey] = null;
-        }
-
-        public WebMarketDbContext DbContext
-        {
-            get
-            {
-                return this.dbContext;
-            }
         }
 
         public Cart Cart

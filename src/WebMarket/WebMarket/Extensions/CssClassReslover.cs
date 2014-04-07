@@ -5,8 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
-using WebMarket.DAL.Entities;
-using WebMarket.DAL.Entities.Enums;
+using WebMarket.Repository.Entities;
+using WebMarket.Repository.Entities.Enums;
 using System.Web.Mvc.Html;
 namespace WebMarket.Extensions
 {

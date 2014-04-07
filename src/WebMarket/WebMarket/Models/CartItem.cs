@@ -1,4 +1,4 @@
-﻿using WebMarket.DAL.Entities;
+﻿using WebMarket.Repository.Entities;
 
 namespace WebMarket.Models
 {

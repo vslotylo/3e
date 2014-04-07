@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
@@ -9,6 +10,12 @@ namespace WebMarket.Controllers
     {
         private readonly XNamespace rootns = XNamespace.Get("http://www.sitemaps.org/schemas/sitemap/0.9");
         private readonly XNamespace imagens = XNamespace.Get("http://www.google.com/schemas/sitemap-image/1.1");
+        private readonly IProductRepository productRepository;
+
+        public SitemapController(IProductRepository productRepository)
+        {
+            this.productRepository = productRepository;
+        }
 
         public ActionResult Index()
         {
@@ -16,7 +23,7 @@ namespace WebMarket.Controllers
             var root = new XElement(rootns + "urlset");
             root.Add(new XAttribute(XNamespace.Xmlns + "image", imagens));
 
-            var products = DbContext.Products.ToList();
+            var products = productRepository.GetAll();
 
             var host = string.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority);
             // TODO links should end with /

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 
 namespace WebMarket.ViewModels
 {

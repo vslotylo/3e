@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Routing;
 using PagedList;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 
 namespace WebMarket.Core
 {

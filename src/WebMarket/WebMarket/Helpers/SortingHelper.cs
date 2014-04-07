@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebMarket.Core;
-using WebMarket.DAL.Entities;
+using WebMarket.Repository.Entities;
 using PagedList;
 using System.Linq.Expressions;
-using WebMarket.DAL.Entities.Enums;
+using WebMarket.Repository.Entities.Enums;
 
 namespace WebMarket.Helpers
 {
