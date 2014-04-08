@@ -10,7 +10,7 @@ using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
-    public abstract class ListControllerBase : ControllerBase
+    public abstract class ListControllerBase : ControllerBase   
     {
         public FilterViewModelBase ViewModel { get; set; }
 

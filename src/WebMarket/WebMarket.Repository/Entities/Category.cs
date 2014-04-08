@@ -11,5 +11,6 @@ namespace WebMarket.Repository.Entities
         public string TitleDetails { get; set; }
         public string MetaListDescription { get; set; }
         public string MetadataDetailsDescription { get; set; }
+        public string TitleDetailsPossessive { get; set; }
     }
 }

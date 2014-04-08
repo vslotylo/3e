@@ -263,6 +263,9 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\ProductEditModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Notification\EmailManager.cs" />
     <Compile Include="Notification\NotificationMessage.cs" />
     <Compile Include="Notification\NotificationManager.cs" />
@@ -281,7 +284,6 @@
     <Content Include="Content\bootstrap3.1.1\js\bootstrap.js" />
     <Content Include="Content\bootstrap3.1.1\js\bootstrap.min.js" />
     <Content Include="Content\js\analytics.js" />
-    <Content Include="Content\js\productEdit.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

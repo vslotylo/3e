@@ -1,12 +1,12 @@
 ﻿@using WebMarket.Repository.Entities.Enums;
-@model WebMarket.Repository.Entities.Product
+@model WebMarket.Models.ProductEditModel
 
 @{
     ViewBag.Title = string.Format("Редагування {0}", Model.DisplayName);
 }
 @section breadCrumb {
-    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName })">@Model.Category.DisplayName</a></li>
-    <li><a href="@Html.Partial("ProductLinkUrl", Model)">@Model.DisplayName</a></li>
+    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName })">@Model.CategoryName</a></li>
+    <li><a href="@Url.RouteUrl("categoryAction", new { category = Model.CategoryName, name = Model.Name, action="details" })">@Model.DisplayName</a></li>
     <li class="active">Редагування @Model.DisplayName</li>
 }
 @section scripts
@@ -67,13 +67,13 @@
                 <h3 class="panel-title">Редагування технічні характеристик</h3>
             </div>
             <div class="panel-body">
-                <table id="tableDynamicProperties" class="table">
-                    <tbody>
-                        @Html.EditorFor(obj => Model.DynamicProperties)
-                    </tbody>
-                </table>
-                <div class="btn-group pull-right">
-                    <a class="btn btn-default btn-primary btn-sm btn-panel" id="btnAddNewDynamicProperty">Додати характеристику</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.DynamicPropertiesKeys, new { @class = "form-control", rows = 10 })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.DynamicPropertiesValues, new { @class = "form-control", rows = 10 })
+                    </div>
                 </div>
             </div>
         </div>

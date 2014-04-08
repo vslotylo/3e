@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201404061447429_UpgradeToEF6_1.Designer.cs">
       <DependentUpon>201404061447429_UpgradeToEF6_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404081456472_CategoryAddedTitleDetailsPossessive.cs" />
+    <Compile Include="Migrations\201404081456472_CategoryAddedTitleDetailsPossessive.Designer.cs">
+      <DependentUpon>201404081456472_CategoryAddedTitleDetailsPossessive.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebMarketDbContext.cs" />
     <Compile Include="Data\Import\DataImporter.cs" />
     <Compile Include="Data\Import\EntityImporter.cs" />
@@ -104,6 +108,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201404061447429_UpgradeToEF6_1.resx">
       <DependentUpon>201404061447429_UpgradeToEF6_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404081456472_CategoryAddedTitleDetailsPossessive.resx">
+      <DependentUpon>201404081456472_CategoryAddedTitleDetailsPossessive.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

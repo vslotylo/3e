@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.Core;
+using WebMarket.Models;
 using WebMarket.Repository.Entities;
 using WebMarket.Filters;
 using WebMarket.Repository.Interfaces;
@@ -72,6 +73,7 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Create(Product product)
         {
             if (this.ModelState.IsValid)
@@ -94,42 +96,28 @@ namespace WebMarket.Controllers
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
-            return this.View(product);
+            return this.View(new ProductEditModel(product));
         }
 
         [HttpPost]
         [Authorize(Roles = Constants.AdminRoleName)]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(ProductEditModel product)
         {
-            // todo simple get?
-            var currentProduct = productRepository.GetWithCategory(product.Id);
+            var currentProduct = productRepository.Get(product.Id);
             if (currentProduct == null)
             {
                 return this.RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
-            var name = product.Name.Trim();
-            var discount = product.Discount;
-            var price = product.Price;
-            var description = string.IsNullOrEmpty(product.Description) ? string.Empty : product.Description.Trim();
-            var dynamicProperties = product.DynamicProperties.Where(obj => !string.IsNullOrEmpty(obj.Key) && !string.IsNullOrEmpty(obj.Value.ToString()));
-
-            product = currentProduct;
-            product.Name = name;
-            product.Discount = discount;
-            product.Price = price;
-            product.Description = description;
-            product.DynamicProperties = dynamicProperties;
-
-            productRepository.Update(product);
+            productRepository.Update(product.ToEntity(currentProduct));
             productRepository.Commit();
-            return this.RedirectToAction("details" , new { category = product.CategoryName, name = product.Name});
+            return this.RedirectToAction("details", new { category = currentProduct.CategoryName, name = product.Name });
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Delete(int id = 0)
         {
-            Product product = this.productRepository.Get(id);
+            var product = this.productRepository.Get(id);
             if (product == null)
             {
                 return this.RedirectToAction("index", "error");
