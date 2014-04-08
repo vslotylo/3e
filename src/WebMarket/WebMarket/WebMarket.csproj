@@ -877,7 +877,6 @@
     <Content Include="Views\Producer\Index.cshtml" />
     <Content Include="Views\Producer\Details.cshtml" />
     <Content Include="Views\Shared\ProductDynamicProperties.cshtml" />
-    <Content Include="Views\Product\EditorTemplates\ProductInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,6 +13,9 @@
         public ProductInfo(string key, object value)
         {
             this.Key = key;
+            bool isBool;
+            bool.TryParse(value.ToString(), out isBool);
+            this.IsBool = isBool;
             this.Value = value;
         }
 
@@ -32,11 +35,6 @@
         {
             get
             {
-                if(this.value is bool)
-                {
-                    return value.ToString().Trim();
-                }
-
                 return value;
             }
             set
@@ -47,22 +45,11 @@
                 }
                 else
                 {
-                    if (value is string[])
-                    {
-                        this.value = string.Join(",", value as string[]);
-                    }
-                    else
-                    {
-                        this.value = value.ToString().Trim();    
-                    }
-                    
+                    this.value = value.ToString().Trim();
                 }
             }
         }
 
-        public bool IsBool
-        {
-            get { return this.Value is bool; }
-        }
+        public bool IsBool { get; private set; }
     }
 }
