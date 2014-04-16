@@ -18,21 +18,19 @@ namespace WebMarket.Controllers
 
         public ActionResult Index()
         {
-            this.ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return this.View();
+            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            return View();
         }
 
         public ActionResult About()
         {
-            this.ViewBag.Message = "Your quintessential app description page.";
-
-            return this.View();
+            ViewBag.Message = "Your quintessential app description page.";
+            return View();
         }
 
         public ActionResult Contact()
         {
-            return this.View();
+            return View();
         }
 
         [HttpPost]
@@ -43,12 +41,22 @@ namespace WebMarket.Controllers
                 return;
             }
 
-            var creationTime = DateTime.Now.ToUkrainianTimeZone();
-            var telephone = phone.Trim();
+            DateTime creationTime = DateTime.Now.ToUkrainianTimeZone();
+            string telephone = phone.Trim();
             try
             {
-                callbackRepository.Insert(new Callback { CreateTime = creationTime, Phone = telephone, Status = Status.Pending, Url = url });
-                callbackRepository.Commit();
+                callbackRepository.Add(new Callback
+                {
+                    CreateTime = creationTime,
+                    Phone = telephone,
+                    Status = Status.Pending,
+                    Url = url
+                });
+
+                using (UnitOfWork)
+                {
+                    UnitOfWork.Commit();
+                }
             }
             catch (Exception e)
             {

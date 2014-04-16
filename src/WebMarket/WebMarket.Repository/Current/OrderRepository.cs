@@ -11,26 +11,27 @@ namespace WebMarket.Repository.Current
 {
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
-        public OrderRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public OrderRepository(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 
-        public override Order Get(object id)
+        public override Order Find(object id)
         {
             return DbContext.Orders.Include(obj => obj.Items).FirstOrDefault(obj => obj.Id == (int)id);
         }
 
-        public void Update(Order order)
+        public override void Update(Order order)
         {
-            var dbOrder = this.DbContext.Orders.Find(order.Id);
-            this.DbContext.Entry(dbOrder).State = EntityState.Modified;
+            var dbOrder = DbContext.Orders.Find(order.Id);
+            DbContext.Entry(dbOrder).State = EntityState.Modified;
             dbOrder.Status = order.Status;
             if (order.Status == Status.Completed || order.Status == Status.Refunded)
             {
                 dbOrder.CloseDate = DateTime.UtcNow.ToUkrainianTimeZone();
             }
 
-            this.DbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

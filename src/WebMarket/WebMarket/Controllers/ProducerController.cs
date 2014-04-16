@@ -14,7 +14,7 @@ namespace WebMarket.Controllers
 
         public ActionResult Index(string name)
         {
-            var producers = producerRepository.GetAll();
+            var producers = producerRepository.All();
             return View(producers);
         }
 

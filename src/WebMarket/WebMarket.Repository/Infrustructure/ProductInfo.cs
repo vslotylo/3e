@@ -7,16 +7,15 @@
 
         public ProductInfo()
         {
-
         }
 
         public ProductInfo(string key, object value)
         {
-            this.Key = key;
+            Key = key;
             bool isBool;
             bool.TryParse(value.ToString(), out isBool);
-            this.IsBool = isBool;
-            this.Value = value;
+            IsBool = isBool;
+            Value = value;
         }
 
         public string Key
@@ -33,10 +32,7 @@
 
         public object Value
         {
-            get
-            {
-                return value;
-            }
+            get { return value; }
             set
             {
                 if (IsBool)

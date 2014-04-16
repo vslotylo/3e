@@ -12,7 +12,7 @@ namespace WebMarket.Models
 
         public ProductEditModel()
         {
-            
+
         }
 
         public ProductEditModel(Product product)
@@ -30,7 +30,10 @@ namespace WebMarket.Models
             var values = DynamicPropertiesValues.Split(new[] { SEPERATOR }, StringSplitOptions.RemoveEmptyEntries);
             for (var i = 0; i < keys.Count(); i++)
             {
-                dict.Add(keys[i], values[i]);
+                if (!string.IsNullOrEmpty(keys[i]) && !string.IsNullOrEmpty(values[i]))
+                {
+                    dict.Add(keys[i].Trim(), values[i].Trim());
+                }
             }
 
             entity.Info = JsonConvert.SerializeObject(dict);

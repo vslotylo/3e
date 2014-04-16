@@ -1,4 +1,5 @@
-﻿using WebMarket.Repository.Entities;
+﻿using System.Web.Mvc;
+using WebMarket.Repository.Entities;
 
 namespace WebMarket.Models
 {
@@ -6,7 +7,6 @@ namespace WebMarket.Models
     {
         public ProductModel()
         {
-            
         }
 
         public ProductModel(Product product)
@@ -27,7 +27,10 @@ namespace WebMarket.Models
         public string DisplayName { get; set; }
         public double Discount { get; set; }
         public double Price { get; set; }
+
+        [AllowHtml]
         public string Description { get; set; }
+
         public Producer Producer { get; set; }
 
         public override Product ToEntity(Product original)

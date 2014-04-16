@@ -18,13 +18,10 @@ namespace WebMarket.Repository.Core
 
         protected WebMarketDbContext DbContext
         {
-            get
-            {
-                return unitOfWork.DataContext;
-            }
+            get { return unitOfWork.DbContext; }
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             try
             {
@@ -36,7 +33,7 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public void Insert<T>(IList<T> entities) where T : class
+        public virtual void Add<T>(IList<T> entities) where T : class
         {
             try
             {
@@ -48,11 +45,11 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             try
             {
-                this.DbContext.Entry(entity).State = EntityState.Modified;
+                DbContext.Entry(entity).State = EntityState.Modified;
             }
             catch (Exception e)
             {
@@ -60,7 +57,7 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
             try
             {
@@ -72,7 +69,7 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public void Delete(IEnumerable<TEntity> entities)
+        public virtual void Remove(IEnumerable<TEntity> entities)
         {
             try
             {
@@ -84,7 +81,7 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public virtual TEntity Get(object id)
+        public virtual TEntity Find(object id)
         {
             try
             {
@@ -96,16 +93,7 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        protected RepositoryException GetRepositoryException(Exception e, string format, params object[] args)
-        {
-            var builder = new StringBuilder();
-            builder.AppendFormat(format, args);
-            builder.AppendFormat(" Entity type: {0} in {1}", typeof(TEntity).Name, DbContext.Set<TEntity>());
-            var exc = new RepositoryException(builder.ToString(), e);
-            return exc;
-        }
-
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> All()
         {
             try
             {
@@ -117,16 +105,13 @@ namespace WebMarket.Repository.Core
             }
         }
 
-        public void Commit()
+        protected RepositoryException GetRepositoryException(Exception e, string format, params object[] args)
         {
-            try
-            {
-                unitOfWork.Commit();
-            }
-            catch (Exception e)
-            {
-                throw GetRepositoryException(e, "Failed to apply changes on database.");
-            }
+            var builder = new StringBuilder();
+            builder.AppendFormat(format, args);
+            builder.AppendFormat(" Entity type: {0} in {1}", typeof (TEntity).Name, DbContext.Set<TEntity>());
+            var exc = new RepositoryException(builder.ToString(), e);
+            return exc;
         }
     }
 }

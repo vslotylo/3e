@@ -6,7 +6,8 @@ namespace WebMarket.Repository.Current
 {
     public class CallbackRepository : RepositoryBase<Callback>, ICallbackRepository
     {
-        public CallbackRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CallbackRepository(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
     }

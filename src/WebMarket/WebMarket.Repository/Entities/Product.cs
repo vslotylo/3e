@@ -16,12 +16,12 @@ namespace WebMarket.Repository.Entities
         private readonly Lazy<List<ProductInfo>> infos;
         private readonly Lazy<Price> price;
         private IEnumerable<ProductInfo> dynamicProperties;
-        
+
         public Product()
         {
-            this.Photo = string.Empty;
-            this.price = new Lazy<Price>(this.InitPrice);
-            this.infos = new Lazy<List<ProductInfo>>(this.InitInfos);
+            Photo = string.Empty;
+            price = new Lazy<Price>(InitPrice);
+            infos = new Lazy<List<ProductInfo>>(InitInfos);
         }
 
         public int Id { get; set; }
@@ -31,21 +31,28 @@ namespace WebMarket.Repository.Entities
         public double Weight { get; set; }
         public double Rate { get; set; }
         public string Photo { get; set; }
+
         [AllowHtml]
         public string Description { get; set; }
+
         public string WorkingConditions { get; set; }
         public string SuppliedItems { get; set; }
         public string Dimension { get; set; }
         public int Warranty { get; set; }
         public Producer Producer { get; set; }
+
         [ForeignKey("CategoryName")]
         public Category Category { get; set; }
+
         [Required, MaxLength(128)]
         public string CategoryName { get; set; }
+
         [ForeignKey("GroupName")]
         public Group Group { get; set; }
+
         [Required]
         public string GroupName { get; set; }
+
         public double Discount { get; set; }
         public string Info { get; set; }
 
@@ -54,52 +61,92 @@ namespace WebMarket.Repository.Entities
 
         public string ProductId
         {
-            get
-            {
-                return string.Format("{0:000-000}", Id);
-            }
+            get { return string.Format("{0:000-000}", Id); }
         }
 
         public Price CalculatedPrice
         {
-            get
-            {
-                return price.Value;
-            }
+            get { return price.Value; }
         }
 
         public IEnumerable<ProductInfo> DynamicProperties
         {
             get
             {
-                if (this.dynamicProperties == null)
+                if (dynamicProperties == null)
                 {
-                    if (this.Info == null)
+                    if (Info == null)
                     {
                         return new List<ProductInfo>();
                     }
 
-                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(this.Info);
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(Info);
 
-                    this.dynamicProperties = dict.Select(item => new ProductInfo(item.Key, item.Value)).ToList();
+                    dynamicProperties = dict.Select(item => new ProductInfo(item.Key, item.Value)).ToList();
                 }
 
-                return this.dynamicProperties;
+                return dynamicProperties;
             }
             set
             {
-                this.dynamicProperties = value;
-                var dict = this.dynamicProperties.ToDictionary(obj => obj.Key, obj => obj.Value);
-                this.Info = JsonConvert.SerializeObject(dict);
+                dynamicProperties = value;
+                Dictionary<string, object> dict = dynamicProperties.ToDictionary(obj => obj.Key, obj => obj.Value);
+                Info = JsonConvert.SerializeObject(dict);
             }
         }
 
         public IEnumerable<ProductInfo> ProductInfo
         {
-            get
+            get { return infos.Value; }
+        }
+
+        public Dictionary<string, string> GetPhotos()
+        {
+            var dict = new Dictionary<string, string>();
+            string[] splitedPhotos = Photo.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
+            if (splitedPhotos.Length != 2)
             {
-                return this.infos.Value;
+                return dict;
             }
+
+            string extension;
+            string justName = GetName(splitedPhotos[0], out extension);
+
+            int count = int.Parse(splitedPhotos[1]);
+
+            for (int i = 1; i <= count; i++)
+            {
+                dict[string.Format("{0}.{1}thmb{2}", justName, i, extension)] = string.Format("{0}.{1}{2}", justName, i,
+                                                                                              extension);
+            }
+
+            return dict;
+        }
+
+        public string GetListPhoto()
+        {
+            if (string.IsNullOrEmpty(Photo))
+            {
+                return string.Empty;
+            }
+
+            string[] splitedPhotos = Photo.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
+            string extension;
+            string name = GetName(splitedPhotos[0], out extension);
+            return string.Format("{0}/{1}{2}", CategoryName.ToLower(), name, extension);
+        }
+
+        public string GetPreview()
+        {
+            if (string.IsNullOrEmpty(Photo))
+            {
+                return string.Empty;
+            }
+
+            string[] splitedPhotos = Photo.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries);
+            string extension;
+            string name = GetName(splitedPhotos[0], out extension);
+            return string.Format("{0}{1}", name, extension);
         }
 
         private Price InitPrice()
@@ -110,33 +157,11 @@ namespace WebMarket.Repository.Entities
         private List<ProductInfo> InitInfos()
         {
             var list = new List<ProductInfo>
-                           {
-                               new ProductInfo("Модель", this.DisplayName),
-                               new ProductInfo("Тип", this.Group.DisplayName)
-                           };
+                {
+                    new ProductInfo("Модель", DisplayName),
+                    new ProductInfo("Тип", Group.DisplayName)
+                };
             return list;
-        }
-
-        public Dictionary<string, string> GetPhotos()
-        {
-            var dict = new Dictionary<string, string>();
-            var splitedPhotos = Photo.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            if (splitedPhotos.Length != 2)
-            {
-                return dict;
-            }
-
-            string extension;
-            var justName = GetName(splitedPhotos[0], out extension);
-
-            int count = int.Parse(splitedPhotos[1]);
-
-            for (int i = 1; i <= count; i++)
-            {
-                dict[string.Format("{0}.{1}thmb{2}", justName, i, extension)] = string.Format("{0}.{1}{2}", justName, i, extension);
-            }
-
-            return dict;
         }
 
         private static string GetName(string name, out string extension)
@@ -157,42 +182,19 @@ namespace WebMarket.Repository.Entities
             return justName;
         }
 
-        public string GetListPhoto()
-        {
-            if (string.IsNullOrEmpty(Photo))
-            {
-                return string.Empty;
-            }
-
-            var splitedPhotos = Photo.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            string extension;
-            string name = GetName(splitedPhotos[0], out extension);
-            return string.Format("{0}/{1}{2}", CategoryName.ToLower(), name, extension);
-        }
-
-        public string GetPreview()
-        {
-            if (string.IsNullOrEmpty(Photo))
-            {
-                return string.Empty;
-            }
-
-            var splitedPhotos = Photo.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            string extension;
-            string name = GetName(splitedPhotos[0], out extension);
-            return string.Format("{0}{1}", name, extension);
-        }
-
         public string GetProductPreviewInfo()
         {
-            return string.Join(" | ", this.DynamicProperties.Where(obj => !obj.IsBool).Take(6).Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
+            return string.Join(" | ",
+                               DynamicProperties.Where(obj => !obj.IsBool)
+                                                .Take(6)
+                                                .Select(i => string.Format("{0}: {1}", i.Key, i.Value)));
         }
 
         public IEnumerable<string> GetParsedSuppliedItems(Category category)
         {
-            return JsonConvert.DeserializeObject<string[]>(this.SuppliedItems)
-                 .Select(obj => obj.Replace("{titledetails}", category.TitleDetails))
-                 .Select(obj => obj.Replace("{displayname}", this.DisplayName));
+            return JsonConvert.DeserializeObject<string[]>(SuppliedItems)
+                              .Select(obj => obj.Replace("{titledetails}", category.TitleDetails))
+                              .Select(obj => obj.Replace("{displayname}", DisplayName));
         }
     }
 }

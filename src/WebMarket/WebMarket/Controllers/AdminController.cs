@@ -12,9 +12,9 @@ namespace WebMarket.Controllers
 {
     public class AdminController : ControllerBase
     {
-        private readonly IDataImporter dataImporter;
         private readonly ICallbackRepository callbackRepository;
-        private readonly string[] supportedLogLevels = new[] { "error", "info" };
+        private readonly IDataImporter dataImporter;
+        private readonly string[] supportedLogLevels = new[] {"error", "info"};
 
         public AdminController(IDataImporter dataImporter, ICallbackRepository callbackRepository)
         {
@@ -40,16 +40,16 @@ namespace WebMarket.Controllers
         {
             try
             {
-                foreach (var file in files.Where(obj => obj.ContentLength > 0))
+                foreach (HttpPostedFileBase file in files.Where(obj => obj.ContentLength > 0))
                 {
-                    this.dataImporter.Import(file.InputStream);
+                    dataImporter.Import(file.InputStream);
                 }
 
-                this.dataImporter.Comit();
+                dataImporter.Commit();
             }
             catch (Exception e)
             {
-                this.Logger.Error(e);
+                Logger.Error(e);
             }
 
             return RedirectToAction("Index");
@@ -58,14 +58,16 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Logs(string logLevel)
         {
-            var level = logLevel.Trim().ToLower();
+            string level = logLevel.Trim().ToLower();
             if (!supportedLogLevels.Contains(level))
             {
-                return View(model:"Log level is not supported");
+                return View(model: "Log level is not supported");
             }
 
             string str;
-            using (var stream = new FileStream(Server.MapPath(string.Format("../logs/{0}.log", logLevel)), FileMode.Open, FileAccess.Read, FileShare.None))
+            using (
+                var stream = new FileStream(Server.MapPath(string.Format("../logs/{0}.log", logLevel)), FileMode.Open,
+                                            FileAccess.Read, FileShare.None))
             {
                 using (var streamReader = new StreamReader(stream))
                 {
@@ -73,14 +75,14 @@ namespace WebMarket.Controllers
                 }
             }
 
-            var formatted = str.Replace("\r\n", "<br/>");
-            return View(model:formatted);
+            string formatted = str.Replace("\r\n", "<br/>");
+            return View(model: formatted);
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult Callbacks()
         {
-            return View(this.callbackRepository.GetAll());
+            return View(callbackRepository.All());
         }
     }
 }

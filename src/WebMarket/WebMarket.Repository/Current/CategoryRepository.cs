@@ -7,7 +7,8 @@ namespace WebMarket.Repository.Current
 {
     public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
-        public CategoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CategoryRepository(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 

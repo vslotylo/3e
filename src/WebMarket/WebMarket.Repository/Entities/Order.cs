@@ -26,12 +26,7 @@ namespace WebMarket.Repository.Entities
 
         public double Total
         {
-            get
-            {
-                return this.Items.Sum(item => item.TotalItemPrice);
-            }
+            get { return Items.Sum(item => item.TotalItemPrice); }
         }
-
-        
     }
 }

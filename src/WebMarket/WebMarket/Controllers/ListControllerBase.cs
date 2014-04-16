@@ -1,231 +1,261 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using WebMarket.Core;
-using WebMarket.Repository.Entities;
-using System.Web.Routing;
 using WebMarket.Helpers;
+using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
 {
-    public abstract class ListControllerBase : ControllerBase   
+    public abstract class ListControllerBase : ControllerBase
     {
         public FilterViewModelBase ViewModel { get; set; }
 
+        [Dependency]
+        public IGroupRepository GroupRepository { get; set; }
+
         protected void InitializePager(IQueryable<Product> entities)
         {
-            this.ViewModel.Pagging.List = SortingHelper.ToSortedPagedList<Product>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
-            this.InitializeRoutes();
+            ViewModel.Pagging.List = SortingHelper.ToSortedPagedList(entities, (Sort) ViewModel.SortFilter.Sort,
+                                                                     ViewModel.PageSizeFilter.PageSize,
+                                                                     ViewModel.PageFilter.Page);
+            InitializeRoutes();
         }
 
         protected void InitializePager(IEnumerable<Product> entities)
         {
-            this.ViewModel.Pagging.List = SortingHelper.ToSortedPagedList<Product>(entities, (Sort)this.ViewModel.SortFilter.Sort, this.ViewModel.PageSizeFilter.PageSize, this.ViewModel.PageFilter.Page);
-            this.InitializeRoutes();
+            ViewModel.Pagging.List = SortingHelper.ToSortedPagedList(entities, (Sort) ViewModel.SortFilter.Sort,
+                                                                     ViewModel.PageSizeFilter.PageSize,
+                                                                     ViewModel.PageFilter.Page);
+            InitializeRoutes();
         }
 
         private void InitializeRoutes()
         {
             IList<RouteValueDictionary> pagingRoutes = new List<RouteValueDictionary>();
-            if (this.ViewModel.Pagging.List.HasPreviousPage)
+            if (ViewModel.Pagging.List.HasPreviousPage)
             {
-                pagingRoutes.Add(this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageFilter, this.ViewModel.Pagging.List.PageNumber - 1));
+                pagingRoutes.Add(ViewModel.Filters.UpdateFilter(ViewModel.PageFilter,
+                                                                ViewModel.Pagging.List.PageNumber - 1));
             }
             else
             {
-                pagingRoutes.Add(this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageFilter, this.ViewModel.Pagging.List.PageNumber));
+                pagingRoutes.Add(ViewModel.Filters.UpdateFilter(ViewModel.PageFilter, ViewModel.Pagging.List.PageNumber));
             }
-            for (int i = 1; i <= this.ViewModel.Pagging.List.PageCount; i++)
+            for (int i = 1; i <= ViewModel.Pagging.List.PageCount; i++)
             {
-                pagingRoutes.Add(this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageFilter, i));
+                pagingRoutes.Add(ViewModel.Filters.UpdateFilter(ViewModel.PageFilter, i));
             }
-            if (this.ViewModel.Pagging.List.HasNextPage)
+            if (ViewModel.Pagging.List.HasNextPage)
             {
-                pagingRoutes.Add(this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageFilter, this.ViewModel.Pagging.List.PageNumber + 1));
+                pagingRoutes.Add(ViewModel.Filters.UpdateFilter(ViewModel.PageFilter,
+                                                                ViewModel.Pagging.List.PageNumber + 1));
             }
             else
             {
-                pagingRoutes.Add(this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageFilter, this.ViewModel.Pagging.List.PageCount));
+                pagingRoutes.Add(ViewModel.Filters.UpdateFilter(ViewModel.PageFilter, ViewModel.Pagging.List.PageCount));
             }
 
-            this.ViewModel.Pagging.Routes = pagingRoutes;
+            ViewModel.Pagging.Routes = pagingRoutes;
         }
-
-        [Dependency]
-        public IGroupRepository GroupRepository { get; set; }
 
         protected void InitializeSelectedProducer()
         {
-            if (this.ViewModel.ProducersFilter == null)
+            if (ViewModel.ProducersFilter == null)
             {
                 return;
             }
 
             // todo
-            foreach (var item in this.ViewModel.ProducersFilter.ProducersList)
+            foreach (string item in ViewModel.ProducersFilter.ProducersList)
             {
-                this.ViewModel.ProducersFilter.Routes.Add(this.ViewModel.Filters.RemoveFilterPart(this.ViewModel.ProducersFilter, item));
-                this.ViewModel.ProducersFilter.DisplayList.Add(this.ViewModel.Producers.Single(obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
+                ViewModel.ProducersFilter.Routes.Add(ViewModel.Filters.RemoveFilterPart(ViewModel.ProducersFilter, item));
+                ViewModel.ProducersFilter.DisplayList.Add(
+                    ViewModel.Producers.Single(
+                        obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
             }
         }
 
         protected void InitializeSelectedGroups()
         {
-            if (this.ViewModel.GroupsFilter == null)
+            if (ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
             // todo
-            foreach (var item in this.ViewModel.GroupsFilter.GroupList)
+            foreach (string item in ViewModel.GroupsFilter.GroupList)
             {
-                this.ViewModel.GroupsFilter.Routes.Add(this.ViewModel.Filters.RemoveFilterPart(this.ViewModel.GroupsFilter, item));
-                this.ViewModel.GroupsFilter.DisplayList.Add(this.ViewModel.Groups.Single(obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
+                ViewModel.GroupsFilter.Routes.Add(ViewModel.Filters.RemoveFilterPart(ViewModel.GroupsFilter, item));
+                ViewModel.GroupsFilter.DisplayList.Add(
+                    ViewModel.Groups.Single(
+                        obj => string.Compare(obj.Value, item, StringComparison.InvariantCultureIgnoreCase) == 0).Name);
             }
         }
 
         protected void InitializePageSizeFilter()
         {
-            foreach (var item in this.ViewModel.PageSize)
+            foreach (var item in ViewModel.PageSize)
             {
-                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.PageSizeFilter, item.Value);
+                item.Routes = ViewModel.Filters.UpdateFilter(ViewModel.PageSizeFilter, item.Value);
             }
         }
 
         protected void InitializeSortFilter()
         {
-            foreach (var item in this.ViewModel.Sort)
+            foreach (var item in ViewModel.Sort)
             {
-                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.SortFilter, item.Value);
+                item.Routes = ViewModel.Filters.UpdateFilter(ViewModel.SortFilter, item.Value);
             }
         }
 
         protected void InitializeProducerFilter()
         {
-            if (this.ViewModel.ProducersFilter == null)
+            if (ViewModel.ProducersFilter == null)
             {
                 return;
             }
 
-            foreach (var item in this.ViewModel.Producers)
+            foreach (var item in ViewModel.Producers)
             {
-                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.ProducersFilter, item.Value);
+                item.Routes = ViewModel.Filters.UpdateFilter(ViewModel.ProducersFilter, item.Value);
             }
         }
 
         protected void InitializeGroupFilter()
         {
-            if (this.ViewModel.GroupsFilter == null)
+            if (ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
-            foreach (var item in this.ViewModel.Groups)
+            foreach (var item in ViewModel.Groups)
             {
-                item.Routes = this.ViewModel.Filters.UpdateFilter(this.ViewModel.GroupsFilter, item.Value);                
+                item.Routes = ViewModel.Filters.UpdateFilter(ViewModel.GroupsFilter, item.Value);
             }
         }
 
         protected void EndInitialize(IQueryable<Product> entities)
         {
-            this.InitializePageSizeFilter();
-            this.InitializeSortFilter();
-            this.InitializeProducerFilter();
-            this.InitializeGroupFilter();
+            InitializePageSizeFilter();
+            InitializeSortFilter();
+            InitializeProducerFilter();
+            InitializeGroupFilter();
 
-            this.InitializePager(entities);
-            this.InitializeSelectedProducer();
-            this.InitializeSelectedGroups();
+            InitializePager(entities);
+            InitializeSelectedProducer();
+            InitializeSelectedGroups();
         }
 
         protected void EndInitializeCommon(IEnumerable<Product> entities)
         {
-            this.InitializePageSizeFilter();
-            this.InitializeSortFilter();
-            this.InitializeProducerFilter();
-            this.InitializeGroupFilter();
+            InitializePageSizeFilter();
+            InitializeSortFilter();
+            InitializeProducerFilter();
+            InitializeGroupFilter();
 
-            this.InitializePager(entities);
-            this.InitializeSelectedProducer();
-            this.InitializeSelectedGroups();
+            InitializePager(entities);
+            InitializeSelectedProducer();
+            InitializeSelectedGroups();
         }
 
         private void InitializeSort()
         {
-            this.ViewModel.Sort.FirstOrDefault(p => p.Value == this.ViewModel.SortFilter.Sort).IsSelected = true;
+            ViewModel.Sort.FirstOrDefault(p => p.Value == ViewModel.SortFilter.Sort).IsSelected = true;
         }
 
         private void InitializePageSize()
         {
-            this.ViewModel.PageSize.FirstOrDefault(p => p.Value == this.ViewModel.PageSizeFilter.PageSize).IsSelected = true;
+            ViewModel.PageSize.FirstOrDefault(p => p.Value == ViewModel.PageSizeFilter.PageSize).IsSelected = true;
         }
 
         private void InitializeProducerFilter(IQueryable<Product> entities)
         {
-            if (this.ViewModel.ProducersFilter == null)
+            if (ViewModel.ProducersFilter == null)
             {
                 return;
             }
 
-            var producers = entities.GroupBy(p => p.Producer).Select(g => new GenericFilterModel<string> { Value = g.Key.Name, Name = g.Key.DisplayName, ProductsCount = g.Count() }).ToList();
-            this.ViewModel.ProducersFilter.ProducersList = producers.Select(obj => obj.Value.ToLower()).Where(p => this.ViewModel.ProducersFilter.ParsedProducers.Contains(p.ToLower())).ToList();
+            List<GenericFilterModel<string>> producers =
+                entities.GroupBy(p => p.Producer)
+                        .Select(
+                            g =>
+                            new GenericFilterModel<string>
+                                {
+                                    Value = g.Key.Name,
+                                    Name = g.Key.DisplayName,
+                                    ProductsCount = g.Count()
+                                })
+                        .ToList();
+            ViewModel.ProducersFilter.ProducersList =
+                producers.Select(obj => obj.Value.ToLower())
+                         .Where(p => ViewModel.ProducersFilter.ParsedProducers.Contains(p.ToLower()))
+                         .ToList();
             foreach (var item in producers)
             {
-                item.IsSelected = this.ViewModel.ProducersFilter.ProducersList.Contains(item.Value.ToLower());
+                item.IsSelected = ViewModel.ProducersFilter.ProducersList.Contains(item.Value.ToLower());
             }
 
-            this.ViewModel.Producers = producers;
+            ViewModel.Producers = producers;
         }
 
 
         protected void StartInitializeCommon(int count)
         {
-            this.ViewModel.Count = count;
-            this.InitializeSort();
-            this.InitializePageSize();
+            ViewModel.Count = count;
+            InitializeSort();
+            InitializePageSize();
         }
 
         public IQueryable<Product> StartInitialize(IQueryable<Product> entities)
         {
-            this.StartInitializeCommon(entities.Count());
-            this.InitializeProducerFilter(entities);
-            this.InitializeTypesFilter(entities);
+            StartInitializeCommon(entities.Count());
+            InitializeProducerFilter(entities);
+            InitializeTypesFilter(entities);
 
-            if (this.ViewModel.GroupsFilter != null && this.ViewModel.GroupsFilter.GroupList.Any())
+            if (ViewModel.GroupsFilter != null && ViewModel.GroupsFilter.GroupList.Any())
             {
-                entities = entities.Where(o => this.ViewModel.GroupsFilter.GroupList.Contains(o.GroupName));
+                entities = entities.Where(o => ViewModel.GroupsFilter.GroupList.Contains(o.GroupName));
             }
 
-            if (this.ViewModel.ProducersFilter != null && this.ViewModel.ProducersFilter.ProducersList.Any())
+            if (ViewModel.ProducersFilter != null && ViewModel.ProducersFilter.ProducersList.Any())
             {
-                entities = entities.Where(o => this.ViewModel.ProducersFilter.ProducersList.Contains(o.Producer.Name));
+                entities = entities.Where(o => ViewModel.ProducersFilter.ProducersList.Contains(o.Producer.Name));
             }
-            
+
             return entities;
         }
 
         private void InitializeTypesFilter(IQueryable<Product> entities)
         {
-            if (this.ViewModel.GroupsFilter == null)
+            if (ViewModel.GroupsFilter == null)
             {
                 return;
             }
 
-            var allGroups = GroupRepository.GetAll();
+            IEnumerable<Group> allGroups = GroupRepository.All();
 
-            var groups =
+            List<GenericFilterModel<string>> groups =
                 entities.GroupBy(item => item.GroupName)
                         .ToList()
-                        .Select(g => new GenericFilterModel<string> { Value = g.Key, Name = allGroups.Single(obj=>obj.Name == g.Key).DisplayName, ProductsCount = g.Count() })
+                        .Select(
+                            g =>
+                            new GenericFilterModel<string>
+                                {
+                                    Value = g.Key,
+                                    Name = allGroups.Single(obj => obj.Name == g.Key).DisplayName,
+                                    ProductsCount = g.Count()
+                                })
                         .ToList();
             foreach (var item in groups)
             {
-                item.IsSelected = this.ViewModel.GroupsFilter.GroupList.Contains(item.Value.ToLower());
+                item.IsSelected = ViewModel.GroupsFilter.GroupList.Contains(item.Value.ToLower());
             }
 
-            this.ViewModel.Groups = groups;
+            ViewModel.Groups = groups;
         }
     }
 }

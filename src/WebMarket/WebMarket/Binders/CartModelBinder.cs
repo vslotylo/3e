@@ -8,7 +8,7 @@ namespace WebMarket.Binders
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            Cart cart = (Cart)controllerContext.HttpContext.Session[Constants.CartKey];
+            var cart = (Cart)controllerContext.HttpContext.Session[Constants.CartKey];
             if (cart == null)
             {
                 cart = new Cart();

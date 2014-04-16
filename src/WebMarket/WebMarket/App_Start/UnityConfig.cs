@@ -24,7 +24,7 @@ namespace WebMarket.App_Start
         private static void SetupUnitOfWork(UnityContainer container)
         {
             container.RegisterType<IDbContextFactory<WebMarketDbContext>, DbContextFactory>();
-            container.RegisterType<IUnitOfWork, UnitOfWork<WebMarketDbContext>>();
+            container.RegisterType<IUnitOfWork, UnitOfWork<WebMarketDbContext>>(new PerResolveLifetimeManager());
         }
 
         private static void SetupRepositories(UnityContainer container)

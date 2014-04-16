@@ -23,7 +23,7 @@ namespace WebMarket.Controllers
             var root = new XElement(rootns + "urlset");
             root.Add(new XAttribute(XNamespace.Xmlns + "image", imagens));
 
-            var products = productRepository.GetAll();
+            var products = productRepository.All();
 
             var host = string.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority);
             // TODO links should end with /

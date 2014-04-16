@@ -6,7 +6,8 @@ namespace WebMarket.Repository.Current
 {
     public class GroupRepository : RepositoryBase<Group>, IGroupRepository
     {
-        public GroupRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public GroupRepository(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
     }

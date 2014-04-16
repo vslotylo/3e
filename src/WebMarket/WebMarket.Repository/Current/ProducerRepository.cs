@@ -7,7 +7,8 @@ namespace WebMarket.Repository.Current
 {
     public class ProducerRepository : RepositoryBase<Producer>, IProducerRepository
     {
-        public ProducerRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public ProducerRepository(IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
         }
 
