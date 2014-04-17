@@ -8,46 +8,48 @@ namespace WebMarket.Core
 {
     public class FilterList : List<FilterBase>
     {
-        private readonly string[] staticFilters = new[] { PageFilter.KeyName, PageSizeFilter.KeyName, SortFilter.KeyName };
+        private readonly string[] staticFilters = new[] {PageFilter.KeyName, PageSizeFilter.KeyName, SortFilter.KeyName};
 
         private RouteValueDictionary routes;
-
-        public bool IsEmpty()
-        {
-            bool isEmpty = true;
-            this.ForEach(filter =>
-            {
-                if (!this.staticFilters.Contains(filter.Key) && !filter.IsEmpty())
-                {
-                    isEmpty = false;
-                }
-            });
-
-            return isEmpty;
-        }
 
         public RouteValueDictionary Routes
         {
             get
             {
-                if (this.routes == null)
+                if (routes == null)
                 {
-                    this.routes = new RouteValueDictionary();
-                    this.ForEach(filter => this.routes.Add(filter.Key, filter.Value));
+                    routes = new RouteValueDictionary();
+                    ForEach(filter => routes.Add(filter.Key, filter.Value));
                 }
 
-                return this.routes;
+                return routes;
             }
+        }
+
+        public bool IsEmpty()
+        {
+            bool isEmpty = true;
+            ForEach(filter =>
+                {
+                    if (!staticFilters.Contains(filter.Key) && !filter.IsEmpty())
+                    {
+                        isEmpty = false;
+                    }
+                });
+
+            return isEmpty;
         }
 
         public RouteValueDictionary UpdateFilter(FilterBase filter, object value)
         {
             string strValue = value.ToString();
             var updateFilter = new RouteValueDictionary();
-            foreach (var route in this.Routes)
+            foreach (var route in Routes)
             {
-                var f = this.GetFilter(route.Key);
-                if (string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) != 0)
+                FilterBase f = GetFilter(route.Key);
+                if (
+                    string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) !=
+                    0)
                 {
                     updateFilter[route.Key] = route.Value;
                 }
@@ -70,7 +72,8 @@ namespace WebMarket.Core
 
         public FilterBase GetFilter(string key)
         {
-            var filter = this.SingleOrDefault(f => string.Compare(f.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
+            FilterBase filter =
+                this.SingleOrDefault(f => string.Compare(f.Key, key, StringComparison.InvariantCultureIgnoreCase) == 0);
             if (filter == null)
             {
                 throw new Exception(string.Format("No filter with key {0}", key));
@@ -81,10 +84,10 @@ namespace WebMarket.Core
 
         public RouteValueDictionary RemoveFilterPart(FilterBase filter, string item)
         {
-            var value = filter.RemovePart(item);
+            string value = filter.RemovePart(item);
 
             var dictionary = new RouteValueDictionary();
-            foreach (var route in this.Routes)
+            foreach (var route in Routes)
             {
                 //skip page for navigating to default page when removing filter
                 if (route.Key == PageFilter.KeyName)
@@ -92,8 +95,10 @@ namespace WebMarket.Core
                     continue;
                 }
 
-                var f = this.GetFilter(route.Key);
-                if (string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) != 0)
+                FilterBase f = GetFilter(route.Key);
+                if (
+                    string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) !=
+                    0)
                 {
                     dictionary.Add(route.Key, route.Value);
                 }

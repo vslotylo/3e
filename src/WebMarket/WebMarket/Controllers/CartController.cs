@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using WebMarket.Models;
+using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
@@ -17,17 +18,17 @@ namespace WebMarket.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return this.View(this.Cart);
+            return View(Cart);
         }
 
         [HttpPost]
         public JsonResult Add(int pid, int quantity)
         {
-            var product = this.repository.GetWithProducersGroups(pid);
-            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
+            Product product = repository.GetWithProducersGroups(pid);
+            CartItem cartItem = Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
             if (cartItem == null)
             {
-                this.Cart.Items.Add(new CartItem { Product = product, Quantity = quantity });
+                Cart.Items.Add(new CartItem {Product = product, Quantity = quantity});
             }
             else
             {
@@ -35,16 +36,16 @@ namespace WebMarket.Controllers
             }
 
             //todo
-            return this.Json(this.Cart);
+            return Json(Cart);
         }
 
         [HttpPost]
         public bool Delete(int pid)
         {
-            var cartItem = this.Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
+            CartItem cartItem = Cart.Items.FirstOrDefault(obj => obj.Product.Id == pid);
             if (cartItem != null)
             {
-                this.Cart.Items.Remove(cartItem);
+                Cart.Items.Remove(cartItem);
             }
 
             return true;

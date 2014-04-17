@@ -10,27 +10,24 @@ namespace WebMarket.Core
         {
             get
             {
-                if (string.IsNullOrEmpty(this.name))
+                if (string.IsNullOrEmpty(name))
                 {
-                    return this.Value.ToString();
+                    return Value.ToString();
                 }
 
-                return this.name;
+                return name;
             }
-            set
-            {
-                this.name = value;
-            }
+            set { name = value; }
         }
 
         public bool IsSelected { get; set; }
         public T Value { get; set; }
 
-        public RouteValueDictionary Routes { get; set; } 
+        public RouteValueDictionary Routes { get; set; }
     }
 
     public class GenericFilterModel<T> : GenericFilterModelBase<T>
     {
-        public int ProductsCount { get; set; }        
+        public int ProductsCount { get; set; }
     }
 }

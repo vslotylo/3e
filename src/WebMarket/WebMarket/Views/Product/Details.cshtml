@@ -1,17 +1,18 @@
-﻿@model WebMarket.Repository.Entities.Product
+﻿@using WebMarket.Security
+@model WebMarket.Repository.Entities.Product
 @{
     ViewBag.Title = string.Format("{0} - {1}", Model.Category.TitleDetails, Model.DisplayName);
-    ViewBag.MetaDescription = string.Format("{0} - {1}, Виробник: {2}, Тип: {3}, Ціна: {4} грн./{5} $, Гарантія: {6} м.", 
-        Model.Category.MetadataDetailsDescription, 
-        Model.DisplayName, 
+    ViewBag.MetaDescription = string.Format("{0} - {1}, Виробник: {2}, Тип: {3}, Ціна: {4} грн./{5} $, Гарантія: {6} м.",
+        Model.Category.MetadataDetailsDescription,
+        Model.DisplayName,
         Model.Producer.Name,
-        Model.Group.DisplayName, 
-        Model.CalculatedPrice.PriceFinalUah, 
-        Model.CalculatedPrice.PriceFinalUsd, 
+        Model.Group.DisplayName,
+        Model.CalculatedPrice.PriceFinalUah,
+        Model.CalculatedPrice.PriceFinalUsd,
         Model.Warranty);
-}                    
+}
 @section head {
-    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action="details" }), Request.Url.Scheme, Request.Url.Host)">
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action = "details" }), Request.Url.Scheme, Request.Url.Host)">
 }
 @section scripts
 {
@@ -22,9 +23,32 @@
             $(".yoxview").yoxview();
         });
     </script>
+
+    @if (User.IsAdministrator())
+    {
+        <script type="text/javascript">
+            $('#btnDeleteProduct').on('click', function () {
+                var url = $('#removeProduct').data("targeturl");
+                $('#approveProductRemoveDialog').modal('hide');
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    complete: function (data, textStatus, r) {
+                        window.location.href = data.responseJSON;
+                    }
+                });
+            });
+
+            $('#btnCancel').on('click', function () {
+                $('#approveProductRemoveDialog').modal('hide');
+            });
+        </script>
+    }
 }
 @section breadCrumb {
-    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName})">@Model.Category.DisplayName</a></li>
+    <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName })">@Model.Category.DisplayName</a></li>
     <li class="active">@Model.DisplayName</li>
 }
 @Html.Partial("ProductDetailTemplate", Model)

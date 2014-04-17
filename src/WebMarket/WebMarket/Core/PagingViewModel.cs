@@ -9,8 +9,9 @@ namespace WebMarket.Core
     {
         public PagingViewModel(string category)
         {
-            this.Category = category;
+            Category = category;
         }
+
         public IList<RouteValueDictionary> Routes { get; set; }
         public IPagedList<Product> List { get; set; }
         public string Category { get; private set; }

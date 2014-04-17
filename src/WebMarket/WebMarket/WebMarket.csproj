@@ -229,7 +229,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\GroupFilterBinder.cs" />
+    <Compile Include="Binders\GroupFilterBinder.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>

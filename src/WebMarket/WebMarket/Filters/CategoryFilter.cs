@@ -4,18 +4,16 @@
     {
         public CategoryFilter()
         {
-            this.Category = string.Empty;
-            this.DefaultValue = this.Category;
-            this.Key = "category";            
+            Category = string.Empty;
+            DefaultValue = Category;
+            Key = "category";
         }
 
         public string Category { get; set; }
+
         public override string Value
         {
-            get
-            {
-                return this.Category;
-            }
-        }      
+            get { return Category; }
+        }
     }
 }

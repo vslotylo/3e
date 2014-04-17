@@ -8,13 +8,14 @@ namespace WebMarket.Filters
     public class ProducersFilter : FilterBase
     {
         private List<string> producersList;
+
         public ProducersFilter()
         {
-            this.Producers = string.Empty;
-            this.DefaultValue = this.Producers;
-            this.Key = "producers";
-            this.Routes = new List<RouteValueDictionary>();
-            this.DisplayList = new List<string>();
+            Producers = string.Empty;
+            DefaultValue = Producers;
+            Key = "producers";
+            Routes = new List<RouteValueDictionary>();
+            DisplayList = new List<string>();
         }
 
         public string Producers { get; set; }
@@ -23,12 +24,15 @@ namespace WebMarket.Filters
         {
             get
             {
-                if (this.producersList == null)
+                if (producersList == null)
                 {
-                    this.producersList = this.Producers.Split(this.Seperators, StringSplitOptions.RemoveEmptyEntries).Select(o=>o.ToLower()).ToList();
+                    producersList =
+                        Producers.Split(Seperators, StringSplitOptions.RemoveEmptyEntries)
+                                 .Select(o => o.ToLower())
+                                 .ToList();
                 }
 
-                return this.producersList;
+                return producersList;
             }
         }
 
@@ -38,21 +42,14 @@ namespace WebMarket.Filters
 
         public override string Value
         {
-            get
-            {
-                return this.Producers;
-            }
+            get { return Producers; }
         }
 
-        public IList<string> DisplayList
-        {
-            get;
-            private set;
-        }
+        public IList<string> DisplayList { get; private set; }
 
         public override bool IsEmpty()
         {
-            if (this.ProducersList.Count == 0)
+            if (ProducersList.Count == 0)
             {
                 return true;
             }
@@ -62,21 +59,21 @@ namespace WebMarket.Filters
 
         public override string AddPart(string item)
         {
-            var list = this.ParsedProducers.ToList();
+            List<string> list = ParsedProducers.ToList();
             list.Add(item.ToLower());
-            return string.Join(this.Seperators[0], list);
+            return string.Join(Seperators[0], list);
         }
 
         public override string RemovePart(string item)
         {
-            var list = this.ParsedProducers.ToList();
+            List<string> list = ParsedProducers.ToList();
             list.Remove(item.ToLower());
-            return string.Join(this.Seperators[0], list);
+            return string.Join(Seperators[0], list);
         }
 
         public override bool Contains(string value)
         {
-            return this.ProducersList.Any(p => string.Compare(p, value, StringComparison.InvariantCultureIgnoreCase) == 0);
+            return ProducersList.Any(p => string.Compare(p, value, StringComparison.InvariantCultureIgnoreCase) == 0);
         }
     }
 }

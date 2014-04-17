@@ -7,7 +7,7 @@ namespace WebMarket.Models
     {
         public Cart()
         {
-            this.Items = new List<CartItem>();
+            Items = new List<CartItem>();
         }
 
         public IList<CartItem> Items { get; private set; }
@@ -16,9 +16,9 @@ namespace WebMarket.Models
         {
             get
             {
-                if (this.Items.Any())
+                if (Items.Any())
                 {
-                    return this.Items.Select(i => i.TotalItemPrice).Aggregate((i, j) => i + j);
+                    return Items.Select(i => i.TotalItemPrice).Aggregate((i, j) => i + j);
                 }
 
                 return default(double);
@@ -29,12 +29,12 @@ namespace WebMarket.Models
         {
             get
             {
-                if (!this.Items.Any())
+                if (!Items.Any())
                 {
                     return null;
                 }
 
-                return this.Items.Select(obj=>obj.Quantity).Aggregate((i, j) => i + j);
+                return Items.Select(obj => obj.Quantity).Aggregate((i, j) => i + j);
             }
         }
     }

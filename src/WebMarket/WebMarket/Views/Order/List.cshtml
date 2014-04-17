@@ -7,10 +7,57 @@
     <li><a href="@Url.Action("index", "admin")">Адміністрування</a></li>
     <li class="active">@ViewBag.Title</li>
 }
+@section scripts
+{
+    <script type="text/javascript">
+        $('#btnDeleteOrder').on('click', function () {
+            var orderId = $('#selectedOrderId').val();
+            $('#approveOrderRemoveDialog').modal('hide');
+            $.post("/order/remove", { id: orderId })
+            .done(function () {
+                location.reload();
+            });
+        });
+
+        $('#btnCancel').on('click', function () {
+            $('#approveOrderRemoveDialog').modal('hide');
+        });
+
+        $('a[data-action="removeOrder"]').on('click', function () {
+            var orderId = $(this).closest('tr').children('td[data-attribute="true"]').text();
+            $('#selectedOrderId').val(orderId);
+        });
+    </script>
+}
+
 <span class="lead">@ViewBag.Title</span>
 <hr />
 @if (Model.Any())
 {
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade" id="approveOrderRemoveDialog" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h3 id="myModalLabel">Видалення замовлення</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <p class="text-info">Ви дійсно бажаєте видалити замовлення?</p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span>
+                        <button id="btnCancel" class="btn btn-default btn-primary">Відмінити</button>
+                        <button id="btnDeleteOrder" class="btn btn-default btn-danger">Видалити</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input id="selectedOrderId" type="hidden" />
+    
     <table class="table table-condensed table-bordered">
         <thead>
             <td>Номер</td>
@@ -25,14 +72,16 @@
             @foreach (var item in Model)
             {
                 <tr class="@item.Status.CssClass()">
-                    <td>@item.Id</td>
+                    <td data-attribute="true" class="id">@item.Id</td>
                     <td>@item.User</td>
                     <td>@item.Phone</td>
                     <td>@item.Email</td>
                     <td>@item.CreationDate</td>
                     <td>@item.Status</td>
-                    <td><a class="btn btn-primary" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("details", new { id = item.Id })">Деталі</a>
                         <a class="btn btn-primary" href="@Url.Action("edit", new { id = item.Id })">Редагувати</a>
+                        <a data-action="removeOrder" class="btn btn-primary" href="#approveOrderRemoveDialog" data-toggle="modal">Видалити</a>
                     </td>
                 </tr>
             }

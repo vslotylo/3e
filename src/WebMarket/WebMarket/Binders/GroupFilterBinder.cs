@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using WebMarket.Filters;
 
-namespace WebMarket.Controllers
+namespace WebMarket.Binders
 {
     public class GroupFilterBinder : DefaultModelBinder
     {

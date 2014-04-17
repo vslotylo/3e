@@ -4,14 +4,14 @@ namespace WebMarket.Filters
 {
     public abstract class FilterBase
     {
-        protected readonly string[] Seperators = new[] { "-" };
+        protected readonly string[] Seperators = new[] {"-"};
         public string Key { get; protected set; }
         public abstract string Value { get; }
         public string DefaultValue { get; set; }
 
         public virtual bool IsEmpty()
         {
-            if (string.Compare(this.Value, this.DefaultValue, StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (string.Compare(Value, DefaultValue, StringComparison.InvariantCultureIgnoreCase) == 0)
             {
                 return true;
             }

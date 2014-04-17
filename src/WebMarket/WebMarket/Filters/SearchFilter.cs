@@ -4,18 +4,16 @@
     {
         public SearchFilter()
         {
-            this.Keyword = string.Empty;
-            this.DefaultValue = this.Keyword;
-            this.Key = "keyword";            
+            Keyword = string.Empty;
+            DefaultValue = Keyword;
+            Key = "keyword";
         }
 
         public string Keyword { get; set; }
+
         public override string Value
         {
-            get
-            {
-                return this.Keyword;
-            }
-        }            
+            get { return Keyword; }
+        }
     }
 }

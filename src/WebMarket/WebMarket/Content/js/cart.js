@@ -41,8 +41,8 @@ $(document).ready(function () {
     $('#addToCartBtn').on('click', function (e) {
         var quantity = $('#count').val();
         var pid = $('#pid').val();
+        $('#addToCartModal').modal('hide');
         addToCart(quantity, pid, function (e) {
-            $('#addToCartModal').modal('hide');
             $('#cartTotalCount').html(e.TotalItems);
             $('#cartTotalSum').html(e.TotalPrice);
         });

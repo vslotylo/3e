@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebMarket.Core;
-using WebMarket.Repository.Entities;
 using WebMarket.Filters;
+using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
-
 
 namespace WebMarket.Controllers
 {
     public class SearchController : ListControllerBase
     {
-        private Expression<Func<Product, bool>> expression;
         private readonly IProductRepository productRepository;
+        private Expression<Func<Product, bool>> expression;
 
         public SearchController(IProductRepository productRepository)
         {
@@ -21,16 +21,17 @@ namespace WebMarket.Controllers
         }
 
 
-        public ActionResult Index(PageFilter pageFilter, SortFilter sortFilter, PageSizeFilter pageSizeFilter, SearchFilter searchFilter)
+        public ActionResult Index(PageFilter pageFilter, SortFilter sortFilter, PageSizeFilter pageSizeFilter,
+                                  SearchFilter searchFilter)
         {
-            var seperators = new[] { " ", "-" };
-            var tokens = searchFilter.Keyword.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-            this.ViewModel = new FilterViewModelBase(pageSizeFilter, sortFilter, pageFilter, searchFilter);
-            this.expression = obj=> tokens.All(t=> obj.DisplayName.Contains(t));
-            var products = productRepository.GetProductWithProducersByExpression(expression);
-            this.StartInitializeCommon(products.Count());
-            this.EndInitializeCommon(products);
-            return this.View(this.ViewModel);
+            var seperators = new[] {" ", "-"};
+            string[] tokens = searchFilter.Keyword.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+            ViewModel = new FilterViewModelBase(pageSizeFilter, sortFilter, pageFilter, searchFilter);
+            expression = obj => tokens.All(t => obj.DisplayName.Contains(t));
+            IEnumerable<Product> products = productRepository.GetProductWithProducersByExpression(expression);
+            StartInitializeCommon(products.Count());
+            EndInitializeCommon(products);
+            return View(ViewModel);
         }
     }
 }

@@ -8,18 +8,16 @@ namespace WebMarket.Filters
 
         public PageSizeFilter()
         {
-            this.PageSize = Constants.PageSizeDefault;
-            this.DefaultValue = this.PageSize.ToString();
-            this.Key = KeyName;            
+            PageSize = Constants.PageSizeDefault;
+            DefaultValue = PageSize.ToString();
+            Key = KeyName;
         }
 
         public int PageSize { get; set; }
+
         public override string Value
         {
-            get
-            {
-                return this.PageSize.ToString();
-            }
-        }              
+            get { return PageSize.ToString(); }
+        }
     }
 }

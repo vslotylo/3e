@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.Routing;
+using WebMarket.Binders;
 using WebMarket.Common;
 using WebMarket.Core;
 using WebMarket.Filters;
@@ -120,31 +123,25 @@ namespace WebMarket.Controllers
             {
                 UnitOfWork.Commit();
             }
-            return RedirectToAction("details", new {category = currentProduct.CategoryName, name = product.Name});
+            return RedirectToAction("details", new {category = currentProduct.CategoryName, name = currentProduct.Name});
         }
 
+        [HttpPost]
         [Authorize(Roles = Constants.AdminRoleName)]
-        public ActionResult Delete(int id = 0)
+        public JsonResult Delete(int id)
         {
             Product product = productRepository.Find(id);
-            if (product == null)
-            {
-                return RedirectToAction("index", "error");
-            }
-            return View(product);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = Constants.AdminRoleName)]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Product product = productRepository.Find(id);
+            var categoryName = product.CategoryName;
             productRepository.Remove(product);
             using (UnitOfWork)
             {
                 UnitOfWork.Commit();
             }
-            return RedirectToAction("index");
+
+            var url = Url.RouteUrl("categoryAction",
+                                   new RouteValueDictionary(new {category = categoryName, action = "index"}),
+                                   Request.Url.Scheme, Request.Url.Host);
+            return new JsonResult { Data =  url, ContentEncoding = Encoding.UTF8};
         }
     }
 }

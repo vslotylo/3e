@@ -6,19 +6,16 @@
 
         public PageFilter()
         {
-            this.DefaultValue = "1";
-            this.Page = 1;
-            this.Key = KeyName;            
+            DefaultValue = "1";
+            Page = 1;
+            Key = KeyName;
         }
 
         public int Page { get; set; }
-       
+
         public override string Value
         {
-            get
-            {
-                return this.Page.ToString();
-            }
-        }             
+            get { return Page.ToString(); }
+        }
     }
 }

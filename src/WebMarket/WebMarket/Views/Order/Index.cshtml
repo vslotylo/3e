@@ -35,9 +35,14 @@
             var isUserNameValid;
             var isPhoneValid;
             var isEmailValid;
+            var isPurchasing = false;
 
             function canPurchase()
             {
+                if(isPurchasing) {
+                    return false;
+                }
+
                 if(isUserNameValid && isPhoneValid && isEmailValid)
                 {
                     $('#purchase').removeClass('disabled');
@@ -68,7 +73,8 @@
             $('#purchase').on('click', function () {
                 if(!canPurchase())
                     return;
-                        
+
+                isPurchasing = true;
                 var userName = $('#userName').val();
                 var phone = $('#phone').val();
                 var email = $('#email').val();
@@ -77,6 +83,7 @@
                 var address = $('#address').val();
                 $.post("/order/add", { user: userName, phone: phone, email : email, city: city, address: address, comment : comment })
                .done(function () {
+                   isPurchasing = false;
                    $('#orderSubmitted').modal('show');
                });
             });

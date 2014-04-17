@@ -12,23 +12,25 @@ namespace WebMarket.Models
 
         public ProductEditModel()
         {
-
         }
 
         public ProductEditModel(Product product)
             : base(product)
         {
-            this.DynamicPropertiesKeys = string.Join(SEPERATOR, product.DynamicProperties.Select(obj => obj.Key));
-            this.DynamicPropertiesValues = string.Join(SEPERATOR, product.DynamicProperties.Select(obj => obj.Value));
+            DynamicPropertiesKeys = string.Join(SEPERATOR, product.DynamicProperties.Select(obj => obj.Key));
+            DynamicPropertiesValues = string.Join(SEPERATOR, product.DynamicProperties.Select(obj => obj.Value));
         }
+
+        public string DynamicPropertiesKeys { get; set; }
+        public string DynamicPropertiesValues { get; set; }
 
         public override Product ToEntity(Product original)
         {
-            var entity = base.ToEntity(original);
+            Product entity = base.ToEntity(original);
             var dict = new Dictionary<string, string>();
-            var keys = DynamicPropertiesKeys.Split(new[] { SEPERATOR }, StringSplitOptions.RemoveEmptyEntries);
-            var values = DynamicPropertiesValues.Split(new[] { SEPERATOR }, StringSplitOptions.RemoveEmptyEntries);
-            for (var i = 0; i < keys.Count(); i++)
+            string[] keys = DynamicPropertiesKeys.Split(new[] {SEPERATOR}, StringSplitOptions.RemoveEmptyEntries);
+            string[] values = DynamicPropertiesValues.Split(new[] {SEPERATOR}, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < keys.Count(); i++)
             {
                 if (!string.IsNullOrEmpty(keys[i]) && !string.IsNullOrEmpty(values[i]))
                 {
@@ -39,8 +41,5 @@ namespace WebMarket.Models
             entity.Info = JsonConvert.SerializeObject(dict);
             return entity;
         }
-
-        public string DynamicPropertiesKeys { get; set; }
-        public string DynamicPropertiesValues { get; set; }
     }
 }

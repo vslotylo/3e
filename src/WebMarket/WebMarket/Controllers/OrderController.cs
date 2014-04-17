@@ -33,7 +33,8 @@ namespace WebMarket.Controllers
         [Authorize(Roles = Constants.AdminRoleName)]
         public ActionResult List()
         {
-            return View(orderRepository.All());
+            var orders = orderRepository.All().ToList();
+            return View(orders);
         }
 
         [Authorize(Roles = Constants.AdminRoleName)]
@@ -70,6 +71,24 @@ namespace WebMarket.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constants.AdminRoleName)]
+        public ActionResult Remove(int id)
+        {
+            var order = orderRepository.Find(id);
+            if (order != null)
+            {
+                orderRepository.Remove(order);
+
+                using (UnitOfWork)
+                {
+                    UnitOfWork.Commit();
+                }
+            }
+
+            return RedirectToAction("List");
+        }
+
+        [HttpPost]
         public bool Add(Order order)
         {
             foreach (CartItem item in Cart.Items)
@@ -88,6 +107,7 @@ namespace WebMarket.Controllers
             try
             {
                 var templatesProvider = new EmailTemplatesProvider(productRepository);
+                UnitOfWork.Commit();
                 Task.Factory.StartNew(() =>
                     {
                         var message = new NotificationMessage
@@ -102,12 +122,7 @@ namespace WebMarket.Controllers
                                 To = new[] {Constants.SalesEmail}
                             };
                         NotificationManager.Current.Notify(message);
-                    });
-
-                using (UnitOfWork)
-                {
-                    UnitOfWork.Commit();
-                }
+                    }).ContinueWith(obj => UnitOfWork.Dispose());
             }
             catch (Exception e)
             {

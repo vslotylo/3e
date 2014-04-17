@@ -6,18 +6,16 @@
 
         public SortFilter()
         {
-            this.Sort = (int)Core.Sort.PriceAsc;
-            this.DefaultValue = this.Sort.ToString();
-            this.Key = KeyName;
+            Sort = (int) Core.Sort.PriceAsc;
+            DefaultValue = Sort.ToString();
+            Key = KeyName;
         }
 
         public int Sort { get; set; }
+
         public override string Value
         {
-            get
-            {
-                return this.Sort.ToString();
-            }
-        }        
+            get { return Sort.ToString(); }
+        }
     }
 }

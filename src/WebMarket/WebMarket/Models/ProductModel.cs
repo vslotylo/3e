@@ -11,14 +11,14 @@ namespace WebMarket.Models
 
         public ProductModel(Product product)
         {
-            this.Name = product.Name;
-            this.Discount = product.Discount;
-            this.Price = product.Price;
-            this.Description = product.Description;
-            this.DisplayName = product.DisplayName;
-            this.CategoryName = product.CategoryName;
-            this.Id = product.Id;
-            this.Producer = product.Producer;
+            Name = product.Name;
+            Discount = product.Discount;
+            Price = product.Price;
+            Description = product.Description;
+            DisplayName = product.DisplayName;
+            CategoryName = product.CategoryName;
+            Id = product.Id;
+            Producer = product.Producer;
         }
 
         public int Id { get; set; }
@@ -35,13 +35,13 @@ namespace WebMarket.Models
 
         public override Product ToEntity(Product original)
         {
-            original.Name = this.Name.Trim();
-            original.Discount = this.Discount;
-            original.Price = this.Price;
-            original.Description = this.Description == null ? string.Empty : this.Description.Trim();
+            original.DisplayName = DisplayName.Trim();
+            original.Discount = Discount;
+            original.Price = Price;
+            original.Description = Description == null ? string.Empty : Description.Trim();
             //original.DisplayName = this.DisplayName.Trim();
             //original.CategoryName = this.CategoryName.Trim();
-            original.Id = this.Id;
+            original.Id = Id;
             //original.Producer = this.Producer;
             return original;
         }
