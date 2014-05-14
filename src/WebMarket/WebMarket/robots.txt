@@ -5,7 +5,6 @@ Disallow: /cart
 Disallow: /error
 Disallow: /search
 Disallow: /order
-Disallow: /*type=*
 
 Host: www.3e.lviv.ua
 

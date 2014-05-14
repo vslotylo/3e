@@ -1,15 +1,16 @@
 ﻿using System.Web.Mvc;
-using WebMarket.Repository.Entities;
+using DbProduct = WebMarket.Repository.Entities.Product;
+using DbProducer = WebMarket.Repository.Entities.Producer;
 
 namespace WebMarket.Models
 {
-    public class ProductModel : ModelBase<Product>
+    public class ProductModel : ModelBase<DbProduct>
     {
         public ProductModel()
         {
         }
 
-        public ProductModel(Product product)
+        public ProductModel(DbProduct product)
         {
             Name = product.Name;
             Discount = product.Discount;
@@ -31,9 +32,9 @@ namespace WebMarket.Models
         [AllowHtml]
         public string Description { get; set; }
 
-        public Producer Producer { get; set; }
+        public DbProducer Producer { get; set; }
 
-        public override Product ToEntity(Product original)
+        public override DbProduct ToEntity(DbProduct original)
         {
             original.DisplayName = DisplayName.Trim();
             original.Discount = Discount;

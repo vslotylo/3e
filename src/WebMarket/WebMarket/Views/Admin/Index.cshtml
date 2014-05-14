@@ -10,10 +10,23 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("AdminMenu")
+        <div style="max-width: 340px; padding: 8px 0;" class="well">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="@Url.Action("list", "order")">Всі замовлення</a></li>
+                <li><a href="@Url.Action("import", "admin")">Керування цінами</a></li>
+                <li><a href="@Url.Action("callbacks", "admin")">Запити передзвонити</a></li>
+                <li><a href="@Url.Action("logs", "admin", new { loglevel = "info" })">INFO Логи</a></li>
+                <li><a href="@Url.Action("logs", "admin", new { loglevel = "error" })">ERROR Логи</a></li>
+                <li><a href="elmah.axd">Помилки</a></li>
+            </ul>
+        </div>
     </div>
     <div class="col-md-8">
-        
+        <div style="max-width: 340px; padding: 8px 0;" class="well">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="@Url.Action("index", "producer")">Виробники</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

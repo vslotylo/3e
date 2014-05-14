@@ -12,40 +12,21 @@
         Model.Warranty);
 }
 @section head {
-    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action = "details" }), Request.Url.Scheme, Request.Url.Host)">
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action = "details" }), Request.Url.Scheme, Request.Url.Host)" />
 }
 @section scripts
 {
     @Scripts.Render("~/bundles/app")
+    @if (User.IsAdministrator())
+    {
+        @Scripts.Render("~/bundles/itemdelete")
+    }
     <script type="text/javascript" src="/Content/yoxview/yoxview-init.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".yoxview").yoxview();
         });
     </script>
-
-    @if (User.IsAdministrator())
-    {
-        <script type="text/javascript">
-            $('#btnDeleteProduct').on('click', function () {
-                var url = $('#removeProduct').data("targeturl");
-                $('#approveProductRemoveDialog').modal('hide');
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    dataType: "json",
-                    contentType: 'application/json; charset=utf-8',
-                    complete: function (data, textStatus, r) {
-                        window.location.href = data.responseJSON;
-                    }
-                });
-            });
-
-            $('#btnCancel').on('click', function () {
-                $('#approveProductRemoveDialog').modal('hide');
-            });
-        </script>
-    }
 }
 @section breadCrumb {
     <li><a href="@Url.RouteUrl("categoryBase", new { category = Model.CategoryName })">@Model.Category.DisplayName</a></li>

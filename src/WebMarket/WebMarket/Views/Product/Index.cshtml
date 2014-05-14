@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/app")
 }
 @section head {
-    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)">
+    <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)" />
 }
 @section breadCrumb {
     <li class="active">@Model.CategoryObj.DisplayName</li>

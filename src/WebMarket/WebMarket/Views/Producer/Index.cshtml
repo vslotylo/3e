@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebMarket.Repository.Entities.Producer>
+﻿@using WebMarket.Models
+@using WebMarket.Security
+@model IEnumerable<WebMarket.Repository.Entities.Producer>
 
 @{
     ViewBag.Title = "Список виробників представлених на сайті";
@@ -6,10 +8,32 @@
 @section breadCrumb {
     <li class="active">Виробники</li>
 }
+@section scripts
+{
+    @if (User.IsAdministrator())
+    {
+        @Scripts.Render("~/bundles/itemdelete")
+    }
+}
 
 <ul>
     @foreach (var producer in Model)
     {
-        <li>@Html.ActionLink(producer.Name, "details", "producer", new { name = producer.Name }, null)</li>
+        <div class="row">
+            <div class="col-md-8">
+                <li>@Html.ActionLink(producer.Name, "details", "producer", new { name = producer.Name }, null)</li>
+            </div>
+            
+            <div class="col-md-4">
+                @{
+                    var model = new EditItemModel
+                        {
+                            EditUrl = @Url.Action("edit", "producer", new { id = producer.Id }),
+                            DeleteUrl = @Url.Action("delete", "producer", new { id = producer.Id })
+                        };
+                    @Html.Partial("EditItemPartial", model)
+                }
+            </div>
+        </div>
     }
 </ul>

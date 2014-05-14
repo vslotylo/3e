@@ -51,6 +51,9 @@ namespace WebMarket
                         "~/Content/js/app.js")
                         .Include("~/Content/js/cart.js")
                         .Include("~/Content/js/callback.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/itemdelete").Include(
+                        "~/Content/js/itemDelete.js"));
         }
     }
 }
