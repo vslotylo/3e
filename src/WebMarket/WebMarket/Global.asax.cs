@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using WebMarket.App_Start;
 using log4net;
+using log4net.Config;
 
 namespace WebMarket
 {
@@ -41,7 +42,8 @@ namespace WebMarket
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             UnityConfig.RegisterComponents();
-            //ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder()); 
+            XmlConfigurator.Configure();
+          //ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder()); 
         }
 
         protected void Application_Error(object sender, EventArgs e)
