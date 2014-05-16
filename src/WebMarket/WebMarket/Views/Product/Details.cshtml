@@ -12,6 +12,7 @@
         Model.Warranty);
 }
 @section head {
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.CategoryName, name = Model.Name, action = "details" }), Request.Url.Scheme, Request.Url.Host)" />
 }
 @section scripts

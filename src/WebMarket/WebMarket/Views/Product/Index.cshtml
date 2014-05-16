@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/app")
 }
 @section head {
+    <meta name="robots" content="index,follow">
     <link rel="canonical" href="@Url.RouteUrl("categoryAction", new RouteValueDictionary(new { category = Model.Category, action = string.Empty }), Request.Url.Scheme, Request.Url.Host)" />
 }
 @section breadCrumb {
