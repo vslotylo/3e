@@ -80,6 +80,14 @@
     <Compile Include="Migrations\201404081456472_CategoryAddedTitleDetailsPossessive.Designer.cs">
       <DependentUpon>201404081456472_CategoryAddedTitleDetailsPossessive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405151444398_AddLastModifiedDate.cs" />
+    <Compile Include="Migrations\201405151444398_AddLastModifiedDate.Designer.cs">
+      <DependentUpon>201405151444398_AddLastModifiedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405151450529_AddedLastModifiedBy.cs" />
+    <Compile Include="Migrations\201405151450529_AddedLastModifiedBy.Designer.cs">
+      <DependentUpon>201405151450529_AddedLastModifiedBy.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebMarketDbContext.cs" />
     <Compile Include="Data\Import\DataImporter.cs" />
     <Compile Include="Data\Import\EntityImporter.cs" />
@@ -111,6 +119,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404081456472_CategoryAddedTitleDetailsPossessive.resx">
       <DependentUpon>201404081456472_CategoryAddedTitleDetailsPossessive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405151444398_AddLastModifiedDate.resx">
+      <DependentUpon>201405151444398_AddLastModifiedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405151450529_AddedLastModifiedBy.resx">
+      <DependentUpon>201405151450529_AddedLastModifiedBy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

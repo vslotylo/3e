@@ -38,6 +38,8 @@ namespace WebMarket.Repository.Entities
         public string WorkingConditions { get; set; }
         public string SuppliedItems { get; set; }
         public string Dimension { get; set; }
+        public DateTime LastModifiedDate { get; set; }
+        public string LastModifiedBy { get; set; }
         public int Warranty { get; set; }
         public Producer Producer { get; set; }
 
@@ -75,14 +77,15 @@ namespace WebMarket.Repository.Entities
             {
                 if (dynamicProperties == null)
                 {
-                    if (Info == null)
-                    {
-                        return new List<ProductInfo>();
-                    }
-
+                  if (Info == null)
+                  {
+                    dynamicProperties = new List<ProductInfo>();
+                  }
+                  else
+                  {
                     var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(Info);
-
                     dynamicProperties = dict.Select(item => new ProductInfo(item.Key, item.Value)).ToList();
+                  }
                 }
 
                 return dynamicProperties;
@@ -90,7 +93,7 @@ namespace WebMarket.Repository.Entities
             set
             {
                 dynamicProperties = value;
-                Dictionary<string, object> dict = dynamicProperties.ToDictionary(obj => obj.Key, obj => obj.Value);
+                var dict = dynamicProperties.ToDictionary(obj => obj.Key, obj => obj.Value);
                 Info = JsonConvert.SerializeObject(dict);
             }
         }

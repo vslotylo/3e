@@ -6,6 +6,7 @@ using System.Web.Routing;
 using WebMarket.Binders;
 using WebMarket.Common;
 using WebMarket.Core;
+using WebMarket.Extensions.Entities;
 using WebMarket.Filters;
 using WebMarket.Models;
 using WebMarket.Repository.Entities;
@@ -118,11 +119,13 @@ namespace WebMarket.Controllers
                 return RedirectToAction("index", "error", new {statusCode = 404});
             }
 
-            productRepository.Update(product.ToEntity(currentProduct));
+            var entity = product.ToEntity(currentProduct).MarkAsEdited();
+            productRepository.Update(entity);
             using (UnitOfWork)
             {
                 UnitOfWork.Commit();
             }
+
             return RedirectToAction("details", new {category = currentProduct.CategoryName, name = currentProduct.Name});
         }
 
