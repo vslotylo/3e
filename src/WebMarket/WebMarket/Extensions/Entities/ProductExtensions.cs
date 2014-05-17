@@ -10,10 +10,10 @@ namespace WebMarket.Extensions.Entities
         public static Product MarkAsEdited(this Product product)
         {
             product.LastModifiedDate = DateTime.Now.ToUkrainianTimeZone();
-            var membershipUser = Membership.GetUser();
-            if (membershipUser != null)
+            var user = Membership.GetUser();
+            if (user != null)
             {
-                product.LastModifiedBy = membershipUser.UserName;
+                product.LastModifiedBy = user.UserName;
             }
 
             return product;

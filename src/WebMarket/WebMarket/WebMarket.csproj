@@ -246,6 +246,7 @@
     <Compile Include="Core\PagingViewModel.cs" />
     <Compile Include="Core\SortingMode.cs" />
     <Compile Include="Extensions\CssClassReslover.cs" />
+    <Compile Include="Extensions\Entities\ProductExtensions.cs" />
     <Compile Include="Extensions\FormatExtensions.cs" />
     <Compile Include="Filters\CategoryFilter.cs" />
     <Compile Include="Filters\FilterBase.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\EditItemModel.cs" />
+    <Compile Include="Models\Link.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\ProducerEditModel.cs" />
     <Compile Include="Models\ProducerModel.cs" />
