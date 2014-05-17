@@ -83,10 +83,9 @@
                     </td>
                 </tr>
             }
-            <tr>
-                <td>Виробник
-                </td>
-                <td>@{
+            <tr itemprop="brand" itemscope itemtype="http://schema.org/Brand">
+                <td>Виробник</td>
+                <td itemprop="name">@{
                     if (string.IsNullOrEmpty(Model.Producer.HomePage))
                     {
                     @Model.Producer.DisplayName

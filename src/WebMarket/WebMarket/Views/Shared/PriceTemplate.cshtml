@@ -1,15 +1,17 @@
 ﻿@model WebMarket.Repository.Entities.Product
 
-@if (Model.Discount > 0)
-{
-    <div>
-        <span class="oldprice">@Model.CalculatedPrice.PriceUah грн.</span>
-        <span class="discount">- @Model.Discount %</span>
-    </div>
+<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    @if (Model.Discount > 0)
+    {
+        <div>
+            <span class="oldprice">@Model.CalculatedPrice.PriceUah грн.</span>
+            <span class="discount">- @Model.Discount %</span>
+        </div>
     
-}
+    }
 
-<div class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
-<div class="priceUsd">
-    $ @Model.CalculatedPrice.PriceFinalUsd
+    <div itemprop="price" class="priceUah">@Model.CalculatedPrice.PriceFinalUah грн.</div>
+    <div class="priceUsd">
+        $ @Model.CalculatedPrice.PriceFinalUsd
+    </div>
 </div>

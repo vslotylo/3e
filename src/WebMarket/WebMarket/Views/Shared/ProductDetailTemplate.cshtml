@@ -1,10 +1,7 @@
 ﻿@using WebMarket.Models
 @model WebMarket.Repository.Entities.Product
-@{
-    ViewBag.Title = "ProductDeatails";
-}
 
-<div class="row">
+<div itemscope itemtype="http://schema.org/Product" class="row">
     <div class="col-md-4">
         <div>
             @Html.Partial("ProductPreview", Model)
@@ -13,14 +10,14 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-10">
-                <h1 class="details-header">@Model.Category.TitleDetails <b>@Model.DisplayName</b></h1>
+                <h1 itemprop="name" class="details-header">@Model.Category.TitleDetails <b>@Model.DisplayName</b></h1>
             </div>
             <div class="col-md-2">
                 <span class="disabled pull-right">Код: @Model.ProductId</span>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div itemprop="description" class="col-md-12">
                 @Model.GetProductPreviewInfo()
             </div>
         </div>

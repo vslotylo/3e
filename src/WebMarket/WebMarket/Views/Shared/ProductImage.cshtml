@@ -2,7 +2,7 @@
 <table width="100%" height="100%" align="center" valign="center">
     <tr>
         <td>
-            <img class="details-image" src="@string.Format("/Content/tiles/{0}", @Model.GetListPhoto())" onerror="this.src='/Content/tiles/noimage.png'" alt="@Model.DisplayName" title="@Model.DisplayName"/>
+            <img class="details-image" itemprop="image" src="@string.Format("/Content/tiles/{0}", @Model.GetListPhoto())" onerror="this.src='/Content/tiles/noimage.png'" alt="@Model.DisplayName" title="@Model.DisplayName"/>
         </td>
     </tr>
 </table>
