@@ -76,7 +76,7 @@ namespace WebMarket.Controllers
                 }
                 if (link.LastModified != DateTime.MinValue)
                 {
-                    url.Add(new XElement(rootns + "lastmod", link.LastModified));
+                    url.Add(new XElement(rootns + "lastmod", link.LastModified.ToString("yyyy-MM-dd")));
                 }
 
                 root.Add(url);

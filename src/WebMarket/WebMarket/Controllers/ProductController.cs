@@ -45,7 +45,13 @@ namespace WebMarket.Controllers
                 IQueryable<Product> entities = productRepository.GetProductsWithProducerByProductName(category);
                 entities = StartInitialize(entities);
                 EndInitialize(entities);
-                ViewModel.CategoryObj = categoryRepository.GetByName(category);
+                var categoryObj = categoryRepository.GetByName(category);
+                if (categoryObj == null)
+                {
+                    throw new Exception("Invalid category name.");
+                }
+
+                ViewModel.CategoryObj = categoryObj;
                 return View(ViewModel);
             }
             catch (Exception e)
