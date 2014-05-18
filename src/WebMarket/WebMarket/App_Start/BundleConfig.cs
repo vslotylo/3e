@@ -44,8 +44,8 @@ namespace WebMarket
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                         "~/Content/bootstrap3.1.1/js/bootstrap.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/analytics").Include(
-                        "~/Content/js/analytics.js"));
+            bundles.Add(new ScriptBundle("~/bundles/google").Include(
+                        "~/Content/js/googletools.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Content/js/app.js")
