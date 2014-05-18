@@ -32,19 +32,9 @@ namespace WebMarket.Controllers
         {
             try
             {
-                if (!string.IsNullOrEmpty(Request.Url.Query))
-                {
-                    if (Request.Url.Query.Contains("type"))
-                    {
-                        return RedirectToAction("index", "error", new {statusCode = 404});
-                    }
-                }
-
                 ViewModel = new FilterViewModelBase(category, pageSizeFilter, sortFilter, producerFilter, pageFilter,
                                                     groupFilter);
-                IQueryable<Product> entities = productRepository.GetProductsWithProducerByProductName(category);
-                entities = StartInitialize(entities);
-                EndInitialize(entities);
+
                 var categoryObj = categoryRepository.GetByName(category);
                 if (categoryObj == null)
                 {
@@ -52,6 +42,10 @@ namespace WebMarket.Controllers
                 }
 
                 ViewModel.CategoryObj = categoryObj;
+                IQueryable<Product> entities = productRepository.GetProductsWithProducerByProductName(category);
+                entities = StartInitialize(entities);
+                EndInitialize(entities);
+                
                 return View(ViewModel);
             }
             catch (Exception e)
