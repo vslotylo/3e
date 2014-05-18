@@ -56,7 +56,7 @@
     @foreach (var item in Model.GetPhotos())
     {            
         <a href="@string.Format("/Content/tiles/avr/{0}", item.Value)">
-            <img src="@string.Format("/Content/tiles/avr/{0}", item.Key)" alt="First" title="WWWWWWWWWWWWWWWWWWWWWWWWWw" /></a>
+            <img src="@string.Format("/Content/tiles/avr/{0}", item.Key)" alt="@Model.DisplayName" title="@Model.DisplayName" /></a>
     }
 </div>
 <div>
