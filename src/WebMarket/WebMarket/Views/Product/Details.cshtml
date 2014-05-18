@@ -1,7 +1,7 @@
 ﻿@using WebMarket.Security
 @model WebMarket.Repository.Entities.Product
 @{
-    ViewBag.Title = string.Format("{0} - {1}", Model.Category.TitleDetails, Model.DisplayName);
+    ViewBag.Title = string.Format("{0} {1}", Model.Category.TitleDetails, Model.DisplayName);
     ViewBag.MetaDescription = string.Format("{0} - {1}, Виробник: {2}, Тип: {3}, Ціна: {4} грн./{5} $, Гарантія: {6} м.",
         Model.Category.MetadataDetailsDescription,
         Model.DisplayName,

@@ -8,7 +8,7 @@ namespace WebMarket
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-2.1.0.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -22,8 +22,8 @@ namespace WebMarket
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/bundles/bootstrap/css/").Include("~/Content/bootstrap3.1.1/css/bootstrap.css")
-                .Include("~/Content/bootstrap3.1.1/css/bootstrap-theme.css"));
+            bundles.Add(new StyleBundle("~/bundles/bootstrap/css/").Include("~/Content/bootstrap3.1.1/css/bootstrap.min.css")
+                .Include("~/Content/bootstrap3.1.1/css/bootstrap-theme.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
@@ -42,7 +42,7 @@ namespace WebMarket
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Content/bootstrap3.1.1/js/bootstrap.js"));
+                        "~/Content/bootstrap3.1.1/js/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/analytics").Include(
                         "~/Content/js/analytics.js"));
