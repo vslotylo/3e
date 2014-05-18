@@ -1,7 +1,7 @@
 ﻿@model WebMarket.Core.FilterViewModelBase
 @{
     ViewBag.Title = Model.CategoryObj.TitleList;
-    ViewBag.MetaDescription = Model.CategoryObj.MetaListDescription;
+    ViewBag.MetaDescription = string.Format("{0}, купити", Model.CategoryObj.MetaListDescription);
 }
 @section scripts
 {

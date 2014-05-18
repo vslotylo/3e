@@ -34,6 +34,7 @@
                                 <a class="btn btn-default btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span
                                     class="caret"></span></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("index", "admin")" class=""><i class="glyphicon glyphicon-edit"></i>Адміністрування</a></li>
                                     <li>
                                         <div>
                                             @using (Html.BeginForm("logoff", "account", FormMethod.Post))
