@@ -11,45 +11,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @RenderSection("head", required: false)
 </head>
-<body>
-    <div class="container">
-        @if (ViewBag.ShowHeader == null || ViewBag.ShowHeader == true)
-        {
-            <header>
-               @Html.Partial("Header")
-            </header>
-        }
-        <section>
-            <div class="maincontentregion">
-                <div>
-                    @if (ViewBag.ShowBreadCrumb == null || ViewBag.ShowBreadCrumb == true)
-                    {
-                        <ul class="breadcrumb">
-                            <li><a href="@Url.Action("index", "home")">Головна</a></li>
-                            @RenderSection("breadCrumb", required: false)
-                        </ul>
-                    }
-                    @RenderSection("featured", required: false)
-                    <section>
-                        @RenderBody()
-                    </section>
-                </div>
-            </div>
-        </section>
-        @if (ViewBag.ShowFooter == null || ViewBag.ShowFooter == true)
-        {
-            <footer>
-                @Html.Partial("Footer")
-            </footer>
-        }
-    </div>
+    <body>
+        <!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TJTQ7J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TJTQ7J');</script>
+<!-- End Google Tag Manager -->
 
-    @* <script src="~/Content/bootstrap/docs/assets/js/holder/holder.js"></script>
+        <div class="container">
+            @if (ViewBag.ShowHeader == null || ViewBag.ShowHeader == true)
+            {
+                <header>
+                    @Html.Partial("Header")
+                </header>
+            }
+            <section>
+                <div class="maincontentregion">
+                    <div>
+                        @if (ViewBag.ShowBreadCrumb == null || ViewBag.ShowBreadCrumb == true)
+                        {
+                            <ul class="breadcrumb">
+                                <li><a href="@Url.Action("index", "home")">Головна</a></li>
+                                @RenderSection("breadCrumb", required: false)
+                            </ul>
+                        }
+                        @RenderSection("featured", required: false)
+                        <section>
+                            @RenderBody()
+                        </section>
+                    </div>
+                </div>
+            </section>
+            @if (ViewBag.ShowFooter == null || ViewBag.ShowFooter == true)
+            {
+                <footer>
+                    @Html.Partial("Footer")
+                </footer>
+            }
+        </div>
+
+        @* <script src="~/Content/bootstrap/docs/assets/js/holder/holder.js"></script>
     <script src="~/Content/bootstrap/docs/assets/js/google-code-prettify/prettify.js"></script>
     <script src="~/Content/bootstrap/docs/assets/js/application.js"></script>*@
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/analytics")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/analytics")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
