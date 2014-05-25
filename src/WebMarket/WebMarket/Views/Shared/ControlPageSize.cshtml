@@ -6,7 +6,7 @@
         @foreach (var item in Model)
         {
             <li>
-                @Html.ActionLink(item.Name, "index", item.Routes)
+                <a href="@Url.RouteUrl("categoryBase", item.Routes)">@item.Name</a>
             </li>        
         }
     </ul>

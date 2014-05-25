@@ -8,7 +8,7 @@
         <label class="checkbox">
             @Html.CheckBox(item.Name, item.IsSelected)
             <input type="hidden" class="filterValue" value="@item.Value" />
-            @Html.ActionLink(item.Name, "Index", item.Routes)
+            <a href="@Url.RouteUrl("categoryBase", item.Routes)">@item.Name</a>
             <span class="badge">@item.ProductsCount</span>
         </label>
     }

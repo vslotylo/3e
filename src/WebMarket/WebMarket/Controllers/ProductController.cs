@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using WebMarket.Binders;
@@ -9,6 +10,7 @@ using WebMarket.Core;
 using WebMarket.Extensions.Entities;
 using WebMarket.Filters;
 using WebMarket.Models;
+using WebMarket.Redirects;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 
@@ -28,10 +30,16 @@ namespace WebMarket.Controllers
         [HttpGet]
         public ActionResult Index(string category, PageSizeFilter pageSizeFilter, SortFilter sortFilter,
                                   ProducersFilter producerFilter, PageFilter pageFilter,
-                                  [ModelBinder(typeof (GroupFilterBinder))] GroupFilter groupFilter)
+                                  [ModelBinder(typeof(GroupFilterBinder))] GroupFilter groupFilter)
         {
             try
             {
+                var url = ProducerRedirect.GetUrl(Request.Url, category, producerFilter);
+                if (url != string.Empty)
+                {
+                    return RedirectPermanent(url);
+                }
+
                 ViewModel = new FilterViewModelBase(category, pageSizeFilter, sortFilter, producerFilter, pageFilter,
                                                     groupFilter);
 
@@ -45,30 +53,22 @@ namespace WebMarket.Controllers
                 IQueryable<Product> entities = productRepository.GetProductsWithProducerByProductName(category);
                 entities = StartInitialize(entities);
                 EndInitialize(entities);
-                
+
                 return View(ViewModel);
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                return RedirectToAction("index", "error", new {statusCode = 404});
+                return RedirectToAction("index", "error", new { statusCode = 404 });
             }
         }
 
         public ActionResult Details(string category, string name)
         {
-            if (!string.IsNullOrEmpty(Request.Url.Query))
-            {
-                if (Request.Url.Query.Contains("type"))
-                {
-                    return RedirectToAction("index", "error", new {statusCode = 404});
-                }
-            }
-
-            Product product = productRepository.Details(category, name);
+            var product = productRepository.Details(category, name);
             if (product == null)
             {
-                return RedirectToAction("index", "error", new {statusCode = 404});
+                return RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
             return View(product);
@@ -103,7 +103,7 @@ namespace WebMarket.Controllers
 
             if (product == null)
             {
-                return RedirectToAction("index", "error", new {statusCode = 404});
+                return RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
             return View(new ProductEditModel(product));
@@ -116,7 +116,7 @@ namespace WebMarket.Controllers
             Product currentProduct = productRepository.Find(product.Id);
             if (currentProduct == null)
             {
-                return RedirectToAction("index", "error", new {statusCode = 404});
+                return RedirectToAction("index", "error", new { statusCode = 404 });
             }
 
             var entity = product.ToEntity(currentProduct).MarkAsEdited();
@@ -126,7 +126,7 @@ namespace WebMarket.Controllers
                 UnitOfWork.Commit();
             }
 
-            return RedirectToAction("details", new {category = currentProduct.CategoryName, name = currentProduct.Name});
+            return RedirectToAction("details", new { category = currentProduct.CategoryName, name = currentProduct.Name });
         }
 
         [HttpPost]
@@ -142,9 +142,9 @@ namespace WebMarket.Controllers
             }
 
             var url = Url.RouteUrl("categoryAction",
-                                   new RouteValueDictionary(new {category = categoryName, action = "index"}),
+                                   new RouteValueDictionary(new { category = categoryName, action = "index" }),
                                    Request.Url.Scheme, Request.Url.Host);
-            return new JsonResult { Data =  url, ContentEncoding = Encoding.UTF8};
+            return new JsonResult { Data = url, ContentEncoding = Encoding.UTF8 };
         }
     }
 }

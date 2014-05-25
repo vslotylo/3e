@@ -51,7 +51,7 @@ namespace WebMarket.Core
                     string.Compare(route.Value.ToString(), f.DefaultValue, StringComparison.InvariantCultureIgnoreCase) !=
                     0)
                 {
-                    updateFilter[route.Key] = route.Value;
+                    updateFilter[route.Key] = route.Value.ToString().ToLower();
                 }
             }
 
