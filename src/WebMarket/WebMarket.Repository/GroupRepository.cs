@@ -1,6 +1,5 @@
 ﻿using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
-using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Repository.Current
 {

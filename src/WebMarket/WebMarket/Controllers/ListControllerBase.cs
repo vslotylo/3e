@@ -5,6 +5,7 @@ using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using WebMarket.Core;
 using WebMarket.Helpers;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 

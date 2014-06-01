@@ -7,6 +7,7 @@ using WebMarket.Common;
 using WebMarket.Models;
 using WebMarket.Notification;
 using WebMarket.Notification.Templates;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Entities.Enums;
 using WebMarket.Repository.Interfaces;

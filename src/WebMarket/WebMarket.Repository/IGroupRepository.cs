@@ -1,7 +1,7 @@
 ﻿using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
 
-namespace WebMarket.Repository.Interfaces
+namespace WebMarket.Repository.Current
 {
     public interface IGroupRepository : IRepository<Group>
     {

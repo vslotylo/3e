@@ -89,7 +89,7 @@ namespace WebMarket.Repository.Core
             }
             catch (Exception e)
             {
-                throw GetRepositoryException(e, "Failed to delete records from database.");
+                throw GetRepositoryException(e, "Failed to delete record from database.");
             }
         }
 
@@ -101,7 +101,7 @@ namespace WebMarket.Repository.Core
             }
             catch (Exception e)
             {
-                throw GetRepositoryException(e, "Failed to get records from database.");
+                throw GetRepositoryException(e, "Failed to get all records from database.");
             }
         }
 
@@ -110,8 +110,7 @@ namespace WebMarket.Repository.Core
             var builder = new StringBuilder();
             builder.AppendFormat(format, args);
             builder.AppendFormat(" Entity type: {0} in {1}", typeof (TEntity).Name, DbContext.Set<TEntity>());
-            var exc = new RepositoryException(builder.ToString(), e);
-            return exc;
+            return new RepositoryException(builder.ToString(), e);
         }
     }
 }

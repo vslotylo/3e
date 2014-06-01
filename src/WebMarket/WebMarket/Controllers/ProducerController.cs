@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using WebMarket.Common;
 using WebMarket.Models;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Controllers
@@ -22,7 +23,7 @@ namespace WebMarket.Controllers
 
         public ActionResult Details(string name)
         {
-            var producer = producerRepository.GetByName(name);
+            var producer = producerRepository.Find(name);
             return View(producer);
         }
 

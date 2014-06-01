@@ -5,7 +5,6 @@ using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Entities.Enums;
 using WebMarket.Repository.Extensions;
-using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Repository.Current
 {
@@ -30,8 +29,6 @@ namespace WebMarket.Repository.Current
             {
                 dbOrder.CloseDate = DateTime.UtcNow.ToUkrainianTimeZone();
             }
-
-            DbContext.SaveChanges();
         }
     }
 }

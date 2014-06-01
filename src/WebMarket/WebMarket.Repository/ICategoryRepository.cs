@@ -1,10 +1,10 @@
 ﻿using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
 
-namespace WebMarket.Repository.Interfaces
+namespace WebMarket.Repository.Current
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        Category GetByName(string categoryName);
+        Category Find(string name);
     }
 }

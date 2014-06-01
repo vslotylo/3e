@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
 
-namespace WebMarket.Repository.Interfaces
+namespace WebMarket.Repository.Current
 {
     public interface IProductRepository : IRepository<Product>
     {

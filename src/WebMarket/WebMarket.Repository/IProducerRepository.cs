@@ -1,10 +1,10 @@
 ﻿using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
 
-namespace WebMarket.Repository.Interfaces
+namespace WebMarket.Repository.Current
 {
     public interface IProducerRepository : IRepository<Producer>
     {
-        Producer GetByName(string name);
+        Producer Find(string name);
     }
 }

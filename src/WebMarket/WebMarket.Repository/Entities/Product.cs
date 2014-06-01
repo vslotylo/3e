@@ -34,6 +34,8 @@ namespace WebMarket.Repository.Entities
 
         [AllowHtml]
         public string Description { get; set; }
+        [AllowHtml]
+        public string DescriptionRU { get; set; }
 
         public string WorkingConditions { get; set; }
         public string SuppliedItems { get; set; }

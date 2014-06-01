@@ -6,8 +6,8 @@ using System.Threading;
 using System.Web.Hosting;
 using System.Web.UI;
 using System.Xml.Linq;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
-using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Notification.Templates
 {

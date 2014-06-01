@@ -11,6 +11,7 @@ using WebMarket.Extensions.Entities;
 using WebMarket.Filters;
 using WebMarket.Models;
 using WebMarket.Redirects;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 
@@ -43,7 +44,7 @@ namespace WebMarket.Controllers
                 ViewModel = new FilterViewModelBase(category, pageSizeFilter, sortFilter, producerFilter, pageFilter,
                                                     groupFilter);
 
-                var categoryObj = categoryRepository.GetByName(category);
+                var categoryObj = categoryRepository.Find(category);
                 if (categoryObj == null)
                 {
                     throw new Exception("Invalid category name.");

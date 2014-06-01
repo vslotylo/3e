@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using WebMarket.Models;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 

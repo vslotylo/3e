@@ -47,9 +47,14 @@ namespace WebMarket.Redirects
                 }
             }
 
+            string[] productNames = names.ToArray();
             var pr = collection.Get("producers");
-            var prSplit = pr.Split(new []{"-"}, StringSplitOptions.RemoveEmptyEntries);
-            sb.Append(string.IsNullOrEmpty(pr) ? string.Join("-", names) : string.Join("-", prSplit.Distinct().ToList()));
+            if (pr != null)
+            {
+                productNames = pr.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            
+            sb.Append(string.Join("-", productNames));
             var isFirst = true;
             foreach (var item in collection.Keys)
             {

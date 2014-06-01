@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using WebMarket.Core;
 using WebMarket.Filters;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Interfaces;
 

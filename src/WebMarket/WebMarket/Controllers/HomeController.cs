@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebMarket.Common;
+using WebMarket.Repository.Current;
 using WebMarket.Repository.Entities;
 using WebMarket.Repository.Entities.Enums;
 using WebMarket.Repository.Interfaces;

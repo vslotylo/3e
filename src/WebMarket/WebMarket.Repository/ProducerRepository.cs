@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using WebMarket.Repository.Core;
 using WebMarket.Repository.Entities;
-using WebMarket.Repository.Interfaces;
 
 namespace WebMarket.Repository.Current
 {
@@ -12,7 +11,7 @@ namespace WebMarket.Repository.Current
         {
         }
 
-        public Producer GetByName(string name)
+        public Producer Find(string name)
         {
             return DbContext.Producers.FirstOrDefault(obj => obj.Name == name);
         }
